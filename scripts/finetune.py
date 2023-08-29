@@ -11,6 +11,9 @@ import torch
 from peft import LoraConfig, prepare_model_for_kbit_training, get_peft_model
 from trl import SFTTrainer
 import configparser
+import logging
+
+logging.basicConfig(level = logging.INFO)
 
 
 def format_instruction(sample):
@@ -39,20 +42,27 @@ def extract_variables(args):
 
 def main():
     parser = argparse.ArgumentParser(description="Fine-Tune Llama 2 models")
-    parser.add_argument("--model", default="meta-llama/Llama-2-7b")
-    parser.add_argument("--base_dir", default="/work3/s212722/")
+    parser.add_argument("--model", default="meta-llama/Llama-2-7b-hf")
+    parser.add_argument("--base_dir", default="/work3/s212722/herd/")
     parser.add_argument("--dataset", default="databricks/databricks-dolly-15k")
     parser.add_argument("--config_file", default="config.ini")
 
     (
         model_id,
-        _,
+        base_dir,
         dataset_dir,
         cache_dir,
         output_dir,
         config_file,
         dataset,
     ) = extract_variables(parser.parse_args())
+
+    logging.info("model_id: %s, base_dir: %s, dataset_dir: %s, output_dir: %s, config_file: %s, dataset: %s", model_id, base_dir, dataset_dir, output_dir, config_file, dataset)
+
+    # Create base_dir if it does not exists
+    if not os.path.exists(base_dir):
+        os.makedirs(base_dir)
+
 
     # Load dataset from the hub
     datasets.config.DOWNLOADED_DATASETS_PATH = dataset_dir
