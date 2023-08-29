@@ -12,11 +12,12 @@ from peft import LoraConfig, prepare_model_for_kbit_training, get_peft_model
 from trl import SFTTrainer
 import configparser
 import logging
+from typing import Tuple
 
-logging.basicConfig(level = logging.INFO)
+logging.basicConfig(level=logging.INFO)
 
 
-def format_instruction(sample):
+def format_instruction(sample: dict) -> str:
     return f"""### Instruction:
 Use the Input below to create an instruction, which could have been used to generate the input using an LLM.
 
@@ -28,7 +29,7 @@ Use the Input below to create an instruction, which could have been used to gene
 """
 
 
-def extract_variables(args):
+def extract_variables(args: argparse.Namespace) -> Tuple[str, str, str, str, str, str, str]:
     model_id = args.model
     base_dir = args.base_dir
     dataset_dir = os.path.join(base_dir, "datasets/")
@@ -40,7 +41,7 @@ def extract_variables(args):
     return model_id, base_dir, dataset_dir, cache_dir, output_dir, config_file, dataset
 
 
-def main():
+def main() -> None:
     parser = argparse.ArgumentParser(description="Fine-Tune Llama 2 models")
     parser.add_argument("--model", default="meta-llama/Llama-2-7b-hf")
     parser.add_argument("--base_dir", default="/work3/s212722/herd/")
@@ -57,12 +58,19 @@ def main():
         dataset,
     ) = extract_variables(parser.parse_args())
 
-    logging.info("model_id: %s, base_dir: %s, dataset_dir: %s, output_dir: %s, config_file: %s, dataset: %s", model_id, base_dir, dataset_dir, output_dir, config_file, dataset)
+    logging.info(
+        "model_id: %s, base_dir: %s, dataset_dir: %s, output_dir: %s, config_file: %s, dataset: %s",
+        model_id,
+        base_dir,
+        dataset_dir,
+        output_dir,
+        config_file,
+        dataset,
+    )
 
     # Create base_dir if it does not exists
     if not os.path.exists(base_dir):
         os.makedirs(base_dir)
-
 
     # Load dataset from the hub
     datasets.config.DOWNLOADED_DATASETS_PATH = dataset_dir
