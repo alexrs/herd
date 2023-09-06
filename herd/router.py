@@ -1,46 +1,70 @@
-from transformers import (
-    AutoTokenizer,
-    AutoModelForCausalLM,
-)
+from typing import Any
 
-from typing import List
-
-import torch
+import torch.nn.functional as F
+from .embeddings import Embeddings
+import math
+from loguru import logger
+import random
+import faiss
+import numpy as np
+import json
+from tqdm import tqdm
 
 
 class Router:
-    def __init__(self, model, tokenizer, experts):
+    def __init__(self, model, tokenizer, embeddings: Embeddings, experts, k: int = 50):
+        """
+        Initializes the router
+
+        Params:
+            model: The model to use for calculating embeddings
+            tokenizer: The tokenizer to use for tokenizing input
+            experts: A list of experts to route to
+            k: The number of nearest neighbors to consider when routing
+        """
         self.model = model
         self.tokenizer = tokenizer
         self.experts = experts
+        self.embeddings = embeddings
+        self.k = k
 
     def route(self, prompt: str):
         """
         Selects the best expert to answer to prompt
         """
-        query_emb = Utils.calculate_embeddings(prompt, self.model, self.tokenizer)
+        query_emb = self.embeddings.calculate_embeddings(
+            prompt, self.model, self.tokenizer
+        )
+        best_expert = None
+        best_distance = math.inf
+        for expert, index in self.indices.items():
+            distances, _ = index.search(query_emb, k=min(index.ntotal, self.k))
+            distances = distances[0].tolist()
+            average_distance = sum(distances) / len(distances)
+            logger.debug(f"Average distance [{expert}]: {average_distance}")
+            if average_distance < best_distance:
+                best_distance = average_distance
+                best_expert = expert
+        logger.success(f"Routing to {best_expert} with score: {best_distance}")
+        return best_expert
 
-        pass
-
-
-class Utils:
-    @classmethod
-    def calculate_embeddings(
-        input: str, model: AutoModelForCausalLM, tokenizer: AutoTokenizer
-    ) -> List[float]:
-        """
-        Calculate an embedding vector for `input`.
-        Based on https://github.com/jondurbin/airoboros/blob/237027c46d8b48df7fa2037bcd56711a0587561c/airoboros/embeddings.py#L27
-        """
-        # Tokenize the input.
-        inputs = tokenizer(input, padding=False, truncation=False, return_tensors="pt")
-        input_ids = inputs["input_ids"][0]
-
-        # Calculate embeddings for the input.
-        embeddings = model.encode(input_ids, normalize_embeddings=True)
-
-        # Calculate the average embedding.
-        average_embedding = torch.mean(embeddings, dim=0)
-
-        return average_embedding.tolist()
-
+    def create_index(self, input_path: str) -> Any:
+        """Create a faiss index from the routing data for a given expert."""
+        logger.info(f"Creating routing faiss index: {input_path}")
+        index = faiss.IndexFlatL2(self.model.get_sentence_embedding_dimension())
+        all_items = []
+        with open(input_path, "r") as infile:
+            for line in infile.readlines():
+                all_items.append(json.loads(line)["instruction"])
+        random.shuffle(all_items)
+        for item in tqdm(all_items[0 : self.max_samples]):
+            index.add(
+                np.array(
+                    [
+                        self.embeddings.calculate_embeddings(
+                            item, self.model, self.tokenizer
+                        )
+                    ]
+                )
+            )
+        return index

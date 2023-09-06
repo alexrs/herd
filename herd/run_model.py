@@ -5,51 +5,27 @@ import datasets
 from datasets import load_dataset
 from random import randrange
 import os
-import argparse
 
 
-def extract_variables(args):
-    model_id = args.model
-    base_dir = args.base_dir
-    dataset_dir = os.path.join(base_dir, "datasets/")
-    cache_dir = os.path.join(dataset_dir, "cache")
-    output_dir = os.path.join(base_dir, model_id)
-    dataset = args.dataset
-
-    return model_id, base_dir, dataset_dir, cache_dir, output_dir, dataset
-
-
-def main():
-    parser = argparse.ArgumentParser(description="Fine-Tune Llama 2 models")
-    parser.add_argument("--model", default="meta-llama/Llama-2-7b-hf")
-    parser.add_argument("--base_dir", default="/work3/s212722/herd/")
-    parser.add_argument("--dataset", default="databricks/databricks-dolly-15k")
-
-    (
-        _,
-        _,
-        dataset_dir,
-        cache_dir,
-        output_dir,
-        dataset,
-    ) = extract_variables(parser.parse_args())
-
+def run_model(models_values, paths_values):
     # load base LLM model and tokenizer
     model = AutoPeftModelForCausalLM.from_pretrained(
-        output_dir,
+        paths_values.output_dir,
         low_cpu_mem_usage=True,
         torch_dtype=torch.float16,
         load_in_4bit=True,
-        cache_dir=cache_dir,
+        cache_dir=paths_values.cache_dir,
     )
-    tokenizer = AutoTokenizer.from_pretrained(output_dir, cache_dir=cache_dir)
+    tokenizer = AutoTokenizer.from_pretrained(
+        paths_values.output_dir, cache_dir=paths_values.cache_dir
+    )
 
     # Load dataset from the hub
-    datasets.config.DOWNLOADED_DATASETS_PATH = dataset_dir
-    os.environ["HF_DATASETS_CACHE"] = cache_dir
+    datasets.config.DOWNLOADED_DATASETS_PATH = paths_values.dataset_dir
+    os.environ["HF_DATASETS_CACHE"] = paths_values.cache_dir
 
     # Load dataset from the hub and get a sample
-    dataset = load_dataset(dataset, split="train")
+    dataset = load_dataset(models_values.dataset, split="train")
     for i in range(5):
         sample = dataset[randrange(len(dataset))]
 
@@ -78,7 +54,3 @@ def main():
             f"Generated instruction:\n{tokenizer.batch_decode(outputs.detach().cpu().numpy(), skip_special_tokens=True)[0][len(prompt):]}"
         )
         print(f"Ground truth:\n{sample['instruction']}")
-
-
-if __name__ == "__main__":
-    main()
