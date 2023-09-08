@@ -1,30 +1,16 @@
 # From https://github.com/jondurbin/airoboros/blob/4cf457eaf541d6025a165f27e8596b6a1980bdab/airoboros/embeddings.py
 import numpy as np
 import torch
-from typing import Any, List
+from typing import List
 from sentence_transformers import SentenceTransformer
 from transformers import AutoTokenizer
 
 
 class Embeddings:
-    def __init__(
-        self, model=None, tokenizer=None, max_length=models_values.embeddings_max_length
-    ):
+    def __init__(self, model, tokenizer, max_length):
         self.max_length = max_length
-        self.model = model if model else Embeddings.get_default_model()
-        self.tokenizer = tokenizer if tokenizer else Embeddings.get_default_tokenizer()
-
-    @staticmethod
-    def get_default_model(model_name_or_path=models_values.embeddings_model):
-        model = SentenceTransformer(
-            model_name_or_path, device="cuda", cache_folder=paths_values.cache_dir
-        )
-        return model
-
-    @staticmethod
-    def get_default_tokenizer(model_name_or_path=models_values.embeddings_model):
-        tokenizer = AutoTokenizer.from_pretrained(model_name_or_path)
-        return tokenizer
+        self.model = model
+        self.tokenizer = tokenizer
 
     def calculate_fragment_embeddings(self, fragment: str) -> List[float]:
         """Calculate vector embeddings for a single input fragment, which is smaller than the
@@ -67,3 +53,14 @@ class Embeddings:
     # ) -> torch.Tensor:
     #     last_hidden = last_hidden_states.masked_fill(~attention_mask[..., None].bool(), 0.0)
     #     return last_hidden.sum(dim=1) / attention_mask.sum(dim=1)[..., None]
+
+
+# For local testing
+if __name__ == "__main__":
+    model = SentenceTransformer("thenlper/gte-small", device="cuda")
+    tokenizer = AutoTokenizer.from_pretrained("thenlper/gte-small")
+    max_length = 512
+
+    embeddings = Embeddings(model, tokenizer, max_length)
+    e = embeddings.calculate_embeddings("Hello world!")
+    print(e)

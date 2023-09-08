@@ -21,4 +21,4 @@ module load python3/3.11.4
 source .venv/bin/activate
 
 export HF_DATASETS_CACHE="/work3/s212722/herd/cache"
-python herd/herd.py finetune_experts --config_file config_experts.ini
+python herd/herd.py run_model --config_file config_experts.ini

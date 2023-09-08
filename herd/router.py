@@ -1,40 +1,41 @@
 from typing import Any
 
 import torch.nn.functional as F
-from .embeddings import Embeddings
+from embeddings import Embeddings
 import math
 from loguru import logger
-import random
 import faiss
 import numpy as np
-import json
 from tqdm import tqdm
+import os
 
 
 class Router:
-    def __init__(self, model, tokenizer, embeddings: Embeddings, experts, k: int = 50):
+    def __init__(
+        self,
+        embeddings: Embeddings,
+        experts,
+        k: int = 50,
+    ):
         """
         Initializes the router
-
-        Params:
-            model: The model to use for calculating embeddings
-            tokenizer: The tokenizer to use for tokenizing input
-            experts: A list of experts to route to
-            k: The number of nearest neighbors to consider when routing
         """
-        self.model = model
-        self.tokenizer = tokenizer
         self.experts = experts
         self.embeddings = embeddings
         self.k = k
+
+        self.indices = {}
+        for expert_name, _ in experts.items():
+            # TODO: Should we make the experts folder configurable?
+            expert_path = os.path.join("experts", expert_name + ".npy")
+            self.indices[expert_name] = self.create_index(expert_path)
 
     def route(self, prompt: str):
         """
         Selects the best expert to answer to prompt
         """
-        query_emb = self.embeddings.calculate_embeddings(
-            prompt, self.model, self.tokenizer
-        )
+        query_emb = self.embeddings.calculate_embeddings(prompt)
+        query_emb = query_emb.reshape(1, query_emb.shape[0])
         best_expert = None
         best_distance = math.inf
         for expert, index in self.indices.items():
@@ -51,20 +52,9 @@ class Router:
     def create_index(self, input_path: str) -> Any:
         """Create a faiss index from the routing data for a given expert."""
         logger.info(f"Creating routing faiss index: {input_path}")
-        index = faiss.IndexFlatL2(self.model.get_sentence_embedding_dimension())
-        all_items = []
-        with open(input_path, "r") as infile:
-            for line in infile.readlines():
-                all_items.append(json.loads(line)["instruction"])
-        random.shuffle(all_items)
-        for item in tqdm(all_items[0 : self.max_samples]):
-            index.add(
-                np.array(
-                    [
-                        self.embeddings.calculate_embeddings(
-                            item, self.model, self.tokenizer
-                        )
-                    ]
-                )
-            )
+        index = faiss.IndexFlatL2(self.embeddings.model.get_sentence_embedding_dimension())
+        em = np.load(input_path)
+        em = em.reshape(1, em.shape[0])
+        index.add(em)
+
         return index

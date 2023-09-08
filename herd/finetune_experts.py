@@ -2,13 +2,13 @@ import datasets
 from transformers import (
     AutoTokenizer,
     AutoModelForCausalLM,
+    BitsAndBytesConfig,
     TrainingArguments,
 )
 from peft import LoraConfig, prepare_model_for_kbit_training, get_peft_model
 from trl import SFTTrainer
 from loguru import logger
 
-from transformers import BitsAndBytesConfig
 import torch
 
 from configparser import ConfigParser
@@ -93,11 +93,15 @@ def finetune_experts(
             args=training_args,
         )
 
+        logger.info(
+            f"Training expert: {expert_name}, output_dir: {training_args.output_dir}"
+        )
+
         # train
-        trainer.train()  # there will not be a progress bar since tqdm is disabled
+        trainer.train()
 
         # save model
-        trainer.save_model()
+        trainer.save_model(training_args.output_dir)
 
 
 @dataclass
