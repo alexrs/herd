@@ -36,6 +36,12 @@ def run_model(models_values, paths_values, experts):
         cache_dir=paths_values.cache_dir
         )
 
+    model = PeftModel.from_pretrained(
+        base_model,
+        os.path.join(paths_values.output_dir, "general"),
+        adapter_name="general",
+    )
+
     embeddings_model = SentenceTransformer("thenlper/gte-small", device="cuda")
     embeddings_tokenizer = AutoTokenizer.from_pretrained("thenlper/gte-small")
     embeddings_max_length = 512
@@ -54,8 +60,7 @@ def run_model(models_values, paths_values, experts):
         )
         sample = expert_dataset[randrange(len(expert_dataset))]
 
-        prompt = f"""### System:
-    {sample['system']}
+        prompt = f"""{sample['system']}
 
     ### Input:
     {sample['instruction']}
@@ -66,14 +71,13 @@ def run_model(models_values, paths_values, experts):
         rounter_expert = router.route(sample['instruction'])
         print(f"---- Routing to {rounter_expert}. Ground truth: {expert_name}")
 
-        model = PeftModel.from_pretrained(
-            base_model,
-            os.path.join(paths_values.output_dir, expert_name),
-        )
-
         input_ids = tokenizer(
             prompt, return_tensors="pt", truncation=True
         ).input_ids.cuda()
+
+        model.load_adapter(os.path.join(paths_values.output_dir, expert_name), expert_name)
+        model.set_adapter(expert_name)
+
         outputs = model.generate(
             input_ids=input_ids,
             max_new_tokens=500,

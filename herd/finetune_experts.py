@@ -17,8 +17,7 @@ import os
 
 
 def format_instruction(sample: dict) -> str:
-    return f"""### System:
-{sample['system']}
+    return f"""{sample['system']}
 
 ### Input:
 {sample['instruction']}

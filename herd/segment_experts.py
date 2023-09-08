@@ -17,7 +17,6 @@ def main():
         max_length = 512
 
         embeddings = Embeddings(model, tokenizer, max_length)
-        e = embeddings.calculate_embeddings("Hello world!")
 
         for expert_name, expert_data in experts.items():
             logger.info(f"Calculating embedding for {expert_name}...")
