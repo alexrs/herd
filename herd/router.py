@@ -1,12 +1,10 @@
 from typing import Any
 
-import torch.nn.functional as F
-from embeddings import Embeddings
+from herd.embeddings import Embeddings
 import math
 from loguru import logger
 import faiss
 import numpy as np
-from tqdm import tqdm
 import os
 
 
@@ -52,7 +50,9 @@ class Router:
     def create_index(self, input_path: str) -> Any:
         """Create a faiss index from the routing data for a given expert."""
         logger.info(f"Creating routing faiss index: {input_path}")
-        index = faiss.IndexFlatL2(self.embeddings.model.get_sentence_embedding_dimension())
+        index = faiss.IndexFlatL2(
+            self.embeddings.model.get_sentence_embedding_dimension()
+        )
         em = np.load(input_path)
         em = em.reshape(1, em.shape[0])
         index.add(em)

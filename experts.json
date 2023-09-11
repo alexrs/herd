@@ -5,8 +5,7 @@
             "multiple_choice",
             "contextual",
             "counterfactual_contextual"
-        ],
-        "descriptions": []
+        ]
     },
     "creative": {
         "categories": [
@@ -19,14 +18,12 @@
             "rp",
             "detailed_writing",
             "joke"
-        ],
-        "descriptions": []
+        ]
     },
     "code": {
         "categories": [
             "coding"
-        ],
-        "descriptions": []
+        ]
     },
     "reasoning": {
         "categories": [
@@ -34,22 +31,19 @@
             "theory_of_mind",
             "riddle",
             "orca"
-        ],
-        "descriptions": []
+        ]
     },
     "function": {
         "categories":     [
             "agent",
             "plan"
-        ],
-        "descriptions": []
+        ]
     },
     "general": {
         "categories": [
         "wordgame",
         "trivia",
         "general"
-    ],
-        "descriptions": []
+    ]
     }
 }

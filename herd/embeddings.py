@@ -7,7 +7,9 @@ from transformers import AutoTokenizer
 
 
 class Embeddings:
-    def __init__(self, model, tokenizer, max_length):
+    def __init__(
+        self, model: SentenceTransformer, tokenizer: AutoTokenizer, max_length: int
+    ):
         self.max_length = max_length
         self.model = model
         self.tokenizer = tokenizer
@@ -47,12 +49,6 @@ class Embeddings:
         # Finally, calculate the average across all fragments.
         embeddings = np.average(all_embeddings, axis=0, weights=lengths)
         return embeddings / np.linalg.norm(embeddings)
-
-    # def average_pool(
-    #     self, last_hidden_states: torch.Tensor, attention_mask: torch.Tensor
-    # ) -> torch.Tensor:
-    #     last_hidden = last_hidden_states.masked_fill(~attention_mask[..., None].bool(), 0.0)
-    #     return last_hidden.sum(dim=1) / attention_mask.sum(dim=1)[..., None]
 
 
 # For local testing

@@ -21,4 +21,14 @@ module load python3/3.11.4
 source .venv/bin/activate
 
 export HF_DATASETS_CACHE="/work3/s212722/herd/cache"
+
+export WANDB_API_KEY=[redacted]
+
+# set the wandb project where this run will be logged
+export WANDB_PROJECT="herd-llama"
+# save your trained model checkpoint to wandb
+export WANDB_LOG_MODEL="true"
+# turn off watch to log faster
+export WANDB_WATCH="false"
+
 python herd/herd.py finetune_experts --config_file config_experts.ini

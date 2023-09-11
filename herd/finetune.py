@@ -1,37 +1,46 @@
+import wandb
+
 import datasets
 from transformers import (
     AutoTokenizer,
     AutoModelForCausalLM,
+    BitsAndBytesConfig,
     TrainingArguments,
 )
 from peft import LoraConfig, prepare_model_for_kbit_training, get_peft_model
 from trl import SFTTrainer
 from loguru import logger
 
-from transformers import BitsAndBytesConfig
 import torch
 
 from configparser import ConfigParser
 from dataclasses import dataclass, asdict
+import os
+from typing import Dict
+from models import ModelValues, PathValues
 
 
 def format_instruction(sample: dict) -> str:
-    return f"""### Instruction:
-Use the Input below to create an instruction, which could have been used to generate the input using an LLM.
+    return f"""{sample['system']}
 
 ### Input:
-{sample['response']}
+{sample['instruction']}
 
 ### Response:
-{sample['instruction']}
+{sample['response']}
 """
 
 
-def finetune(models_values, paths_values, config: ConfigParser) -> None:
-    dataset = datasets.load_dataset(models_values.dataset, split="train")
+def finetune(
+    model_values: ModelValues,
+    path_values: PathValues,
+    config: ConfigParser,
+    experts: Dict,
+) -> None:
+    dataset = datasets.load_dataset(model_values.dataset, split="train")
 
     logger.info(
-        f"model_id: {models_values.model}, base_dir: {paths_values.base_dir}, dataset_dir: {paths_values.dataset_dir}, output_dir: {paths_values.output_dir}, dataset: {models_values.dataset}",
+        f"model_id: {model_values.model}, base_dir: {path_values.base_dir}, dataset_dir: {path_values.dataset_dir}, output_dir: {path_values.output_dir}, dataset: {model_values.dataset}",
     )
 
     # BitsAndBytesConfig int-4 config
@@ -44,16 +53,16 @@ def finetune(models_values, paths_values, config: ConfigParser) -> None:
 
     # Load model and tokenizer
     model = AutoModelForCausalLM.from_pretrained(
-        models_values.model,
+        model_values.model,
         quantization_config=bnb_config,
         use_cache=False,
         device_map="auto",
-        cache_dir=paths_values.cache_dir,
+        cache_dir=path_values.cache_dir,
     )
     model.config.pretraining_tp = 1
 
     tokenizer = AutoTokenizer.from_pretrained(
-        models_values.model, cache_dir=paths_values.cache_dir
+        model_values.model, cache_dir=path_values.cache_dir
     )
     tokenizer.pad_token = tokenizer.eos_token
     tokenizer.padding_side = "right"
@@ -67,26 +76,40 @@ def finetune(models_values, paths_values, config: ConfigParser) -> None:
     model = prepare_model_for_kbit_training(model)
     model = get_peft_model(model, peft_config)
 
-    training_args = TrainingArguments(
-        **asdict(TrainingArgumentsValues(**dict(config.items("TrainingArguments"))))
-    )
+    for expert_name, expert_data in experts.items():
+        os.environ["WANDB_NAME"] = expert_name
 
-    trainer = SFTTrainer(
-        model=model,
-        train_dataset=dataset,
-        peft_config=peft_config,
-        max_seq_length=2048,
-        tokenizer=tokenizer,
-        packing=True,
-        formatting_func=format_instruction,
-        args=training_args,
-    )
+        expert_dataset = dataset.filter(
+            lambda row: row["category"] in expert_data["categories"]
+        )
 
-    # train
-    trainer.train()  # there will not be a progress bar since tqdm is disabled
+        training_args = TrainingArguments(
+            **asdict(TrainingArgumentsValues(**dict(config.items("TrainingArguments"))))
+        )
 
-    # save model
-    trainer.save_model()
+        # set output dir to contain expert name
+        training_args.output_dir = os.path.join(training_args.output_dir, expert_name)
+
+        trainer = SFTTrainer(
+            model=model,
+            train_dataset=expert_dataset,
+            peft_config=peft_config,
+            max_seq_length=2048,
+            tokenizer=tokenizer,
+            packing=True,
+            formatting_func=format_instruction,
+            args=training_args,
+        )
+
+        logger.info(
+            f"Training expert: {expert_name}, output_dir: {training_args.output_dir}"
+        )
+
+        # train
+        trainer.train()
+
+        # save model
+        trainer.save_model(training_args.output_dir)
 
 
 @dataclass
@@ -119,6 +142,7 @@ class TrainingArgumentsValues:
     warmup_ratio: float
     lr_scheduler_type: str
     output_dir: str
+    report_to: str
 
     def __post_init__(self):
         self.num_train_epochs = int(self.num_train_epochs)
