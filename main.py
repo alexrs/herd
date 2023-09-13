@@ -103,16 +103,6 @@ async def lifespan(app: FastAPI):
         cache_dir=path_values.cache_dir,
     )
 
-    stop_words_ids = [
-        app_data["tokenizer"](stop_word, return_tensors="pt").input_ids.to("cuda")[0][
-            1:
-        ]
-        for stop_word in DEFAULT_STOPS
-    ]
-    app_data["stopping_criteria"] = StoppingCriteriaList(
-        [StoppingCriteriaSub(stops=stop_words_ids)]
-    )
-
     if not app.args.only_base:
         embeddings_model = SentenceTransformer(
             model_values.embeddings_model, device="cuda"
@@ -150,7 +140,7 @@ app = FastAPI(lifespan=lifespan)
 
 class ChatRequest(BaseModel):
     model: str
-    expert: str = None
+    experts: List[str] = None
     messages: List[Dict[str, str]]
     temperature: float = 0.5
     top_k: int = 50
@@ -158,6 +148,7 @@ class ChatRequest(BaseModel):
     repetition_penalty: float = 1.0
     stop: List[str] = DEFAULT_STOPS
     max_tokens: int = None
+    top_experts: int = 1
 
 
 @app.get("/")
@@ -178,6 +169,7 @@ async def chat_completions(raw_request: Request):
         - top_k: int
         - stop: list[str]
         - max_tokens: int
+        - top_experts: int. This parameter is not present in the OpenAI API.
 
     Example request:
     curl -s -XPOST http://127.0.0.1:8000/v1/chat/completions -H 'content-type: application/json' -d '{
@@ -202,6 +194,16 @@ async def chat_completions(raw_request: Request):
 def complete_request(request: ChatRequest):
     request_id = f"cmpl-{uuid.uuid4()}"
 
+    stop_words_ids = [
+        app_data["tokenizer"](stop_word, return_tensors="pt").input_ids.to("cuda")[0][
+            1:
+        ]
+        for stop_word in request.stop
+    ]
+    stopping_criteria = StoppingCriteriaList(
+        [StoppingCriteriaSub(stops=stop_words_ids)]
+    )
+
     logger.debug(f"Request {request}")
     prompt = prompt_template(
         request.messages[0]["content"], request.messages[1]["content"]
@@ -213,11 +215,16 @@ def complete_request(request: ChatRequest):
     ).input_ids.cuda()
     # Route to expert
     if not app.args.only_base:
-        expert, routing_duration = route_to_expert(request.messages[1]["content"])
+        expert, routing_duration = route_to_expert(request.messages[1]["content"], request.top_experts)
         logger.info(f"Routing to {expert} in {routing_duration} seconds")
 
     # Generate response
-    response, duration = generate_response(input_ids, prompt, request)
+    response, duration = generate_response(
+        input_ids, prompt, request, stopping_criteria
+    )
+
+    logger.debug(f"Response {response}")
+    logger.debug(f"Duration {duration}")
 
     return {
         "id": request_id,
@@ -257,38 +264,59 @@ def measure_time(func):
 
 
 @measure_time
-def route_to_expert(instruction: str):
-    expert = app_data["router"].route(instruction)
-    app_data["model"].set_adapter(expert)
-    return expert
+def route_to_expert(instruction: str, top: int = 1):
+    # Experts is a list of tuples (expert_name, score).
+    experts = app_data["router"].route(instruction, top)
+    if top == 1:
+        # If we only want the top expert, set it as an adapter
+        app_data["model"].set_adapter(experts[0][0])
+
+    else:
+        # Otherwise, we compute a new adapter as a combination of the top experts.
+        # We generate a unique name for the adapter because even if the same experts are used
+        # the weights may be different.
+        adapter_name = str(hash(datetime.datetime.now()))
+        weights = [expert[1] for expert in experts]
+        # Invert the weights to prioritize smaller weights
+        inverted_weights = [1 / weight for weight in weights]
+
+        # Calculate the new weights by normalizing the inverted weights
+        w = [weight / sum(inverted_weights) for weight in inverted_weights]
+        e = [expert[0] for expert in experts]
+        logger.debug(f"Creating adapter for: {list(zip(e, w))}")
+
+        app_data["model"].add_weighted_adapter(
+            e,
+            w,
+            combination_type="linear",
+            adapter_name=adapter_name,
+        )
+        app_data["model"].set_adapter(adapter_name)
+
+    return experts
 
 
 @measure_time
-def generate_response(input_ids: torch.Tensor, prompt: str, request: ChatRequest):
+def generate_response(
+    input_ids: torch.Tensor,
+    prompt: str,
+    request: ChatRequest,
+    stopping_criteria: StoppingCriteriaList,
+):
     max_tokens = (
         app_data["model"].config.max_position_embeddings - len(input_ids[0]) - 1
     )
 
-    logger.debug(f"Max tokens {max_tokens}")
-
-    # TODO: See why with these arguments the function does not finish.
-    # output =  app_data['model'].generate(
-    #     input_ids=input_ids,
-    #     stopping_criteria=app_data['stopping_criteria'],
-    #     repetition_penalty=request.repetition_penalty,
-    #     max_new_tokens=max_tokens,
-    #     temperature=request.temperature,
-    #     top_p=request.top_p,
-    #     top_k=request.top_k,
-    #     use_cache=False,
-    # )
-
     output = app_data["model"].generate(
         input_ids=input_ids,
-        max_new_tokens=500,
+        stopping_criteria=stopping_criteria,
+        repetition_penalty=request.repetition_penalty,
+        top_p=request.top_p,
+        top_k=request.top_k,
+        temperature=request.temperature,
+        max_new_tokens=max_tokens,
         do_sample=True,
-        top_p=0.9,
-        temperature=0.9,
+        # use_cache=False,
     )
 
     logger.debug(f"Output done")
@@ -314,7 +342,7 @@ def main():
     )
     parser.add_argument("-i", "--host", type=str, default="127.0.0.1", help="host name")
     parser.add_argument("-p", "--port", type=int, default=8000, help="port number")
-    parser.add_argument("--config_file", default="config_experts.ini")
+    parser.add_argument("--config-file", default="config_experts.ini")
     parser.add_argument("--only-base", default=False, type=bool)
 
     args = parser.parse_args()

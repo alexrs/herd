@@ -12,9 +12,9 @@ def main():
     parser = argparse.ArgumentParser(description="Fine-Tune Llama 2 models")
     parser.add_argument(
         "action",
-        choices=["finetune", "finetune_experts", "run_model", "segment_experts"],
+        choices=["finetune", "run_model", "segment_experts"],
     )
-    parser.add_argument("--config_file", default="config.ini")
+    parser.add_argument("--config-file", default="config.ini")
     parser.add_argument("--only-base", default=False, type=bool)
     parser.add_argument("--interactive", default=False, type=bool)
     args = parser.parse_args()
