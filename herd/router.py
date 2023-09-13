@@ -48,7 +48,7 @@ class Router:
             logger.debug(f"Average distance [{expert}]: {average_distance}")
             expert_distances.append((expert, average_distance))
         sorted_experts = sorted(expert_distances, key=lambda x: x[1])
-        logger.success(f"Routing to {sorted_experts[:top]}")
+        logger.success(f"Routing to {[expert[0] for expert in sorted_experts[:top]]}")
         return sorted_experts[:top]
 
     def create_index(self, input_path: str) -> Any:

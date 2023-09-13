@@ -216,7 +216,6 @@ def complete_request(request: ChatRequest):
     # Route to expert
     if not app.args.only_base:
         expert, routing_duration = route_to_expert(request.messages[1]["content"], request.top_experts)
-        logger.info(f"Routing to {expert} in {routing_duration} seconds")
 
     # Generate response
     response, duration = generate_response(
@@ -316,10 +315,8 @@ def generate_response(
         temperature=request.temperature,
         max_new_tokens=max_tokens,
         do_sample=True,
-        # use_cache=False,
+        use_cache=False,
     )
-
-    logger.debug(f"Output done")
 
     return app_data["tokenizer"].batch_decode(
         output.detach().cpu().numpy(), skip_special_tokens=True
