@@ -22,11 +22,12 @@ from transformers import (
     StoppingCriteria,
 )
 from sentence_transformers import SentenceTransformer
-from peft import PeftModel
+from peft import PeftModel, LoraModel, LoraConfig, PeftConfig
 from functools import wraps
 from loguru import logger
 from contextlib import asynccontextmanager
 from dotenv import load_dotenv
+from herd.multilora import MultiloraModel
 
 load_dotenv()  # take environment variables from .env.
 
@@ -120,17 +121,31 @@ async def lifespan(app: FastAPI):
             # Create router
             app_data["router"] = Router(embeddings, experts)
 
-            app_data["model"] = PeftModel.from_pretrained(
+            # m = PeftModel.from_pretrained(
+            #     app_data["model"],
+            #     os.path.join(path_values.output_dir, "general"),
+            #     adapter_name="general",
+            # )
+
+            # app_data["model"] = LoraModel(
+            #     app_data["model"],
+            #     PeftConfig.from_pretrained(os.path.join(path_values.output_dir, "qa")), # hacky way to get a correct peft config.
+            #     adapter_name="qa",
+            # )
+
+            # # Load adapters
+            # for expert_name in experts.keys():
+            #     app_data["model"].load_adapter(
+            #         os.path.join(path_values.output_dir, expert_name), expert_name
+            #     )
+
+            app_data["model"] = MultiloraModel(
                 app_data["model"],
-                os.path.join(path_values.output_dir, "general"),
-                adapter_name="general",
+                path_values.output_dir,
+                list(experts.keys()),
+                app_data["router"],
             )
 
-            # Load adapters
-            for expert_name in experts.keys():
-                app_data["model"].load_adapter(
-                    os.path.join(path_values.output_dir, expert_name), expert_name
-                )
     yield
     app_data.clear()
 
@@ -213,11 +228,12 @@ def complete_request(request: ChatRequest):
     input_ids = app_data["tokenizer"](
         prompt, return_tensors="pt", truncation=True
     ).input_ids.cuda()
-    # Route to expert
-    if not app.args.only_base:
-        expert, routing_duration = route_to_expert(request.messages[1]["content"], request.top_experts)
+    # # Route to expert
+    # if not app.args.only_base:
+    #     expert, routing_duration = route_to_expert(request.messages[1]["content"], request.top_experts)
 
     # Generate response
+    logger.debug("Generating response")
     response, duration = generate_response(
         input_ids, prompt, request, stopping_criteria
     )
@@ -230,9 +246,9 @@ def complete_request(request: ChatRequest):
         "object": "chat.completion",
         "created": int(time.time()),
         "duration": duration,
-        "routing_duration": routing_duration,
+        "routing_duration": "",
         "model": request.model,
-        "expert": expert,
+        "expert": "",
         "choices": [
             {
                 "index": 0,
@@ -290,7 +306,10 @@ def route_to_expert(instruction: str, top: int = 1):
             combination_type="linear",
             adapter_name=adapter_name,
         )
+
+        logger.debug("Adapter created")
         app_data["model"].set_adapter(adapter_name)
+        logger.debug("Adapter set")
 
     return experts
 
@@ -307,6 +326,7 @@ def generate_response(
     )
 
     output = app_data["model"].generate(
+        prompt=prompt,
         input_ids=input_ids,
         stopping_criteria=stopping_criteria,
         repetition_penalty=request.repetition_penalty,
@@ -314,9 +334,12 @@ def generate_response(
         top_k=request.top_k,
         temperature=request.temperature,
         max_new_tokens=max_tokens,
+        min_new_tokens=1,
         do_sample=True,
         use_cache=False,
     )
+
+    logger.debug("Decoding response")
 
     return app_data["tokenizer"].batch_decode(
         output.detach().cpu().numpy(), skip_special_tokens=True
