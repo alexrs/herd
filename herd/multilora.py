@@ -1,12 +1,9 @@
 import os
+import datetime
 
-import torch
-import torch.nn as nn
-import torch.nn.functional as F
-import bitsandbytes as bnb
-
+import numpy as np
 from peft import LoraModel, PeftConfig
-from peft.tuners.lora import LoraLayer, Linear, Linear4bit, Linear8bitLt, Embedding
+from loguru import logger
 
 class MultiloraModel(LoraModel):
     """
@@ -25,43 +22,47 @@ class MultiloraModel(LoraModel):
         `torch.nn.Module`: The Multilora model.
     """
 
-    # TODO: add support for add_weighted_adapter
     def __init__(self, model, adapters, adapter_names, router):
         # Build PerftConfig from the first adapter
         config = PeftConfig.from_pretrained(os.path.join(adapters, adapter_names[0]))
-
         super().__init__(model, config, adapter_names[0])
 
         # Load the other adapters
         for adapter_name in adapter_names[1:]:
             self.load_adapter(os.path.join(adapters, adapter_name), adapter_name)
 
-        # Do we need the router here?
         self.router = router
 
-    def generate(self, prompt, **kwargs):
-        experts = self.router.route(prompt)
-        self.set_adapter(experts[0][0])
+    def generate(self, prompt: str, top: int = 1, **kwargs):
+        self.route_to_experts(prompt, top)
         return self.model.generate(**kwargs)
 
+    def route_to_experts(self, instruction: str, top: int = 1):
+        # Experts is a list of tuples (expert_name, score).
+        experts = self.router.route(instruction, top)
+        if top == 1:
+            # If we only want the top expert, set it as an adapter
+            self.model.set_adapter(experts[0][0])
+        else:
+            # Otherwise, we compute a new adapter as a combination of the top experts.
+            # We generate a unique name for the adapter because even if the same experts are used
+            # the weights may be different.
+            adapter_name = str(hash(datetime.datetime.now()))
 
+            weights = np.array([expert[1] for expert in experts])
+            inverted_weights = 1 / weights
+            w = inverted_weights / np.sum(inverted_weights)
+            e = [expert[0] for expert in experts]
+            logger.debug(f"Creating adapter for: {list(zip(e, w))}")
 
-# class MultiloraLayer(LoraLayer):
-#     pass
+            # TODO: Experiment with other routing methods
+            self.model.add_weighted_adapter(
+                e,
+                w,
+                combination_type="linear",
+                adapter_name=adapter_name,
+            )
 
+            self.model.set_adapter(adapter_name)
 
-# class MultiloraLinear(Linear):
-#     pass
-
-
-# class MultiloraLinear4bit(Linear4bit):
-#     pass
-
-
-# class MultiloraLinear8bitLt(Linear8bitLt):
-#     pass
-
-
-# class MultiloraEmbedding(Embedding):
-#     pass
-
+        return experts

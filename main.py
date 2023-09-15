@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Request, HTTPException, Depends
+from fastapi import FastAPI, Request
 from pydantic import BaseModel
 import asyncio
 from typing import List, Dict
@@ -22,7 +22,6 @@ from transformers import (
     StoppingCriteria,
 )
 from sentence_transformers import SentenceTransformer
-from peft import PeftModel, LoraModel, LoraConfig, PeftConfig
 from functools import wraps
 from loguru import logger
 from contextlib import asynccontextmanager
@@ -119,34 +118,16 @@ async def lifespan(app: FastAPI):
         with open(path_values.experts_file, "r") as json_file:
             experts = json.loads(json_file.read())
             # Create router
-            app_data["router"] = Router(embeddings, experts)
-
-            # m = PeftModel.from_pretrained(
-            #     app_data["model"],
-            #     os.path.join(path_values.output_dir, "general"),
-            #     adapter_name="general",
-            # )
-
-            # app_data["model"] = LoraModel(
-            #     app_data["model"],
-            #     PeftConfig.from_pretrained(os.path.join(path_values.output_dir, "qa")), # hacky way to get a correct peft config.
-            #     adapter_name="qa",
-            # )
-
-            # # Load adapters
-            # for expert_name in experts.keys():
-            #     app_data["model"].load_adapter(
-            #         os.path.join(path_values.output_dir, expert_name), expert_name
-            #     )
 
             app_data["model"] = MultiloraModel(
                 app_data["model"],
                 path_values.output_dir,
                 list(experts.keys()),
-                app_data["router"],
+                Router(embeddings, experts),
             )
 
     yield
+
     app_data.clear()
 
 
@@ -209,46 +190,50 @@ async def chat_completions(raw_request: Request):
 def complete_request(request: ChatRequest):
     request_id = f"cmpl-{uuid.uuid4()}"
 
-    stop_words_ids = [
-        app_data["tokenizer"](stop_word, return_tensors="pt").input_ids.to("cuda")[0][
-            1:
-        ]
-        for stop_word in request.stop
-    ]
+    stop_words_ids = get_stop_words_ids(request.stop)
     stopping_criteria = StoppingCriteriaList(
         [StoppingCriteriaSub(stops=stop_words_ids)]
     )
 
     logger.debug(f"Request {request}")
-    prompt = prompt_template(
-        request.messages[0]["content"], request.messages[1]["content"]
-    )
-    logger.debug(f"Prompt {prompt}")
-    logger.debug(f"Tokenizer {app_data['tokenizer']}")
-    input_ids = app_data["tokenizer"](
-        prompt, return_tensors="pt", truncation=True
-    ).input_ids.cuda()
-    # # Route to expert
-    # if not app.args.only_base:
-    #     expert, routing_duration = route_to_expert(request.messages[1]["content"], request.top_experts)
-
-    # Generate response
-    logger.debug("Generating response")
-    response, duration = generate_response(
-        input_ids, prompt, request, stopping_criteria
-    )
+    prompt = get_prompt(request.messages)
+    input_ids = get_input_ids(prompt)
+    response, duration = generate_response(input_ids, prompt, request, stopping_criteria)
 
     logger.debug(f"Response {response}")
     logger.debug(f"Duration {duration}")
 
+    return create_completion_response(request, request_id, response, duration, input_ids)
+
+
+def get_stop_words_ids(stop_words):
+    return [
+        app_data["tokenizer"](stop_word, return_tensors="pt").input_ids.to("cuda")[0][
+            1:
+        ]
+        for stop_word in stop_words
+    ]
+
+
+def get_prompt(messages):
+    system_message = messages[0]["content"]
+    instruction_message = messages[1]["content"]
+    return f"{system_message}\n### Input:\n{instruction_message}\n\n### Response:"
+
+
+def get_input_ids(prompt):
+    return app_data["tokenizer"](prompt, return_tensors="pt", truncation=True).input_ids.cuda()
+
+
+def create_completion_response(request, request_id, response, duration, input_ids):
     return {
         "id": request_id,
         "object": "chat.completion",
         "created": int(time.time()),
         "duration": duration,
-        "routing_duration": "",
+        "routing_duration": "TODO",
         "model": request.model,
-        "expert": "",
+        "expert": "TODO",
         "choices": [
             {
                 "index": 0,
@@ -266,7 +251,6 @@ def complete_request(request: ChatRequest):
         },
     }
 
-
 def measure_time(func):
     @wraps(func)
     def wrapper(*args, **kwargs):
@@ -276,42 +260,6 @@ def measure_time(func):
         return result, duration
 
     return wrapper
-
-
-@measure_time
-def route_to_expert(instruction: str, top: int = 1):
-    # Experts is a list of tuples (expert_name, score).
-    experts = app_data["router"].route(instruction, top)
-    if top == 1:
-        # If we only want the top expert, set it as an adapter
-        app_data["model"].set_adapter(experts[0][0])
-
-    else:
-        # Otherwise, we compute a new adapter as a combination of the top experts.
-        # We generate a unique name for the adapter because even if the same experts are used
-        # the weights may be different.
-        adapter_name = str(hash(datetime.datetime.now()))
-        weights = [expert[1] for expert in experts]
-        # Invert the weights to prioritize smaller weights
-        inverted_weights = [1 / weight for weight in weights]
-
-        # Calculate the new weights by normalizing the inverted weights
-        w = [weight / sum(inverted_weights) for weight in inverted_weights]
-        e = [expert[0] for expert in experts]
-        logger.debug(f"Creating adapter for: {list(zip(e, w))}")
-
-        app_data["model"].add_weighted_adapter(
-            e,
-            w,
-            combination_type="linear",
-            adapter_name=adapter_name,
-        )
-
-        logger.debug("Adapter created")
-        app_data["model"].set_adapter(adapter_name)
-        logger.debug("Adapter set")
-
-    return experts
 
 
 @measure_time
