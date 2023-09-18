@@ -1,6 +1,7 @@
 import os
 import datetime
 
+import torch
 import numpy as np
 from peft import LoraModel, PeftConfig
 from loguru import logger
@@ -51,12 +52,14 @@ class MultiloraModel(LoraModel):
 
             weights = np.array([expert[1] for expert in experts])
             inverted_weights = 1 / weights
-            w = inverted_weights / np.sum(inverted_weights)
+            # w = inverted_weights / np.sum(inverted_weights)
+            # use softmax for the weights
+            w = torch.nn.functional.softmax(torch.tensor(inverted_weights), dim=0).numpy()
             e = [expert[0] for expert in experts]
             logger.debug(f"Creating adapter for: {list(zip(e, w))}")
 
             # TODO: Experiment with other routing methods
-            self.model.add_weighted_adapter(
+            self.add_weighted_adapter(
                 e,
                 w,
                 combination_type="linear",

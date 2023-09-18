@@ -275,6 +275,7 @@ def generate_response(
 
     output = app_data["model"].generate(
         prompt=prompt,
+        top=request.top_experts,
         input_ids=input_ids,
         stopping_criteria=stopping_criteria,
         repetition_penalty=request.repetition_penalty,
