@@ -3,10 +3,10 @@ import json
 import os
 from configparser import ConfigParser, ExtendedInterpolation
 
-from finetune import finetune
-from models import ModelValues, PathValues
-from run_model import run_model
-from segment_experts import segment_experts
+from herd.finetune import finetune
+from herd.models import ModelValues, PathValues
+from herd.run_model import run_model
+from herd.segment_experts import segment_experts
 
 
 def main():
@@ -15,7 +15,7 @@ def main():
         "action",
         choices=["finetune", "run_model", "segment_experts"],
     )
-    parser.add_argument("--config-file", default="config.ini")
+    parser.add_argument("--config-file", default="config_experts.ini")
     parser.add_argument("--only-base", default=False, type=bool)
     parser.add_argument("--interactive", default=False, type=bool)
     args = parser.parse_args()
@@ -38,7 +38,9 @@ def main():
             case "finetune":
                 finetune(model_values, path_values, config, experts)
             case "run_model":
-                run_model(model_values, path_values, experts, args.only_base, args.interactive)
+                run_model(
+                    model_values, path_values, experts, args.only_base, args.interactive
+                )
             case "segment_experts":
                 segment_experts(model_values, path_values, experts)
 
