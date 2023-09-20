@@ -1,23 +1,20 @@
-import wandb
+import os
+from configparser import ConfigParser
+from dataclasses import asdict, dataclass
+from typing import Dict
 
 import datasets
+import torch
+from loguru import logger
+from models import ModelValues, PathValues
+from peft import LoraConfig, get_peft_model, prepare_model_for_kbit_training
 from transformers import (
-    AutoTokenizer,
     AutoModelForCausalLM,
+    AutoTokenizer,
     BitsAndBytesConfig,
     TrainingArguments,
 )
-from peft import LoraConfig, prepare_model_for_kbit_training, get_peft_model
 from trl import SFTTrainer
-from loguru import logger
-
-import torch
-
-from configparser import ConfigParser
-from dataclasses import dataclass, asdict
-import os
-from typing import Dict
-from models import ModelValues, PathValues
 
 
 def format_instruction(sample: dict) -> str:
@@ -61,16 +58,12 @@ def finetune(
     )
     model.config.pretraining_tp = 1
 
-    tokenizer = AutoTokenizer.from_pretrained(
-        model_values.model, cache_dir=path_values.cache_dir
-    )
+    tokenizer = AutoTokenizer.from_pretrained(model_values.model, cache_dir=path_values.cache_dir)
     tokenizer.pad_token = tokenizer.eos_token
     tokenizer.padding_side = "right"
 
     # LoRA config based on QLoRA paper
-    peft_config = LoraConfig(
-        **asdict(LoraConfigValues(**dict(config.items("LoraConfig"))))
-    )
+    peft_config = LoraConfig(**asdict(LoraConfigValues(**dict(config.items("LoraConfig")))))
 
     # prepare model for training
     model = prepare_model_for_kbit_training(model)
@@ -79,9 +72,7 @@ def finetune(
     for expert_name, expert_data in experts.items():
         os.environ["WANDB_NAME"] = expert_name
 
-        expert_dataset = dataset.filter(
-            lambda row: row["category"] in expert_data["categories"]
-        )
+        expert_dataset = dataset.filter(lambda row: row["category"] in expert_data["categories"])
 
         training_args = TrainingArguments(
             **asdict(TrainingArgumentsValues(**dict(config.items("TrainingArguments"))))
@@ -101,9 +92,7 @@ def finetune(
             args=training_args,
         )
 
-        logger.info(
-            f"Training expert: {expert_name}, output_dir: {training_args.output_dir}"
-        )
+        logger.info(f"Training expert: {expert_name}, output_dir: {training_args.output_dir}")
 
         # train
         trainer.train()

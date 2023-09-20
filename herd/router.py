@@ -1,11 +1,11 @@
-from typing import Any
+import os
+from typing import Any, List, Tuple
 
-from herd.embeddings import Embeddings
-from loguru import logger
 import faiss
 import numpy as np
-import os
-from typing import List, Tuple
+from loguru import logger
+
+from herd.embeddings import Embeddings
 
 
 class Router:
@@ -54,9 +54,7 @@ class Router:
     def create_index(self, input_path: str) -> Any:
         """Create a faiss index from the routing data for a given expert."""
         logger.info(f"Creating routing faiss index: {input_path}")
-        index = faiss.IndexFlatL2(
-            self.embeddings.model.get_sentence_embedding_dimension()
-        )
+        index = faiss.IndexFlatL2(self.embeddings.model.get_sentence_embedding_dimension())
         em = np.load(input_path)
         em = em.reshape(1, em.shape[0])
         index.add(em)

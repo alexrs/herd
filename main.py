@@ -1,32 +1,34 @@
-from fastapi import FastAPI, Request
-from pydantic import BaseModel
-import asyncio
-from typing import List, Dict
-import uuid
-import time
-import datetime
-import uvicorn
 import argparse
-import os
+import asyncio
+import datetime
 import json
-import torch
+import os
+import time
+import uuid
 from configparser import ConfigParser, ExtendedInterpolation
-from herd.models import ModelValues, PathValues
-from herd.router import Router
-from herd.embeddings import Embeddings
-from transformers import (
-    AutoTokenizer,
-    AutoModelForCausalLM,
-    BitsAndBytesConfig,
-    StoppingCriteriaList,
-    StoppingCriteria,
-)
-from sentence_transformers import SentenceTransformer
-from functools import wraps
-from loguru import logger
 from contextlib import asynccontextmanager
+from functools import wraps
+from typing import Dict, List
+
+import torch
+import uvicorn
 from dotenv import load_dotenv
+from fastapi import FastAPI, Request
+from loguru import logger
+from pydantic import BaseModel
+from sentence_transformers import SentenceTransformer
+from transformers import (
+    AutoModelForCausalLM,
+    AutoTokenizer,
+    BitsAndBytesConfig,
+    StoppingCriteria,
+    StoppingCriteriaList,
+)
+
+from herd.embeddings import Embeddings
+from herd.models import ModelValues, PathValues
 from herd.multilora import MultiloraModel
+from herd.router import Router
 
 load_dotenv()  # take environment variables from .env.
 
@@ -50,9 +52,11 @@ USER_STOP_TOKENS = [
 
 
 class StoppingCriteriaSub(StoppingCriteria):
-    def __init__(self, stops=[], encounters=1):
+    def __init__(self, stops=None, encounters=1):
+        if stops is None:
+            stops = []
         super().__init__()
-        self.stops = [stop for stop in stops + USER_STOP_TOKENS]
+        self.stops = list(stops + USER_STOP_TOKENS)
 
     def __call__(self, input_ids: torch.LongTensor, scores: torch.FloatTensor):
         for stop in self.stops:
@@ -104,12 +108,8 @@ async def lifespan(app: FastAPI):
     )
 
     if not app.args.only_base:
-        embeddings_model = SentenceTransformer(
-            model_values.embeddings_model, device="cuda"
-        )
-        embeddings_tokenizer = AutoTokenizer.from_pretrained(
-            model_values.embeddings_model
-        )
+        embeddings_model = SentenceTransformer(model_values.embeddings_model, device="cuda")
+        embeddings_tokenizer = AutoTokenizer.from_pretrained(model_values.embeddings_model)
         embeddings = Embeddings(
             embeddings_model, embeddings_tokenizer, model_values.embeddings_max_length
         )
@@ -191,9 +191,7 @@ def complete_request(request: ChatRequest):
     request_id = f"cmpl-{uuid.uuid4()}"
 
     stop_words_ids = get_stop_words_ids(request.stop)
-    stopping_criteria = StoppingCriteriaList(
-        [StoppingCriteriaSub(stops=stop_words_ids)]
-    )
+    stopping_criteria = StoppingCriteriaList([StoppingCriteriaSub(stops=stop_words_ids)])
 
     logger.debug(f"Request {request}")
     prompt = get_prompt(request.messages)
@@ -208,9 +206,7 @@ def complete_request(request: ChatRequest):
 
 def get_stop_words_ids(stop_words):
     return [
-        app_data["tokenizer"](stop_word, return_tensors="pt").input_ids.to("cuda")[0][
-            1:
-        ]
+        app_data["tokenizer"](stop_word, return_tensors="pt").input_ids.to("cuda")[0][1:]
         for stop_word in stop_words
     ]
 
@@ -251,6 +247,7 @@ def create_completion_response(request, request_id, response, duration, input_id
         },
     }
 
+
 def measure_time(func):
     @wraps(func)
     def wrapper(*args, **kwargs):
@@ -269,9 +266,7 @@ def generate_response(
     request: ChatRequest,
     stopping_criteria: StoppingCriteriaList,
 ):
-    max_tokens = (
-        app_data["model"].config.max_position_embeddings - len(input_ids[0]) - 1
-    )
+    max_tokens = app_data["model"].config.max_position_embeddings - len(input_ids[0]) - 1
 
     output = app_data["model"].generate(
         prompt=prompt,
