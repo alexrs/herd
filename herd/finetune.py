@@ -6,7 +6,7 @@ from typing import Dict
 import datasets
 import torch
 from loguru import logger
-from models import ModelValues, PathValues
+from herd.models import ModelValues, PathValues
 from peft import LoraConfig, get_peft_model, prepare_model_for_kbit_training
 from transformers import (
     AutoModelForCausalLM,
