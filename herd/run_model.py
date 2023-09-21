@@ -1,20 +1,20 @@
+import os
+from random import randrange
+from typing import Dict
+
+import datasets
 import torch
+from datasets import load_dataset
+from embeddings import Embeddings
+from models import ModelValues, PathValues
 from peft import PeftModel
+from router import Router
+from sentence_transformers import SentenceTransformer
 from transformers import (
-    AutoTokenizer,
     AutoModelForCausalLM,
+    AutoTokenizer,
     BitsAndBytesConfig,
 )
-import datasets
-from datasets import load_dataset
-from random import randrange
-import os
-from sentence_transformers import SentenceTransformer
-
-from router import Router
-from embeddings import Embeddings
-from typing import Dict
-from models import ModelValues, PathValues
 
 
 def run_model(
@@ -24,9 +24,7 @@ def run_model(
     only_base: bool = False,
     interactive: bool = False,
 ):
-    tokenizer = AutoTokenizer.from_pretrained(
-        model_values.model, cache_dir=path_values.cache_dir
-    )
+    tokenizer = AutoTokenizer.from_pretrained(model_values.model, cache_dir=path_values.cache_dir)
 
     quantization_config = BitsAndBytesConfig(
         load_in_4bit=True,
@@ -53,9 +51,7 @@ def run_model(
 
         # Load adapters
         for expert_name in experts.keys():
-            model.load_adapter(
-                os.path.join(path_values.output_dir, expert_name), expert_name
-            )
+            model.load_adapter(os.path.join(path_values.output_dir, expert_name), expert_name)
 
     embeddings_model = SentenceTransformer(model_values.embeddings_model, device="cuda")
     embeddings_tokenizer = AutoTokenizer.from_pretrained(model_values.embeddings_model)
@@ -89,9 +85,7 @@ def run_model(
                 print(f"---- Routing to {rounter_expert}")
                 model.set_adapter(rounter_expert)
 
-            input_ids = tokenizer(
-                prompt, return_tensors="pt", truncation=True
-            ).input_ids.cuda()
+            input_ids = tokenizer(prompt, return_tensors="pt", truncation=True).input_ids.cuda()
 
             outputs = model.generate(
                 input_ids=input_ids,
@@ -124,9 +118,7 @@ def run_model(
             rounter_expert = router.route(sample["instruction"])
             print(f"---- Routing to {rounter_expert}. Ground truth: {expert_name}")
 
-            input_ids = tokenizer(
-                prompt, return_tensors="pt", truncation=True
-            ).input_ids.cuda()
+            input_ids = tokenizer(prompt, return_tensors="pt", truncation=True).input_ids.cuda()
 
             model.set_adapter(expert_name)
 

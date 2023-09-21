@@ -1,11 +1,12 @@
-import json
 import argparse
+import json
 import os
+from configparser import ConfigParser, ExtendedInterpolation
+
 from finetune import finetune
+from models import ModelValues, PathValues
 from run_model import run_model
 from segment_experts import segment_experts
-from configparser import ConfigParser, ExtendedInterpolation
-from models import ModelValues, PathValues
 
 
 def main():
@@ -37,9 +38,7 @@ def main():
             case "finetune":
                 finetune(model_values, path_values, config, experts)
             case "run_model":
-                run_model(
-                    model_values, path_values, experts, args.only_base, args.interactive
-                )
+                run_model(model_values, path_values, experts, args.only_base, args.interactive)
             case "segment_experts":
                 segment_experts(model_values, path_values, experts)
 

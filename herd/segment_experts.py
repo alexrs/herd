@@ -1,10 +1,9 @@
-import numpy as np
-import json
 import datasets
-from sentence_transformers import SentenceTransformer
-from transformers import AutoTokenizer
+import numpy as np
 from embeddings import Embeddings
 from loguru import logger
+from sentence_transformers import SentenceTransformer
+from transformers import AutoTokenizer
 
 
 def segment_experts(model_values, path_values, experts):
@@ -16,14 +15,10 @@ def segment_experts(model_values, path_values, experts):
     for expert_name, expert_data in experts.items():
         logger.info(f"Calculating embedding for {expert_name}...")
 
-        expert_dataset = dataset.filter(
-            lambda row: row["category"] in expert_data["categories"]
-        )
+        expert_dataset = dataset.filter(lambda row: row["category"] in expert_data["categories"])
 
         # get 100 random samples from the expert dataset. TODO: Is 100 a good number?
-        expert_dataset = expert_dataset.select(
-            np.random.choice(expert_dataset.shape[0], 100)
-        )
+        expert_dataset = expert_dataset.select(np.random.choice(expert_dataset.shape[0], 100))
 
         # create an empty numpy array to store embeddings
         es = np.empty((0, embeddings.model.get_sentence_embedding_dimension()))
@@ -37,9 +32,7 @@ def segment_experts(model_values, path_values, experts):
 
         # save embedding to file
         np.save(f"{path_values.experts_dir}/{expert_name}.npy", avg_embedding)
-        logger.info(
-            f"  Saved embedding for {expert_name} at experts/{expert_name}.npy."
-        )
+        logger.info(f"  Saved embedding for {expert_name} at experts/{expert_name}.npy.")
 
 
 if __name__ == "__main__":
