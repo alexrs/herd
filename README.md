@@ -34,7 +34,7 @@ The experts are fine-tuned using QLoRA on the [jondurbin/airoboros-2.1 dataset](
 To fine-tune:
 
 ```sh
-python herd/herd.py finetune
+python scripts/main.py finetune
 ```
 
 ### Computing Expert-Prompt Distance
@@ -52,7 +52,7 @@ Herd provides a simple REST API. It is based on OpenAI's API.
 
 
 ```py
-python main.py
+python scripts/app.py
 ```
 
 The following options can be used:
