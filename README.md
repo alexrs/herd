@@ -58,7 +58,7 @@ python scripts/app.py
 The following options can be used:
 - `--port (-p)`: The port to run the server on. Default: `8000`
 - `--host (-i)`: The host to run the server on. Default: `127.0.0.1`
-- `--config-file`: The config file to use. Default: `config_experts.ini`
+- `--config-file`: The config file to use. Default: `config.ini`
 - `--only-base`: Only use the base model. Default: `False`
 
 
@@ -91,3 +91,7 @@ The following options can be passed:
 - `stop` (List[str], optional): The list of stop words. Defaults to DEFAULT_STOPS.
 - `max_tokens` (int, optional): The maximum number of tokens in the response. Defaults to None.
 - `top_experts` (int, optional): The number of top experts to consider. Defaults to 1.
+
+
+### Segment Alpaca
+https://colab.research.google.com/drive/1nPxDLt0ExCLLx3j-VovRPDJR14ET17no?usp=sharing

@@ -1,0 +1,12 @@
+{
+    "expert1": {
+        "categories": [
+            "multiple_choice"
+        ]
+    },
+    "expert2": {
+        "categories": [
+            "coding"
+        ]
+    }
+}

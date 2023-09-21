@@ -65,8 +65,6 @@ class StoppingCriteriaSub(StoppingCriteria):
         return False
 
 
-# TODO: Do not use global variables.
-
 app_data = {}
 
 
@@ -91,21 +89,34 @@ async def lifespan(app: FastAPI):
     logger.debug(f"Loading model {model_values.model}")
     logger.debug(f"Tokenizer {app_data['tokenizer']}")
 
-    quantization_config = BitsAndBytesConfig(
-        load_in_4bit=True,
-        bnb_4bit_compute_dtype=torch.bfloat16,
-        bnb_4bit_use_double_quant=True,
-        bnb_4bit_quant_type="nf4",
-    )
+    if app.args.peft_strategy == "lora":
+        quantization_config = BitsAndBytesConfig(
+            load_in_4bit=True,
+            bnb_4bit_compute_dtype=torch.bfloat16,
+            bnb_4bit_use_double_quant=True,
+            bnb_4bit_quant_type="nf4",
+        )
 
-    app_data["model"] = AutoModelForCausalLM.from_pretrained(
-        model_values.model,
-        load_in_4bit=True,
-        torch_dtype=torch.bfloat16,
-        quantization_config=quantization_config,
-        device_map="auto",
-        cache_dir=path_values.cache_dir,
-    )
+        app_data["model"] = AutoModelForCausalLM.from_pretrained(
+            model_values.model,
+            load_in_4bit=True,
+            torch_dtype=torch.bfloat16,
+            quantization_config=quantization_config,
+            device_map="auto",
+            cache_dir=path_values.cache_dir,
+        )
+    elif app.args.peft_strategy == "ia3":
+        quantization_config = BitsAndBytesConfig(load_in_8bit=True)
+
+        app_data["model"] = AutoModelForCausalLM.from_pretrained(
+            model_values.model,
+            torch_dtype=torch.float,  # TODO: fine-tune with bfloat16
+            quantization_config=quantization_config,
+            device_map="auto",
+            cache_dir=path_values.cache_dir,
+        )
+    else:
+        raise ValueError(f"Unknown peft_strategy: {app.args.peft_strategy}")
 
     if not app.args.only_base:
         embeddings_model = SentenceTransformer(model_values.embeddings_model, device="cuda")
@@ -122,6 +133,7 @@ async def lifespan(app: FastAPI):
             app_data["model"] = MultiloraModel(
                 app_data["model"],
                 path_values.output_dir,
+                app.args.peft_strategy,
                 list(experts.keys()),
                 Router(embeddings, experts),
             )
@@ -268,6 +280,8 @@ def generate_response(
 ):
     max_tokens = app_data["model"].config.max_position_embeddings - len(input_ids[0]) - 1
 
+    logger.debug("Generating response")
+
     output = app_data["model"].generate(
         prompt=prompt,
         top=request.top_experts,
@@ -306,7 +320,8 @@ def main():
     )
     parser.add_argument("-i", "--host", type=str, default="127.0.0.1", help="host name")
     parser.add_argument("-p", "--port", type=int, default=8000, help="port number")
-    parser.add_argument("--config-file", default="config_experts.ini")
+    parser.add_argument("--config-file", default="config.ini")
+    parser.add_argument("-s", "--peft-strategy", default="lora")
     parser.add_argument("--only-base", default=False, type=bool)
 
     args = parser.parse_args()

@@ -1,0 +1,124 @@
+                                                  LORA ALL                                   |                       MOLORA ALL                     |                     MOLORA ROUTER                   |                          LLAMA 2 BASE
+---------------------------------------|-----------------------------------------------------|---------------------------------------|------------------------------------------------|-------------------------------------------------------------------------|
+              Task                     |              Metric             | Value|   | Stderr |              Metric             | Value|   | Stderr  |              Metric             | Value|   | Stderr |              Metric             | Value |  | Stderr |
+---------------------------------------|---------------------------------|------|---|------- |---------------------------------|------|---|---------|---------------------------------|------|---|--------|-------------------------------------------------------
+arc_challenge                          | acc                             |0.4480|±  | 0.0145 | acc                             |0.4343|±  | 0.0145  | acc                             |0.4727|±  | 0.0146 | acc                             |0.4334|±  | 0.0145 |
+                                       | acc_norm                        |0.4573|±  | 0.0146 | acc_norm                        |0.4625|±  | 0.0146  | acc_norm                        |0.4932|±  | 0.0146 | acc_norm                        |0.4625|±  | 0.0146 |
+arithmetic_2ds                         | acc                             |0.2600|±  | 0.0098 | acc                             |0.5025|±  | 0.0112  | acc                             |0.3145|±  | 0.0104 | acc                             |0.5025|±  | 0.0112 |
+arithmetic_4ds                         | acc                             |0.2570|±  | 0.0098 | acc                             |0.3635|±  | 0.0108  | acc                             |0.2525|±  | 0.0097 | acc                             |0.3635|±  | 0.0108 |
+bigbench_causal_judgement              | multiple_choice_grade           |0.4947|±  | 0.0364 | multiple_choice_grade           |0.5158|±  | 0.0364  | multiple_choice_grade           |0.5105|±  | 0.0364 | multiple_choice_grade           |0.5158|±  | 0.0364 |
+blimp_causative                        | acc                             |0.6550|±  | 0.0150 | acc                             |0.7580|±  | 0.0136  | acc                             |0.7360|±  | 0.0139 | acc                             |0.7580|±  | 0.0136 |
+hellaswag                              | acc                             |0.5845|±  | 0.0049 | acc                             |0.5714|±  | 0.0049  | acc                             |0.5962|±  | 0.0049 | acc                             |0.5713|±  | 0.0049 |
+                                       | acc_norm                        |0.7702|±  | 0.0042 | acc_norm                        |0.7599|±  | 0.0043  | acc_norm                        |0.7769|±  | 0.0042 | acc_norm                        |0.7598|±  | 0.0043 |
+truthfulqa_mc                          | mc1                             |0.3623|±  | 0.0168 | mc1                             |0.2521|±  | 0.0152  | mc1                             |0.3427|±  | 0.0166 | mc1                             |0.2521|±  | 0.0152 |
+                                       | mc2                             |0.5380|±  | 0.0153 | mc2                             |0.3897|±  | 0.0136  | mc2                             |0.5190|±  | 0.0155 | mc2                             |0.3896|±  | 0.0136 |
+
+
+
+
+  EXPERT |           Task           | Version |         Metric         | Value  | ± | StdErr |
+---------|--------------------------|---------|------------------------|--------|---|--------|
+       4 | arc_challenge            |       0 | acc                    | 0.4565 | ± | 0.0146 |
+         |                          |         | acc_norm               | 0.4718 | ± | 0.0146 |
+         | arithmetic_2ds           |       0 | acc                    | 0.2330 | ± | 0.0095 |
+         | arithmetic_4ds           |       0 | acc                    | 0.1195 | ± | 0.0073 |
+         | bigbench_causal_judgment |       0 | multiple_choice_grade  | 0.5421 | ± | 0.0362 |
+         | blimp_causative          |       0 | acc                    | 0.6370 | ± | 0.0152 |
+         | hellaswag                |       0 | acc                    | 0.5794 | ± | 0.0049 |
+         |                          |         | acc_norm               | 0.7597 | ± | 0.0043 |
+         | truthfulqa_mc            |       1 | mc1                    | 0.3513 | ± | 0.0167 |
+         |                          |         | mc2                    | 0.5254 | ± | 0.0154 |
+-------------------------------------------------------------------------------------------
+     3   | Value                    |         |                        | 0.4352 | ± | 0.0145 |
+         |                          |         | acc_norm               | 0.4642 | ± | 0.0146 |
+         | arithmetic_2ds           |       0 | acc                    | 0.0090 | ± | 0.0021 |
+         | arithmetic_4ds           |       0 | acc                    | 0.0380 | ± | 0.0043 |
+         | bigbench_causal_judgment |       0 | multiple_choice_grade  | 0.5842 | ± | 0.0359 |
+         | blimp_causative          |       0 | acc                    | 0.6870 | ± | 0.0147 |
+         | hellaswag                |       0 | acc                    | 0.5802 | ± | 0.0049 |
+         |                          |         | acc_norm               | 0.7611 | ± | 0.0043 |
+         | truthfulqa_mc            |       1 | mc1                    | 0.3207 | ± | 0.0163 |
+         |                          |         | mc2                    | 0.4816 | ± | 0.0153 |
+-------------------------------------------------------------------------------------------
+     2   | arc_challenge            |       0 | acc                    | 0.4394 | ± | 0.0145 |
+         |                          |         | acc_norm               | 0.4590 | ± | 0.0146 |
+         | arithmetic_2ds           |       0 | acc                    | 0.5090 | ± | 0.0112 |
+         | arithmetic_4ds           |       0 | acc                    | 0.3240 | ± | 0.0105 |
+         | bigbench_causal_judgment |       0 | multiple_choice_grade  | 0.4947 | ± | 0.0364 |
+         | blimp_causative          |       0 | acc                    | 0.6710 | ± | 0.0149 |
+         | hellaswag                |       0 | acc                    | 0.5765 | ± | 0.0049 |
+         |                          |         | acc_norm               | 0.7534 | ± | 0.0043 |
+         | truthfulqa_mc            |       1 | mc1                    | 0.2901 | ± | 0.0159 |
+         |                          |         | mc2                    | 0.4580 | ± | 0.0151 |
+-------------------------------------------------------------------------------------------
+     1   | arc_challenge            |       0 | acc                    | 0.4360 | ± | 0.0145 |
+         |                          |         | acc_norm               | 0.4437 | ± | 0.0145 |
+         | arithmetic_2ds           |       0 | acc                    | 0.0390 | ± | 0.0043 |
+         | arithmetic_4ds           |       0 | acc                    | 0.0725 | ± | 0.0058 |
+         | bigbench_causal_judgment |       0 | multiple_choice_grade  | 0.5316 | ± | 0.0363 |
+         | blimp_causative          |       0 | acc                    | 0.6950 | ± | 0.0146 |
+         | hellaswag                |       0 | acc                    | 0.5762 | ± | 0.0049 |
+         |                          |         | acc_norm               | 0.7579 | ± | 0.0043 |
+         | truthfulqa_mc            |       1 | mc1                    | 0.3207 | ± | 0.0163 |
+         |                          |         | mc2                    | 0.4881 | ± | 0.0153 |
+-------------------------------------------------------------------------------------------
+     0   | arc_challenge            |       0 | acc                    | 0.4232 | ± | 0.0144 |
+         |                          |         | acc_norm               | 0.4454 | ± | 0.0145 |
+         | arithmetic_2ds           |       0 | acc                    | 0.3965 | ± | 0.0109 |
+         | arithmetic_4ds           |       0 | acc                    | 0.2240 | ± | 0.0093 |
+         | bigbench_causal_judgment |       0 | multiple_choice_grade  | 0.5842 | ± | 0.0359 |
+         | blimp_causative          |       0 | acc                    | 0.6970 | ± | 0.0145 |
+         | hellaswag                |       0 | acc                    | 0.5742 | ± | 0.0049 |
+         |                          |         | acc_norm               | 0.7552 | ± | 0.0043 |
+         | truthfulqa_mc            |       1 | mc1                    | 0.3574 | ± | 0.0168 |
+         |                          |         | mc2                    | 0.5238 | ± | 0.0153 |
+
+
+
+Observations:
+arc_challenge:
+acc: The best accuracy is achieved by MOLORA ROUTER with 0.4727± 0.0146, closely followed by LORA ALL with 0.4480± 0.0145. LLAMA 2 BASE and MOLORA ALL have almost the same accuracy.
+acc_norm: MOLORA ROUTER again leads with 0.4932± 0.0146, while LORA ALL has the lowest value at 0.4573± 0.0146.
+
+arithmetic_2ds:
+MOLORA ALL and LLAMA 2 BASE both have the highest accuracy at 0.5025± 0.0112, which is considerably higher than the other models.
+
+arithmetic_4ds:
+MOLORA ALL and LLAMA 2 BASE again tie for the best accuracy at 0.3635± 0.0108.
+bigbench_causal_judgment:
+
+multiple_choice_grade: All models show closely clustered results, with MOLORA ALL and LLAMA 2 BASE both leading at 0.5158± 0.0364.
+
+blimp_causative:
+MOLORA ALL and LLAMA 2 BASE tie for the highest accuracy at 0.7580± 0.0136. LORA ALL trails behind the rest.
+
+hellaswag:
+acc: MOLORA ROUTER has the highest accuracy at 0.5962± 0.0049.
+acc_norm: Again, MOLORA ROUTER leads with 0.7769± 0.0042, followed closely by LORA ALL.
+
+truthfulqa_mc:
+mc1: LORA ALL performs best with 0.3623± 0.0168, while MOLORA ALL has the lowest score.
+mc2: LORA ALL also has the highest score in this metric with 0.5380± 0.0153, and again, MOLORA ALL has the lowest.
+
+Conclusions:
+MOLORA ROUTER performs exceptionally well in the arc_challenge and hellaswag tasks.
+MOLORA ALL and LLAMA 2 BASE consistently tie for performance in several tasks, notably in arithmetic_2ds, arithmetic_4ds, and blimp_causative.
+LORA ALL leads in the truthfulqa_mc tasks, but trails in tasks like blimp_causative.
+There's a noticeable performance gap in truthfulqa_mc between LORA ALL and MOLORA ALL, with the former performing considerably better.
+In summary, while some models excel in specific tasks, the performance often varies across tasks, indicating the need for domain-specific models or ensemble techniques for optimal results.
+
+----------------------------------------------------------------
+
+
+Observations:
+arc_challenge: Expert 4 has the highest accuracy and acc_norm. Expert 0 has the lowest.
+arithmetic_2ds: Expert 2 has the highest accuracy by a significant margin. Expert 3 has the lowest.
+arithmetic_4ds: Expert 2 has the highest accuracy, while Expert 3 has the lowest.
+bigbench_causal_judgment: Experts 0 and 3 tie for the highest multiple_choice_grade. Expert 2 has the lowest.
+blimp_causative: Expert 3 has the highest accuracy, closely followed by Experts 1 and 0. Expert 4 has the lowest.
+hellaswag: There isn't much variation among the experts in this task.
+truthfulqa_mc: Expert 4 has the highest scores for mc1 and mc2, while Expert 2 has the lowest.
+Conclusions:
+Expert 4 excels in the arc_challenge and truthfulqa_mc tasks.
+Expert 2 stands out in the arithmetic_2ds and arithmetic_4ds tasks.
+Expert 3 excels in the blimp_causative task but lags in arithmetic_2ds and arithmetic_4ds.

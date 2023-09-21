@@ -1,6 +1,6 @@
 #!/bin/sh
 #BSUB -q gpua100
-#BSUB -J fine-tune-llama-lora
+#BSUB -J fine-tune-llama-router
 #BSUB -W 23:00
 #BSUB -B
 #BSUB -N
@@ -29,10 +29,7 @@ export WANDB_PROJECT="herd-llama"
 # turn off watch to log faster
 export WANDB_WATCH="false"
 
-python main.py finetune --peft-strategy=lora --config-file=config/config_alpaca_5_all_layers.ini --all=True
-# python main.py finetune --peft-strategy=molora --config-file=config2.ini --is-base=True
-# python main.py finetune --peft-strategy=ia3
-# python main.py finetune --peft-strategy=molora --config-file=config2.ini --use-base=True --experts-to-train=expert1
-# python main.py finetune --peft-strategy=molora --config-file=config2.ini --only-router=True
+# python main.py finetune --peft-strategy=molora --config-file=config/config_alpaca_5_all_layers.ini --only-router=True
+python main.py finetune --peft-strategy=molora --config-file=config/config_alpaca_5_all_layers.ini --only-router=True --top-k=4
 
-# python main.py finetune2 --expert=code
+# python main.py finetune --peft-strategy=molora --config-file=config/config_alpaca_5.ini --only-router=True

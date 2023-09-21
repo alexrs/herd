@@ -1,9 +1,9 @@
 #!/bin/sh
 #BSUB -q gpua100
-#BSUB -J fine-tune-llama-lora
 #BSUB -W 23:00
 #BSUB -B
 #BSUB -N
+#BSUB -J finetune_llama_alpaca_5
 ### request the number of GPUs
 #BSUB -gpu "num=1::mode=exclusive_process"
 ### request the number of CPU cores (at least 4x the number of GPUs)
@@ -14,6 +14,7 @@
 #BSUB -R "rusage[mem=8GB]"
 #BSUB -o logs/%J.out
 #BSUB -e logs/%J.err
+#BSUB -w "done(18519196)"
 
 module load cuda/11.6
 module load python3/3.11.4
@@ -29,10 +30,4 @@ export WANDB_PROJECT="herd-llama"
 # turn off watch to log faster
 export WANDB_WATCH="false"
 
-python main.py finetune --peft-strategy=lora --config-file=config/config_alpaca_5_all_layers.ini --all=True
-# python main.py finetune --peft-strategy=molora --config-file=config2.ini --is-base=True
-# python main.py finetune --peft-strategy=ia3
-# python main.py finetune --peft-strategy=molora --config-file=config2.ini --use-base=True --experts-to-train=expert1
-# python main.py finetune --peft-strategy=molora --config-file=config2.ini --only-router=True
-
-# python main.py finetune2 --expert=code
+python main.py finetune --peft-strategy=molora --config-file=config/config_alpaca_5_all_layers_no_quant.ini --use-base=True --experts-to-train=expert_4
