@@ -1,0 +1,54 @@
+Loaded module: cuda/11.6
+Loaded dependency [python3/3.11.4]: gcc/12.3.0-binutils-2.40
+Loaded dependency [python3/3.11.4]: sqlite3/3.42.0
+Loaded module: python3/3.11.4
+
+Loading python3/3.11.4
+  Loading requirement: gcc/12.3.0-binutils-2.40 sqlite3/3.42.0
+Found cached dataset parquet (/work3/s212722/herd/datasets/cache/alexrs___parquet/alexrs--alpaca-cleaned-15-clusters-dc700effb75224a8/0.0.0/14a00e99c0d15a23649d0db8944380ac81082d4b021f398733dd84f3a6c569a7)
+Filter:   0%|          | 0/51760 [00:00<?, ? examples/s]Filter:   2%|▏         | 1000/51760 [00:00<00:12, 3932.85 examples/s]Filter:  17%|█▋        | 9000/51760 [00:00<00:01, 28847.87 examples/s]Filter:  33%|███▎      | 17000/51760 [00:00<00:00, 42291.79 examples/s]Filter:  48%|████▊     | 25000/51760 [00:00<00:00, 51545.81 examples/s]Filter:  64%|██████▍   | 33000/51760 [00:00<00:00, 55813.06 examples/s]Filter:  79%|███████▉  | 41000/51760 [00:00<00:00, 58635.00 examples/s]Filter:  93%|█████████▎| 48000/51760 [00:00<00:00, 59814.76 examples/s]                                                                       2023-10-28 17:09:15.898 | INFO     | herd.finetune_utils:get_peft_config:30 - Fine-tuning with MoLoRA using 15 experts
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards:  50%|█████     | 1/2 [00:03<00:03,  3.37s/it]Loading checkpoint shards: 100%|██████████| 2/2 [00:04<00:00,  2.09s/it]Loading checkpoint shards: 100%|██████████| 2/2 [00:04<00:00,  2.29s/it]
+2023-10-28 17:09:22.388 | WARNING  | herd.finetune:_finetune_experts:174 - Number of experts is not 1 but we are training an expert, setting it to 1. num_experts: 1
+/zhome/03/c/164482/code/herd/.venv/lib/python3.11/site-packages/trl/trainer/utils.py:246: UserWarning: The passed formatting_func has more than one argument. Usually that function should have a single argument `example` which corresponds to the dictonnary returned by each element of the dataset. Make sure you know what you are doing.
+  warnings.warn(
+2023-10-28 17:09:56.269 | INFO     | herd.finetune:_finetune_experts:206 - Training expert: expert_3, output_dir: /work3/s212722/herd/meta-llama/Llama-2-7b-hf/alpaca-15/all_linear_paged_adam_no_quant/molora/expert_3
+wandb: Currently logged in as: alexrs95. Use `wandb login --relogin` to force relogin
+wandb: wandb version 0.15.12 is available!  To upgrade, please run:
+wandb:  $ pip install wandb --upgrade
+wandb: Tracking run with wandb version 0.15.10
+wandb: Run data is saved locally in /zhome/03/c/164482/code/herd/wandb/run-20231028_170958-xkbl0d6n
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run molora/expert_3
+wandb: ⭐️ View project at https://wandb.ai/alexrs95/herd-llama
+wandb: 🚀 View run at https://wandb.ai/alexrs95/herd-llama/runs/xkbl0d6n
+  0%|          | 0/772 [00:00<?, ?it/s]You're using a LlamaTokenizerFast tokenizer. Please note that with a fast tokenizer, using the `__call__` method is faster than using a method to encode the text followed by a call to the `pad` method to get a padded encoding.
+`use_cache=True` is incompatible with gradient checkpointing. Setting `use_cache=False`...
+  0%|          | 1/772 [00:12<2:37:17, 12.24s/it]  0%|          | 2/772 [00:23<2:28:33, 11.58s/it]  0%|          | 3/772 [00:34<2:25:47, 11.38s/it]  1%|          | 4/772 [00:45<2:24:31, 11.29s/it]  1%|          | 5/772 [00:56<2:23:49, 11.25s/it]  1%|          | 6/772 [01:08<2:23:25, 11.23s/it]  1%|          | 7/772 [01:19<2:23:10, 11.23s/it]  1%|          | 8/772 [01:30<2:23:00, 11.23s/it]  1%|          | 9/772 [01:41<2:22:53, 11.24s/it]  1%|▏         | 10/772 [01:52<2:22:47, 11.24s/it]                                                    1%|▏         | 10/772 [01:52<2:22:47, 11.24s/it]  1%|▏         | 11/772 [02:04<2:22:42, 11.25s/it]  2%|▏         | 12/772 [02:15<2:22:34, 11.26s/it]  2%|▏         | 13/772 [02:26<2:22:29, 11.26s/it]  2%|▏         | 14/772 [02:38<2:22:22, 11.27s/it]  2%|▏         | 15/772 [02:49<2:22:15, 11.28s/it]  2%|▏         | 16/772 [03:00<2:22:07, 11.28s/it]  2%|▏         | 17/772 [03:11<2:21:59, 11.28s/it]  2%|▏         | 18/772 [03:23<2:21:51, 11.29s/it]  2%|▏         | 19/772 [03:34<2:21:43, 11.29s/it]  3%|▎         | 20/772 [03:45<2:21:33, 11.30s/it]                                                    3%|▎         | 20/772 [03:45<2:21:33, 11.30s/it]  3%|▎         | 21/772 [03:57<2:21:24, 11.30s/it]  3%|▎         | 22/772 [04:08<2:21:14, 11.30s/it]  3%|▎         | 23/772 [04:19<2:21:04, 11.30s/it]  3%|▎         | 24/772 [04:31<2:20:54, 11.30s/it]  3%|▎         | 25/772 [04:42<2:20:45, 11.31s/it]  3%|▎         | 26/772 [04:53<2:20:34, 11.31s/it]  3%|▎         | 27/772 [05:05<2:20:24, 11.31s/it]  4%|▎         | 28/772 [05:16<2:20:15, 11.31s/it]  4%|▍         | 29/772 [05:27<2:20:05, 11.31s/it]  4%|▍         | 30/772 [05:38<2:19:54, 11.31s/it]                                                    4%|▍         | 30/772 [05:38<2:19:54, 11.31s/it]  4%|▍         | 31/772 [05:50<2:19:42, 11.31s/it]  4%|▍         | 32/772 [06:01<2:19:31, 11.31s/it]  4%|▍         | 33/772 [06:12<2:19:24, 11.32s/it]  4%|▍         | 34/772 [06:21<2:10:29, 10.61s/it]  5%|▍         | 35/772 [06:33<2:12:58, 10.83s/it]  5%|▍         | 36/772 [06:44<2:14:36, 10.97s/it]  5%|▍         | 37/772 [06:55<2:15:43, 11.08s/it]  5%|▍         | 38/772 [07:07<2:16:25, 11.15s/it]  5%|▌         | 39/772 [07:18<2:16:50, 11.20s/it]  5%|▌         | 40/772 [07:29<2:17:05, 11.24s/it]                                                    5%|▌         | 40/772 [07:29<2:17:05, 11.24s/it]  5%|▌         | 41/772 [07:41<2:17:10, 11.26s/it]  5%|▌         | 42/772 [07:52<2:17:12, 11.28s/it]  6%|▌         | 43/772 [08:03<2:17:09, 11.29s/it]  6%|▌         | 44/772 [08:15<2:17:03, 11.30s/it]  6%|▌         | 45/772 [08:26<2:16:56, 11.30s/it]  6%|▌         | 46/772 [08:37<2:16:47, 11.30s/it]  6%|▌         | 47/772 [08:49<2:16:36, 11.31s/it]  6%|▌         | 48/772 [09:00<2:16:26, 11.31s/it]  6%|▋         | 49/772 [09:11<2:16:16, 11.31s/it]  6%|▋         | 50/772 [09:22<2:16:05, 11.31s/it]                                                    6%|▋         | 50/772 [09:22<2:16:05, 11.31s/it]  7%|▋         | 51/772 [09:34<2:15:54, 11.31s/it]  7%|▋         | 52/772 [09:45<2:15:43, 11.31s/it]  7%|▋         | 53/772 [09:56<2:15:31, 11.31s/it]  7%|▋         | 54/772 [10:08<2:15:20, 11.31s/it]  7%|▋         | 55/772 [10:19<2:15:09, 11.31s/it]  7%|▋         | 56/772 [10:30<2:14:57, 11.31s/it]  7%|▋         | 57/772 [10:42<2:14:47, 11.31s/it]  8%|▊         | 58/772 [10:53<2:14:35, 11.31s/it]  8%|▊         | 59/772 [11:04<2:14:24, 11.31s/it]  8%|▊         | 60/772 [11:16<2:14:12, 11.31s/it]                                                    8%|▊         | 60/772 [11:16<2:14:12, 11.31s/it]  8%|▊         | 61/772 [11:27<2:14:01, 11.31s/it]  8%|▊         | 62/772 [11:38<2:13:50, 11.31s/it]  8%|▊         | 63/772 [11:49<2:13:38, 11.31s/it]  8%|▊         | 64/772 [12:01<2:13:26, 11.31s/it]  8%|▊         | 65/772 [12:12<2:13:15, 11.31s/it]  9%|▊         | 66/772 [12:23<2:13:03, 11.31s/it]  9%|▊         | 67/772 [12:31<1:58:54, 10.12s/it]                                                    9%|▊         | 67/772 [12:32<1:58:54, 10.12s/it]  9%|▊         | 67/772 [12:32<2:11:56, 11.23s/it]
+wandb: Waiting for W&B process to finish... (success).
+wandb: 
+wandb: Run history:
+wandb:                    train/epoch ▁▁▁████
+wandb:              train/global_step ▁▂▃▅▆▇█
+wandb:            train/learning_rate ▁▁▁▁▁▁
+wandb:                     train/loss ██▇▄▁▁
+wandb:               train/total_flos ▁
+wandb:               train/train_loss ▁
+wandb:            train/train_runtime ▁
+wandb: train/train_samples_per_second ▁
+wandb:   train/train_steps_per_second ▁
+wandb: 
+wandb: Run summary:
+wandb:                    train/epoch 1.09
+wandb:              train/global_step 67
+wandb:            train/learning_rate 0.0003
+wandb:                     train/loss 0.4544
+wandb:               train/total_flos 4.329902319992832e+16
+wandb:               train/train_loss 0.63356
+wandb:            train/train_runtime 754.74
+wandb: train/train_samples_per_second 8.188
+wandb:   train/train_steps_per_second 1.023
+wandb: 
+wandb: 🚀 View run molora/expert_3 at: https://wandb.ai/alexrs95/herd-llama/runs/xkbl0d6n
+wandb: ️⚡ View job at https://wandb.ai/alexrs95/herd-llama/jobs/QXJ0aWZhY3RDb2xsZWN0aW9uOjk5NjEyNzE2/version_details/v13
+wandb: Synced 5 W&B file(s), 0 media file(s), 0 artifact file(s) and 0 other file(s)
+wandb: Find logs at: ./wandb/run-20231028_170958-xkbl0d6n/logs

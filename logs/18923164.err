@@ -1,0 +1,54 @@
+Loaded module: cuda/11.6
+Loaded dependency [python3/3.11.4]: gcc/12.3.0-binutils-2.40
+Loaded dependency [python3/3.11.4]: sqlite3/3.42.0
+Loaded module: python3/3.11.4
+
+Loading python3/3.11.4
+  Loading requirement: gcc/12.3.0-binutils-2.40 sqlite3/3.42.0
+Found cached dataset parquet (/work3/s212722/herd/datasets/cache/alexrs___parquet/alexrs--alpaca-cleaned-15-clusters-dc700effb75224a8/0.0.0/14a00e99c0d15a23649d0db8944380ac81082d4b021f398733dd84f3a6c569a7)
+Filter:   0%|          | 0/51760 [00:00<?, ? examples/s]Filter:   2%|▏         | 1000/51760 [00:00<00:13, 3878.35 examples/s]Filter:  17%|█▋        | 9000/51760 [00:00<00:01, 28574.20 examples/s]Filter:  33%|███▎      | 17000/51760 [00:00<00:00, 42719.90 examples/s]Filter:  48%|████▊     | 25000/51760 [00:00<00:00, 51944.77 examples/s]Filter:  64%|██████▍   | 33000/51760 [00:00<00:00, 57467.93 examples/s]Filter:  79%|███████▉  | 41000/51760 [00:00<00:00, 61854.30 examples/s]Filter:  93%|█████████▎| 48000/51760 [00:00<00:00, 62225.50 examples/s]                                                                       2023-10-28 18:17:30.212 | INFO     | herd.finetune_utils:get_peft_config:30 - Fine-tuning with MoLoRA using 15 experts
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards:  50%|█████     | 1/2 [00:03<00:03,  3.31s/it]Loading checkpoint shards: 100%|██████████| 2/2 [00:04<00:00,  2.07s/it]Loading checkpoint shards: 100%|██████████| 2/2 [00:04<00:00,  2.26s/it]
+2023-10-28 18:17:36.493 | WARNING  | herd.finetune:_finetune_experts:174 - Number of experts is not 1 but we are training an expert, setting it to 1. num_experts: 1
+/zhome/03/c/164482/code/herd/.venv/lib/python3.11/site-packages/trl/trainer/utils.py:246: UserWarning: The passed formatting_func has more than one argument. Usually that function should have a single argument `example` which corresponds to the dictonnary returned by each element of the dataset. Make sure you know what you are doing.
+  warnings.warn(
+2023-10-28 18:18:10.363 | INFO     | herd.finetune:_finetune_experts:206 - Training expert: expert_10, output_dir: /work3/s212722/herd/meta-llama/Llama-2-7b-hf/alpaca-15/all_linear_paged_adam_no_quant/molora/expert_10
+wandb: Currently logged in as: alexrs95. Use `wandb login --relogin` to force relogin
+wandb: wandb version 0.15.12 is available!  To upgrade, please run:
+wandb:  $ pip install wandb --upgrade
+wandb: Tracking run with wandb version 0.15.10
+wandb: Run data is saved locally in /zhome/03/c/164482/code/herd/wandb/run-20231028_181812-7e09k0ly
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run molora/expert_10
+wandb: ⭐️ View project at https://wandb.ai/alexrs95/herd-llama
+wandb: 🚀 View run at https://wandb.ai/alexrs95/herd-llama/runs/7e09k0ly
+  0%|          | 0/394 [00:00<?, ?it/s]You're using a LlamaTokenizerFast tokenizer. Please note that with a fast tokenizer, using the `__call__` method is faster than using a method to encode the text followed by a call to the `pad` method to get a padded encoding.
+`use_cache=True` is incompatible with gradient checkpointing. Setting `use_cache=False`...
+  0%|          | 1/394 [00:11<1:17:58, 11.90s/it]  1%|          | 2/394 [00:23<1:14:42, 11.43s/it]  1%|          | 3/394 [00:34<1:13:35, 11.29s/it]  1%|          | 4/394 [00:45<1:13:03, 11.24s/it]  1%|▏         | 5/394 [00:56<1:12:42, 11.22s/it]  2%|▏         | 6/394 [01:07<1:12:28, 11.21s/it]  2%|▏         | 7/394 [01:18<1:12:17, 11.21s/it]  2%|▏         | 8/394 [01:30<1:12:08, 11.21s/it]  2%|▏         | 9/394 [01:41<1:12:00, 11.22s/it]  3%|▎         | 10/394 [01:53<1:14:34, 11.65s/it]                                                    3%|▎         | 10/394 [01:53<1:14:34, 11.65s/it]  3%|▎         | 11/394 [02:05<1:13:37, 11.53s/it]  3%|▎         | 12/394 [02:16<1:12:54, 11.45s/it]  3%|▎         | 13/394 [02:27<1:12:22, 11.40s/it]  4%|▎         | 14/394 [02:39<1:11:58, 11.37s/it]  4%|▍         | 15/394 [02:50<1:11:39, 11.34s/it]  4%|▍         | 16/394 [03:01<1:11:22, 11.33s/it]  4%|▍         | 17/394 [03:12<1:11:08, 11.32s/it]  5%|▍         | 18/394 [03:24<1:10:55, 11.32s/it]  5%|▍         | 19/394 [03:35<1:10:42, 11.31s/it]                                                    5%|▍         | 19/394 [03:36<1:10:42, 11.31s/it]  5%|▍         | 19/394 [03:36<1:11:16, 11.40s/it]
+wandb: Waiting for W&B process to finish... (success).
+wandb: 
+wandb: Run history:
+wandb:                    train/epoch ▁█
+wandb:              train/global_step ▁█
+wandb:            train/learning_rate ▁
+wandb:                     train/loss ▁
+wandb:               train/total_flos ▁
+wandb:               train/train_loss ▁
+wandb:            train/train_runtime ▁
+wandb: train/train_samples_per_second ▁
+wandb:   train/train_steps_per_second ▁
+wandb: 
+wandb: Run summary:
+wandb:                    train/epoch 1.05
+wandb:              train/global_step 19
+wandb:            train/learning_rate 0.0003
+wandb:                     train/loss 0.7452
+wandb:               train/total_flos 1.2417833068658688e+16
+wandb:               train/train_loss 0.61849
+wandb:            train/train_runtime 219.051
+wandb: train/train_samples_per_second 14.398
+wandb:   train/train_steps_per_second 1.799
+wandb: 
+wandb: 🚀 View run molora/expert_10 at: https://wandb.ai/alexrs95/herd-llama/runs/7e09k0ly
+wandb: ️⚡ View job at https://wandb.ai/alexrs95/herd-llama/jobs/QXJ0aWZhY3RDb2xsZWN0aW9uOjk5NjEyNzE2/version_details/v13
+wandb: Synced 5 W&B file(s), 0 media file(s), 0 artifact file(s) and 0 other file(s)
+wandb: Find logs at: ./wandb/run-20231028_181812-7e09k0ly/logs

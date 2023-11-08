@@ -1,0 +1,1618 @@
+MoloraConfig(peft_type=<PeftType.MOLORA: 'MOLORA'>, auto_mapping=None, base_model_name_or_path=None, revision=None, task_type='CAUSAL_LM', inference_mode=False, r=16, target_modules=['q_proj', 'up_proj', 'o_proj', 'k_proj', 'down_proj', 'gate_proj', 'v_proj'], lora_alpha=32, lora_dropout=0.1, fan_in_fan_out=False, bias='none', modules_to_save=None, init_lora_weights=True, layers_to_transform=None, layers_pattern=None, rank_pattern={}, alpha_pattern={}, num_experts=10, only_router=True, train_single_expert=False, experts_to_combine=['expert_0', 'expert_1', 'expert_2', 'expert_3', 'expert_4', 'expert_5', 'expert_6', 'expert_7', 'expert_8', 'expert_9'], top_k=0, top_p=0.0, self_attn_router=True)
+PeftModelForCausalLM(
+  (base_model): MoloraModel(
+    (model): LlamaForCausalLM(
+      (model): LlamaModel(
+        (embed_tokens): Embedding(32000, 4096)
+        (layers): ModuleList(
+          (0-31): 32 x LlamaDecoderLayer(
+            (self_attn): LlamaAttention(
+              (q_proj): Linear4bit(
+                in_features=4096, out_features=4096, bias=False
+                (lora_dropout): ModuleDict(
+                  (default): Dropout(p=0.1, inplace=False)
+                )
+                (lora_A): ParameterDict(  (default): Parameter containing: [torch.cuda.FloatTensor of size 10x4096x16 (GPU 0)])
+                (lora_B): ParameterDict(  (default): Parameter containing: [torch.cuda.FloatTensor of size 10x16x4096 (GPU 0)])
+                (lora_router): ModuleDict(
+                  (default): SelfAttentionRouter(
+                    (query): Linear(in_features=4096, out_features=8, bias=True)
+                    (key): Linear(in_features=4096, out_features=8, bias=True)
+                    (value): Linear(in_features=4096, out_features=10, bias=True)
+                  )
+                )
+              )
+              (k_proj): Linear4bit(
+                in_features=4096, out_features=4096, bias=False
+                (lora_dropout): ModuleDict(
+                  (default): Dropout(p=0.1, inplace=False)
+                )
+                (lora_A): ParameterDict(  (default): Parameter containing: [torch.cuda.FloatTensor of size 10x4096x16 (GPU 0)])
+                (lora_B): ParameterDict(  (default): Parameter containing: [torch.cuda.FloatTensor of size 10x16x4096 (GPU 0)])
+                (lora_router): ModuleDict(
+                  (default): SelfAttentionRouter(
+                    (query): Linear(in_features=4096, out_features=8, bias=True)
+                    (key): Linear(in_features=4096, out_features=8, bias=True)
+                    (value): Linear(in_features=4096, out_features=10, bias=True)
+                  )
+                )
+              )
+              (v_proj): Linear4bit(
+                in_features=4096, out_features=4096, bias=False
+                (lora_dropout): ModuleDict(
+                  (default): Dropout(p=0.1, inplace=False)
+                )
+                (lora_A): ParameterDict(  (default): Parameter containing: [torch.cuda.FloatTensor of size 10x4096x16 (GPU 0)])
+                (lora_B): ParameterDict(  (default): Parameter containing: [torch.cuda.FloatTensor of size 10x16x4096 (GPU 0)])
+                (lora_router): ModuleDict(
+                  (default): SelfAttentionRouter(
+                    (query): Linear(in_features=4096, out_features=8, bias=True)
+                    (key): Linear(in_features=4096, out_features=8, bias=True)
+                    (value): Linear(in_features=4096, out_features=10, bias=True)
+                  )
+                )
+              )
+              (o_proj): Linear4bit(
+                in_features=4096, out_features=4096, bias=False
+                (lora_dropout): ModuleDict(
+                  (default): Dropout(p=0.1, inplace=False)
+                )
+                (lora_A): ParameterDict(  (default): Parameter containing: [torch.cuda.FloatTensor of size 10x4096x16 (GPU 0)])
+                (lora_B): ParameterDict(  (default): Parameter containing: [torch.cuda.FloatTensor of size 10x16x4096 (GPU 0)])
+                (lora_router): ModuleDict(
+                  (default): SelfAttentionRouter(
+                    (query): Linear(in_features=4096, out_features=8, bias=True)
+                    (key): Linear(in_features=4096, out_features=8, bias=True)
+                    (value): Linear(in_features=4096, out_features=10, bias=True)
+                  )
+                )
+              )
+              (rotary_emb): LlamaRotaryEmbedding()
+            )
+            (mlp): LlamaMLP(
+              (gate_proj): Linear4bit(
+                in_features=4096, out_features=11008, bias=False
+                (lora_dropout): ModuleDict(
+                  (default): Dropout(p=0.1, inplace=False)
+                )
+                (lora_A): ParameterDict(  (default): Parameter containing: [torch.cuda.FloatTensor of size 10x4096x16 (GPU 0)])
+                (lora_B): ParameterDict(  (default): Parameter containing: [torch.cuda.FloatTensor of size 10x16x11008 (GPU 0)])
+                (lora_router): ModuleDict(
+                  (default): SelfAttentionRouter(
+                    (query): Linear(in_features=4096, out_features=8, bias=True)
+                    (key): Linear(in_features=11008, out_features=8, bias=True)
+                    (value): Linear(in_features=11008, out_features=10, bias=True)
+                  )
+                )
+              )
+              (up_proj): Linear4bit(
+                in_features=4096, out_features=11008, bias=False
+                (lora_dropout): ModuleDict(
+                  (default): Dropout(p=0.1, inplace=False)
+                )
+                (lora_A): ParameterDict(  (default): Parameter containing: [torch.cuda.FloatTensor of size 10x4096x16 (GPU 0)])
+                (lora_B): ParameterDict(  (default): Parameter containing: [torch.cuda.FloatTensor of size 10x16x11008 (GPU 0)])
+                (lora_router): ModuleDict(
+                  (default): SelfAttentionRouter(
+                    (query): Linear(in_features=4096, out_features=8, bias=True)
+                    (key): Linear(in_features=11008, out_features=8, bias=True)
+                    (value): Linear(in_features=11008, out_features=10, bias=True)
+                  )
+                )
+              )
+              (down_proj): Linear4bit(
+                in_features=11008, out_features=4096, bias=False
+                (lora_dropout): ModuleDict(
+                  (default): Dropout(p=0.1, inplace=False)
+                )
+                (lora_A): ParameterDict(  (default): Parameter containing: [torch.cuda.FloatTensor of size 10x11008x16 (GPU 0)])
+                (lora_B): ParameterDict(  (default): Parameter containing: [torch.cuda.FloatTensor of size 10x16x4096 (GPU 0)])
+                (lora_router): ModuleDict(
+                  (default): SelfAttentionRouter(
+                    (query): Linear(in_features=11008, out_features=8, bias=True)
+                    (key): Linear(in_features=4096, out_features=8, bias=True)
+                    (value): Linear(in_features=4096, out_features=10, bias=True)
+                  )
+                )
+              )
+              (act_fn): SiLUActivation()
+            )
+            (input_layernorm): LlamaRMSNorm()
+            (post_attention_layernorm): LlamaRMSNorm()
+          )
+        )
+        (norm): LlamaRMSNorm()
+      )
+      (lm_head): Linear(in_features=4096, out_features=32000, bias=False)
+    )
+  )
+)
+trainable params: 33,593,024 || all params: 7,171,778,240 || trainable%: 0.4684057827197959
+base_model.model.model.layers.0.self_attn.q_proj.lora_router.default.query.weight
+base_model.model.model.layers.0.self_attn.q_proj.lora_router.default.query.bias
+base_model.model.model.layers.0.self_attn.q_proj.lora_router.default.key.weight
+base_model.model.model.layers.0.self_attn.q_proj.lora_router.default.key.bias
+base_model.model.model.layers.0.self_attn.q_proj.lora_router.default.value.weight
+base_model.model.model.layers.0.self_attn.q_proj.lora_router.default.value.bias
+base_model.model.model.layers.0.self_attn.k_proj.lora_router.default.query.weight
+base_model.model.model.layers.0.self_attn.k_proj.lora_router.default.query.bias
+base_model.model.model.layers.0.self_attn.k_proj.lora_router.default.key.weight
+base_model.model.model.layers.0.self_attn.k_proj.lora_router.default.key.bias
+base_model.model.model.layers.0.self_attn.k_proj.lora_router.default.value.weight
+base_model.model.model.layers.0.self_attn.k_proj.lora_router.default.value.bias
+base_model.model.model.layers.0.self_attn.v_proj.lora_router.default.query.weight
+base_model.model.model.layers.0.self_attn.v_proj.lora_router.default.query.bias
+base_model.model.model.layers.0.self_attn.v_proj.lora_router.default.key.weight
+base_model.model.model.layers.0.self_attn.v_proj.lora_router.default.key.bias
+base_model.model.model.layers.0.self_attn.v_proj.lora_router.default.value.weight
+base_model.model.model.layers.0.self_attn.v_proj.lora_router.default.value.bias
+base_model.model.model.layers.0.self_attn.o_proj.lora_router.default.query.weight
+base_model.model.model.layers.0.self_attn.o_proj.lora_router.default.query.bias
+base_model.model.model.layers.0.self_attn.o_proj.lora_router.default.key.weight
+base_model.model.model.layers.0.self_attn.o_proj.lora_router.default.key.bias
+base_model.model.model.layers.0.self_attn.o_proj.lora_router.default.value.weight
+base_model.model.model.layers.0.self_attn.o_proj.lora_router.default.value.bias
+base_model.model.model.layers.0.mlp.gate_proj.lora_router.default.query.weight
+base_model.model.model.layers.0.mlp.gate_proj.lora_router.default.query.bias
+base_model.model.model.layers.0.mlp.gate_proj.lora_router.default.key.weight
+base_model.model.model.layers.0.mlp.gate_proj.lora_router.default.key.bias
+base_model.model.model.layers.0.mlp.gate_proj.lora_router.default.value.weight
+base_model.model.model.layers.0.mlp.gate_proj.lora_router.default.value.bias
+base_model.model.model.layers.0.mlp.up_proj.lora_router.default.query.weight
+base_model.model.model.layers.0.mlp.up_proj.lora_router.default.query.bias
+base_model.model.model.layers.0.mlp.up_proj.lora_router.default.key.weight
+base_model.model.model.layers.0.mlp.up_proj.lora_router.default.key.bias
+base_model.model.model.layers.0.mlp.up_proj.lora_router.default.value.weight
+base_model.model.model.layers.0.mlp.up_proj.lora_router.default.value.bias
+base_model.model.model.layers.0.mlp.down_proj.lora_router.default.query.weight
+base_model.model.model.layers.0.mlp.down_proj.lora_router.default.query.bias
+base_model.model.model.layers.0.mlp.down_proj.lora_router.default.key.weight
+base_model.model.model.layers.0.mlp.down_proj.lora_router.default.key.bias
+base_model.model.model.layers.0.mlp.down_proj.lora_router.default.value.weight
+base_model.model.model.layers.0.mlp.down_proj.lora_router.default.value.bias
+base_model.model.model.layers.1.self_attn.q_proj.lora_router.default.query.weight
+base_model.model.model.layers.1.self_attn.q_proj.lora_router.default.query.bias
+base_model.model.model.layers.1.self_attn.q_proj.lora_router.default.key.weight
+base_model.model.model.layers.1.self_attn.q_proj.lora_router.default.key.bias
+base_model.model.model.layers.1.self_attn.q_proj.lora_router.default.value.weight
+base_model.model.model.layers.1.self_attn.q_proj.lora_router.default.value.bias
+base_model.model.model.layers.1.self_attn.k_proj.lora_router.default.query.weight
+base_model.model.model.layers.1.self_attn.k_proj.lora_router.default.query.bias
+base_model.model.model.layers.1.self_attn.k_proj.lora_router.default.key.weight
+base_model.model.model.layers.1.self_attn.k_proj.lora_router.default.key.bias
+base_model.model.model.layers.1.self_attn.k_proj.lora_router.default.value.weight
+base_model.model.model.layers.1.self_attn.k_proj.lora_router.default.value.bias
+base_model.model.model.layers.1.self_attn.v_proj.lora_router.default.query.weight
+base_model.model.model.layers.1.self_attn.v_proj.lora_router.default.query.bias
+base_model.model.model.layers.1.self_attn.v_proj.lora_router.default.key.weight
+base_model.model.model.layers.1.self_attn.v_proj.lora_router.default.key.bias
+base_model.model.model.layers.1.self_attn.v_proj.lora_router.default.value.weight
+base_model.model.model.layers.1.self_attn.v_proj.lora_router.default.value.bias
+base_model.model.model.layers.1.self_attn.o_proj.lora_router.default.query.weight
+base_model.model.model.layers.1.self_attn.o_proj.lora_router.default.query.bias
+base_model.model.model.layers.1.self_attn.o_proj.lora_router.default.key.weight
+base_model.model.model.layers.1.self_attn.o_proj.lora_router.default.key.bias
+base_model.model.model.layers.1.self_attn.o_proj.lora_router.default.value.weight
+base_model.model.model.layers.1.self_attn.o_proj.lora_router.default.value.bias
+base_model.model.model.layers.1.mlp.gate_proj.lora_router.default.query.weight
+base_model.model.model.layers.1.mlp.gate_proj.lora_router.default.query.bias
+base_model.model.model.layers.1.mlp.gate_proj.lora_router.default.key.weight
+base_model.model.model.layers.1.mlp.gate_proj.lora_router.default.key.bias
+base_model.model.model.layers.1.mlp.gate_proj.lora_router.default.value.weight
+base_model.model.model.layers.1.mlp.gate_proj.lora_router.default.value.bias
+base_model.model.model.layers.1.mlp.up_proj.lora_router.default.query.weight
+base_model.model.model.layers.1.mlp.up_proj.lora_router.default.query.bias
+base_model.model.model.layers.1.mlp.up_proj.lora_router.default.key.weight
+base_model.model.model.layers.1.mlp.up_proj.lora_router.default.key.bias
+base_model.model.model.layers.1.mlp.up_proj.lora_router.default.value.weight
+base_model.model.model.layers.1.mlp.up_proj.lora_router.default.value.bias
+base_model.model.model.layers.1.mlp.down_proj.lora_router.default.query.weight
+base_model.model.model.layers.1.mlp.down_proj.lora_router.default.query.bias
+base_model.model.model.layers.1.mlp.down_proj.lora_router.default.key.weight
+base_model.model.model.layers.1.mlp.down_proj.lora_router.default.key.bias
+base_model.model.model.layers.1.mlp.down_proj.lora_router.default.value.weight
+base_model.model.model.layers.1.mlp.down_proj.lora_router.default.value.bias
+base_model.model.model.layers.2.self_attn.q_proj.lora_router.default.query.weight
+base_model.model.model.layers.2.self_attn.q_proj.lora_router.default.query.bias
+base_model.model.model.layers.2.self_attn.q_proj.lora_router.default.key.weight
+base_model.model.model.layers.2.self_attn.q_proj.lora_router.default.key.bias
+base_model.model.model.layers.2.self_attn.q_proj.lora_router.default.value.weight
+base_model.model.model.layers.2.self_attn.q_proj.lora_router.default.value.bias
+base_model.model.model.layers.2.self_attn.k_proj.lora_router.default.query.weight
+base_model.model.model.layers.2.self_attn.k_proj.lora_router.default.query.bias
+base_model.model.model.layers.2.self_attn.k_proj.lora_router.default.key.weight
+base_model.model.model.layers.2.self_attn.k_proj.lora_router.default.key.bias
+base_model.model.model.layers.2.self_attn.k_proj.lora_router.default.value.weight
+base_model.model.model.layers.2.self_attn.k_proj.lora_router.default.value.bias
+base_model.model.model.layers.2.self_attn.v_proj.lora_router.default.query.weight
+base_model.model.model.layers.2.self_attn.v_proj.lora_router.default.query.bias
+base_model.model.model.layers.2.self_attn.v_proj.lora_router.default.key.weight
+base_model.model.model.layers.2.self_attn.v_proj.lora_router.default.key.bias
+base_model.model.model.layers.2.self_attn.v_proj.lora_router.default.value.weight
+base_model.model.model.layers.2.self_attn.v_proj.lora_router.default.value.bias
+base_model.model.model.layers.2.self_attn.o_proj.lora_router.default.query.weight
+base_model.model.model.layers.2.self_attn.o_proj.lora_router.default.query.bias
+base_model.model.model.layers.2.self_attn.o_proj.lora_router.default.key.weight
+base_model.model.model.layers.2.self_attn.o_proj.lora_router.default.key.bias
+base_model.model.model.layers.2.self_attn.o_proj.lora_router.default.value.weight
+base_model.model.model.layers.2.self_attn.o_proj.lora_router.default.value.bias
+base_model.model.model.layers.2.mlp.gate_proj.lora_router.default.query.weight
+base_model.model.model.layers.2.mlp.gate_proj.lora_router.default.query.bias
+base_model.model.model.layers.2.mlp.gate_proj.lora_router.default.key.weight
+base_model.model.model.layers.2.mlp.gate_proj.lora_router.default.key.bias
+base_model.model.model.layers.2.mlp.gate_proj.lora_router.default.value.weight
+base_model.model.model.layers.2.mlp.gate_proj.lora_router.default.value.bias
+base_model.model.model.layers.2.mlp.up_proj.lora_router.default.query.weight
+base_model.model.model.layers.2.mlp.up_proj.lora_router.default.query.bias
+base_model.model.model.layers.2.mlp.up_proj.lora_router.default.key.weight
+base_model.model.model.layers.2.mlp.up_proj.lora_router.default.key.bias
+base_model.model.model.layers.2.mlp.up_proj.lora_router.default.value.weight
+base_model.model.model.layers.2.mlp.up_proj.lora_router.default.value.bias
+base_model.model.model.layers.2.mlp.down_proj.lora_router.default.query.weight
+base_model.model.model.layers.2.mlp.down_proj.lora_router.default.query.bias
+base_model.model.model.layers.2.mlp.down_proj.lora_router.default.key.weight
+base_model.model.model.layers.2.mlp.down_proj.lora_router.default.key.bias
+base_model.model.model.layers.2.mlp.down_proj.lora_router.default.value.weight
+base_model.model.model.layers.2.mlp.down_proj.lora_router.default.value.bias
+base_model.model.model.layers.3.self_attn.q_proj.lora_router.default.query.weight
+base_model.model.model.layers.3.self_attn.q_proj.lora_router.default.query.bias
+base_model.model.model.layers.3.self_attn.q_proj.lora_router.default.key.weight
+base_model.model.model.layers.3.self_attn.q_proj.lora_router.default.key.bias
+base_model.model.model.layers.3.self_attn.q_proj.lora_router.default.value.weight
+base_model.model.model.layers.3.self_attn.q_proj.lora_router.default.value.bias
+base_model.model.model.layers.3.self_attn.k_proj.lora_router.default.query.weight
+base_model.model.model.layers.3.self_attn.k_proj.lora_router.default.query.bias
+base_model.model.model.layers.3.self_attn.k_proj.lora_router.default.key.weight
+base_model.model.model.layers.3.self_attn.k_proj.lora_router.default.key.bias
+base_model.model.model.layers.3.self_attn.k_proj.lora_router.default.value.weight
+base_model.model.model.layers.3.self_attn.k_proj.lora_router.default.value.bias
+base_model.model.model.layers.3.self_attn.v_proj.lora_router.default.query.weight
+base_model.model.model.layers.3.self_attn.v_proj.lora_router.default.query.bias
+base_model.model.model.layers.3.self_attn.v_proj.lora_router.default.key.weight
+base_model.model.model.layers.3.self_attn.v_proj.lora_router.default.key.bias
+base_model.model.model.layers.3.self_attn.v_proj.lora_router.default.value.weight
+base_model.model.model.layers.3.self_attn.v_proj.lora_router.default.value.bias
+base_model.model.model.layers.3.self_attn.o_proj.lora_router.default.query.weight
+base_model.model.model.layers.3.self_attn.o_proj.lora_router.default.query.bias
+base_model.model.model.layers.3.self_attn.o_proj.lora_router.default.key.weight
+base_model.model.model.layers.3.self_attn.o_proj.lora_router.default.key.bias
+base_model.model.model.layers.3.self_attn.o_proj.lora_router.default.value.weight
+base_model.model.model.layers.3.self_attn.o_proj.lora_router.default.value.bias
+base_model.model.model.layers.3.mlp.gate_proj.lora_router.default.query.weight
+base_model.model.model.layers.3.mlp.gate_proj.lora_router.default.query.bias
+base_model.model.model.layers.3.mlp.gate_proj.lora_router.default.key.weight
+base_model.model.model.layers.3.mlp.gate_proj.lora_router.default.key.bias
+base_model.model.model.layers.3.mlp.gate_proj.lora_router.default.value.weight
+base_model.model.model.layers.3.mlp.gate_proj.lora_router.default.value.bias
+base_model.model.model.layers.3.mlp.up_proj.lora_router.default.query.weight
+base_model.model.model.layers.3.mlp.up_proj.lora_router.default.query.bias
+base_model.model.model.layers.3.mlp.up_proj.lora_router.default.key.weight
+base_model.model.model.layers.3.mlp.up_proj.lora_router.default.key.bias
+base_model.model.model.layers.3.mlp.up_proj.lora_router.default.value.weight
+base_model.model.model.layers.3.mlp.up_proj.lora_router.default.value.bias
+base_model.model.model.layers.3.mlp.down_proj.lora_router.default.query.weight
+base_model.model.model.layers.3.mlp.down_proj.lora_router.default.query.bias
+base_model.model.model.layers.3.mlp.down_proj.lora_router.default.key.weight
+base_model.model.model.layers.3.mlp.down_proj.lora_router.default.key.bias
+base_model.model.model.layers.3.mlp.down_proj.lora_router.default.value.weight
+base_model.model.model.layers.3.mlp.down_proj.lora_router.default.value.bias
+base_model.model.model.layers.4.self_attn.q_proj.lora_router.default.query.weight
+base_model.model.model.layers.4.self_attn.q_proj.lora_router.default.query.bias
+base_model.model.model.layers.4.self_attn.q_proj.lora_router.default.key.weight
+base_model.model.model.layers.4.self_attn.q_proj.lora_router.default.key.bias
+base_model.model.model.layers.4.self_attn.q_proj.lora_router.default.value.weight
+base_model.model.model.layers.4.self_attn.q_proj.lora_router.default.value.bias
+base_model.model.model.layers.4.self_attn.k_proj.lora_router.default.query.weight
+base_model.model.model.layers.4.self_attn.k_proj.lora_router.default.query.bias
+base_model.model.model.layers.4.self_attn.k_proj.lora_router.default.key.weight
+base_model.model.model.layers.4.self_attn.k_proj.lora_router.default.key.bias
+base_model.model.model.layers.4.self_attn.k_proj.lora_router.default.value.weight
+base_model.model.model.layers.4.self_attn.k_proj.lora_router.default.value.bias
+base_model.model.model.layers.4.self_attn.v_proj.lora_router.default.query.weight
+base_model.model.model.layers.4.self_attn.v_proj.lora_router.default.query.bias
+base_model.model.model.layers.4.self_attn.v_proj.lora_router.default.key.weight
+base_model.model.model.layers.4.self_attn.v_proj.lora_router.default.key.bias
+base_model.model.model.layers.4.self_attn.v_proj.lora_router.default.value.weight
+base_model.model.model.layers.4.self_attn.v_proj.lora_router.default.value.bias
+base_model.model.model.layers.4.self_attn.o_proj.lora_router.default.query.weight
+base_model.model.model.layers.4.self_attn.o_proj.lora_router.default.query.bias
+base_model.model.model.layers.4.self_attn.o_proj.lora_router.default.key.weight
+base_model.model.model.layers.4.self_attn.o_proj.lora_router.default.key.bias
+base_model.model.model.layers.4.self_attn.o_proj.lora_router.default.value.weight
+base_model.model.model.layers.4.self_attn.o_proj.lora_router.default.value.bias
+base_model.model.model.layers.4.mlp.gate_proj.lora_router.default.query.weight
+base_model.model.model.layers.4.mlp.gate_proj.lora_router.default.query.bias
+base_model.model.model.layers.4.mlp.gate_proj.lora_router.default.key.weight
+base_model.model.model.layers.4.mlp.gate_proj.lora_router.default.key.bias
+base_model.model.model.layers.4.mlp.gate_proj.lora_router.default.value.weight
+base_model.model.model.layers.4.mlp.gate_proj.lora_router.default.value.bias
+base_model.model.model.layers.4.mlp.up_proj.lora_router.default.query.weight
+base_model.model.model.layers.4.mlp.up_proj.lora_router.default.query.bias
+base_model.model.model.layers.4.mlp.up_proj.lora_router.default.key.weight
+base_model.model.model.layers.4.mlp.up_proj.lora_router.default.key.bias
+base_model.model.model.layers.4.mlp.up_proj.lora_router.default.value.weight
+base_model.model.model.layers.4.mlp.up_proj.lora_router.default.value.bias
+base_model.model.model.layers.4.mlp.down_proj.lora_router.default.query.weight
+base_model.model.model.layers.4.mlp.down_proj.lora_router.default.query.bias
+base_model.model.model.layers.4.mlp.down_proj.lora_router.default.key.weight
+base_model.model.model.layers.4.mlp.down_proj.lora_router.default.key.bias
+base_model.model.model.layers.4.mlp.down_proj.lora_router.default.value.weight
+base_model.model.model.layers.4.mlp.down_proj.lora_router.default.value.bias
+base_model.model.model.layers.5.self_attn.q_proj.lora_router.default.query.weight
+base_model.model.model.layers.5.self_attn.q_proj.lora_router.default.query.bias
+base_model.model.model.layers.5.self_attn.q_proj.lora_router.default.key.weight
+base_model.model.model.layers.5.self_attn.q_proj.lora_router.default.key.bias
+base_model.model.model.layers.5.self_attn.q_proj.lora_router.default.value.weight
+base_model.model.model.layers.5.self_attn.q_proj.lora_router.default.value.bias
+base_model.model.model.layers.5.self_attn.k_proj.lora_router.default.query.weight
+base_model.model.model.layers.5.self_attn.k_proj.lora_router.default.query.bias
+base_model.model.model.layers.5.self_attn.k_proj.lora_router.default.key.weight
+base_model.model.model.layers.5.self_attn.k_proj.lora_router.default.key.bias
+base_model.model.model.layers.5.self_attn.k_proj.lora_router.default.value.weight
+base_model.model.model.layers.5.self_attn.k_proj.lora_router.default.value.bias
+base_model.model.model.layers.5.self_attn.v_proj.lora_router.default.query.weight
+base_model.model.model.layers.5.self_attn.v_proj.lora_router.default.query.bias
+base_model.model.model.layers.5.self_attn.v_proj.lora_router.default.key.weight
+base_model.model.model.layers.5.self_attn.v_proj.lora_router.default.key.bias
+base_model.model.model.layers.5.self_attn.v_proj.lora_router.default.value.weight
+base_model.model.model.layers.5.self_attn.v_proj.lora_router.default.value.bias
+base_model.model.model.layers.5.self_attn.o_proj.lora_router.default.query.weight
+base_model.model.model.layers.5.self_attn.o_proj.lora_router.default.query.bias
+base_model.model.model.layers.5.self_attn.o_proj.lora_router.default.key.weight
+base_model.model.model.layers.5.self_attn.o_proj.lora_router.default.key.bias
+base_model.model.model.layers.5.self_attn.o_proj.lora_router.default.value.weight
+base_model.model.model.layers.5.self_attn.o_proj.lora_router.default.value.bias
+base_model.model.model.layers.5.mlp.gate_proj.lora_router.default.query.weight
+base_model.model.model.layers.5.mlp.gate_proj.lora_router.default.query.bias
+base_model.model.model.layers.5.mlp.gate_proj.lora_router.default.key.weight
+base_model.model.model.layers.5.mlp.gate_proj.lora_router.default.key.bias
+base_model.model.model.layers.5.mlp.gate_proj.lora_router.default.value.weight
+base_model.model.model.layers.5.mlp.gate_proj.lora_router.default.value.bias
+base_model.model.model.layers.5.mlp.up_proj.lora_router.default.query.weight
+base_model.model.model.layers.5.mlp.up_proj.lora_router.default.query.bias
+base_model.model.model.layers.5.mlp.up_proj.lora_router.default.key.weight
+base_model.model.model.layers.5.mlp.up_proj.lora_router.default.key.bias
+base_model.model.model.layers.5.mlp.up_proj.lora_router.default.value.weight
+base_model.model.model.layers.5.mlp.up_proj.lora_router.default.value.bias
+base_model.model.model.layers.5.mlp.down_proj.lora_router.default.query.weight
+base_model.model.model.layers.5.mlp.down_proj.lora_router.default.query.bias
+base_model.model.model.layers.5.mlp.down_proj.lora_router.default.key.weight
+base_model.model.model.layers.5.mlp.down_proj.lora_router.default.key.bias
+base_model.model.model.layers.5.mlp.down_proj.lora_router.default.value.weight
+base_model.model.model.layers.5.mlp.down_proj.lora_router.default.value.bias
+base_model.model.model.layers.6.self_attn.q_proj.lora_router.default.query.weight
+base_model.model.model.layers.6.self_attn.q_proj.lora_router.default.query.bias
+base_model.model.model.layers.6.self_attn.q_proj.lora_router.default.key.weight
+base_model.model.model.layers.6.self_attn.q_proj.lora_router.default.key.bias
+base_model.model.model.layers.6.self_attn.q_proj.lora_router.default.value.weight
+base_model.model.model.layers.6.self_attn.q_proj.lora_router.default.value.bias
+base_model.model.model.layers.6.self_attn.k_proj.lora_router.default.query.weight
+base_model.model.model.layers.6.self_attn.k_proj.lora_router.default.query.bias
+base_model.model.model.layers.6.self_attn.k_proj.lora_router.default.key.weight
+base_model.model.model.layers.6.self_attn.k_proj.lora_router.default.key.bias
+base_model.model.model.layers.6.self_attn.k_proj.lora_router.default.value.weight
+base_model.model.model.layers.6.self_attn.k_proj.lora_router.default.value.bias
+base_model.model.model.layers.6.self_attn.v_proj.lora_router.default.query.weight
+base_model.model.model.layers.6.self_attn.v_proj.lora_router.default.query.bias
+base_model.model.model.layers.6.self_attn.v_proj.lora_router.default.key.weight
+base_model.model.model.layers.6.self_attn.v_proj.lora_router.default.key.bias
+base_model.model.model.layers.6.self_attn.v_proj.lora_router.default.value.weight
+base_model.model.model.layers.6.self_attn.v_proj.lora_router.default.value.bias
+base_model.model.model.layers.6.self_attn.o_proj.lora_router.default.query.weight
+base_model.model.model.layers.6.self_attn.o_proj.lora_router.default.query.bias
+base_model.model.model.layers.6.self_attn.o_proj.lora_router.default.key.weight
+base_model.model.model.layers.6.self_attn.o_proj.lora_router.default.key.bias
+base_model.model.model.layers.6.self_attn.o_proj.lora_router.default.value.weight
+base_model.model.model.layers.6.self_attn.o_proj.lora_router.default.value.bias
+base_model.model.model.layers.6.mlp.gate_proj.lora_router.default.query.weight
+base_model.model.model.layers.6.mlp.gate_proj.lora_router.default.query.bias
+base_model.model.model.layers.6.mlp.gate_proj.lora_router.default.key.weight
+base_model.model.model.layers.6.mlp.gate_proj.lora_router.default.key.bias
+base_model.model.model.layers.6.mlp.gate_proj.lora_router.default.value.weight
+base_model.model.model.layers.6.mlp.gate_proj.lora_router.default.value.bias
+base_model.model.model.layers.6.mlp.up_proj.lora_router.default.query.weight
+base_model.model.model.layers.6.mlp.up_proj.lora_router.default.query.bias
+base_model.model.model.layers.6.mlp.up_proj.lora_router.default.key.weight
+base_model.model.model.layers.6.mlp.up_proj.lora_router.default.key.bias
+base_model.model.model.layers.6.mlp.up_proj.lora_router.default.value.weight
+base_model.model.model.layers.6.mlp.up_proj.lora_router.default.value.bias
+base_model.model.model.layers.6.mlp.down_proj.lora_router.default.query.weight
+base_model.model.model.layers.6.mlp.down_proj.lora_router.default.query.bias
+base_model.model.model.layers.6.mlp.down_proj.lora_router.default.key.weight
+base_model.model.model.layers.6.mlp.down_proj.lora_router.default.key.bias
+base_model.model.model.layers.6.mlp.down_proj.lora_router.default.value.weight
+base_model.model.model.layers.6.mlp.down_proj.lora_router.default.value.bias
+base_model.model.model.layers.7.self_attn.q_proj.lora_router.default.query.weight
+base_model.model.model.layers.7.self_attn.q_proj.lora_router.default.query.bias
+base_model.model.model.layers.7.self_attn.q_proj.lora_router.default.key.weight
+base_model.model.model.layers.7.self_attn.q_proj.lora_router.default.key.bias
+base_model.model.model.layers.7.self_attn.q_proj.lora_router.default.value.weight
+base_model.model.model.layers.7.self_attn.q_proj.lora_router.default.value.bias
+base_model.model.model.layers.7.self_attn.k_proj.lora_router.default.query.weight
+base_model.model.model.layers.7.self_attn.k_proj.lora_router.default.query.bias
+base_model.model.model.layers.7.self_attn.k_proj.lora_router.default.key.weight
+base_model.model.model.layers.7.self_attn.k_proj.lora_router.default.key.bias
+base_model.model.model.layers.7.self_attn.k_proj.lora_router.default.value.weight
+base_model.model.model.layers.7.self_attn.k_proj.lora_router.default.value.bias
+base_model.model.model.layers.7.self_attn.v_proj.lora_router.default.query.weight
+base_model.model.model.layers.7.self_attn.v_proj.lora_router.default.query.bias
+base_model.model.model.layers.7.self_attn.v_proj.lora_router.default.key.weight
+base_model.model.model.layers.7.self_attn.v_proj.lora_router.default.key.bias
+base_model.model.model.layers.7.self_attn.v_proj.lora_router.default.value.weight
+base_model.model.model.layers.7.self_attn.v_proj.lora_router.default.value.bias
+base_model.model.model.layers.7.self_attn.o_proj.lora_router.default.query.weight
+base_model.model.model.layers.7.self_attn.o_proj.lora_router.default.query.bias
+base_model.model.model.layers.7.self_attn.o_proj.lora_router.default.key.weight
+base_model.model.model.layers.7.self_attn.o_proj.lora_router.default.key.bias
+base_model.model.model.layers.7.self_attn.o_proj.lora_router.default.value.weight
+base_model.model.model.layers.7.self_attn.o_proj.lora_router.default.value.bias
+base_model.model.model.layers.7.mlp.gate_proj.lora_router.default.query.weight
+base_model.model.model.layers.7.mlp.gate_proj.lora_router.default.query.bias
+base_model.model.model.layers.7.mlp.gate_proj.lora_router.default.key.weight
+base_model.model.model.layers.7.mlp.gate_proj.lora_router.default.key.bias
+base_model.model.model.layers.7.mlp.gate_proj.lora_router.default.value.weight
+base_model.model.model.layers.7.mlp.gate_proj.lora_router.default.value.bias
+base_model.model.model.layers.7.mlp.up_proj.lora_router.default.query.weight
+base_model.model.model.layers.7.mlp.up_proj.lora_router.default.query.bias
+base_model.model.model.layers.7.mlp.up_proj.lora_router.default.key.weight
+base_model.model.model.layers.7.mlp.up_proj.lora_router.default.key.bias
+base_model.model.model.layers.7.mlp.up_proj.lora_router.default.value.weight
+base_model.model.model.layers.7.mlp.up_proj.lora_router.default.value.bias
+base_model.model.model.layers.7.mlp.down_proj.lora_router.default.query.weight
+base_model.model.model.layers.7.mlp.down_proj.lora_router.default.query.bias
+base_model.model.model.layers.7.mlp.down_proj.lora_router.default.key.weight
+base_model.model.model.layers.7.mlp.down_proj.lora_router.default.key.bias
+base_model.model.model.layers.7.mlp.down_proj.lora_router.default.value.weight
+base_model.model.model.layers.7.mlp.down_proj.lora_router.default.value.bias
+base_model.model.model.layers.8.self_attn.q_proj.lora_router.default.query.weight
+base_model.model.model.layers.8.self_attn.q_proj.lora_router.default.query.bias
+base_model.model.model.layers.8.self_attn.q_proj.lora_router.default.key.weight
+base_model.model.model.layers.8.self_attn.q_proj.lora_router.default.key.bias
+base_model.model.model.layers.8.self_attn.q_proj.lora_router.default.value.weight
+base_model.model.model.layers.8.self_attn.q_proj.lora_router.default.value.bias
+base_model.model.model.layers.8.self_attn.k_proj.lora_router.default.query.weight
+base_model.model.model.layers.8.self_attn.k_proj.lora_router.default.query.bias
+base_model.model.model.layers.8.self_attn.k_proj.lora_router.default.key.weight
+base_model.model.model.layers.8.self_attn.k_proj.lora_router.default.key.bias
+base_model.model.model.layers.8.self_attn.k_proj.lora_router.default.value.weight
+base_model.model.model.layers.8.self_attn.k_proj.lora_router.default.value.bias
+base_model.model.model.layers.8.self_attn.v_proj.lora_router.default.query.weight
+base_model.model.model.layers.8.self_attn.v_proj.lora_router.default.query.bias
+base_model.model.model.layers.8.self_attn.v_proj.lora_router.default.key.weight
+base_model.model.model.layers.8.self_attn.v_proj.lora_router.default.key.bias
+base_model.model.model.layers.8.self_attn.v_proj.lora_router.default.value.weight
+base_model.model.model.layers.8.self_attn.v_proj.lora_router.default.value.bias
+base_model.model.model.layers.8.self_attn.o_proj.lora_router.default.query.weight
+base_model.model.model.layers.8.self_attn.o_proj.lora_router.default.query.bias
+base_model.model.model.layers.8.self_attn.o_proj.lora_router.default.key.weight
+base_model.model.model.layers.8.self_attn.o_proj.lora_router.default.key.bias
+base_model.model.model.layers.8.self_attn.o_proj.lora_router.default.value.weight
+base_model.model.model.layers.8.self_attn.o_proj.lora_router.default.value.bias
+base_model.model.model.layers.8.mlp.gate_proj.lora_router.default.query.weight
+base_model.model.model.layers.8.mlp.gate_proj.lora_router.default.query.bias
+base_model.model.model.layers.8.mlp.gate_proj.lora_router.default.key.weight
+base_model.model.model.layers.8.mlp.gate_proj.lora_router.default.key.bias
+base_model.model.model.layers.8.mlp.gate_proj.lora_router.default.value.weight
+base_model.model.model.layers.8.mlp.gate_proj.lora_router.default.value.bias
+base_model.model.model.layers.8.mlp.up_proj.lora_router.default.query.weight
+base_model.model.model.layers.8.mlp.up_proj.lora_router.default.query.bias
+base_model.model.model.layers.8.mlp.up_proj.lora_router.default.key.weight
+base_model.model.model.layers.8.mlp.up_proj.lora_router.default.key.bias
+base_model.model.model.layers.8.mlp.up_proj.lora_router.default.value.weight
+base_model.model.model.layers.8.mlp.up_proj.lora_router.default.value.bias
+base_model.model.model.layers.8.mlp.down_proj.lora_router.default.query.weight
+base_model.model.model.layers.8.mlp.down_proj.lora_router.default.query.bias
+base_model.model.model.layers.8.mlp.down_proj.lora_router.default.key.weight
+base_model.model.model.layers.8.mlp.down_proj.lora_router.default.key.bias
+base_model.model.model.layers.8.mlp.down_proj.lora_router.default.value.weight
+base_model.model.model.layers.8.mlp.down_proj.lora_router.default.value.bias
+base_model.model.model.layers.9.self_attn.q_proj.lora_router.default.query.weight
+base_model.model.model.layers.9.self_attn.q_proj.lora_router.default.query.bias
+base_model.model.model.layers.9.self_attn.q_proj.lora_router.default.key.weight
+base_model.model.model.layers.9.self_attn.q_proj.lora_router.default.key.bias
+base_model.model.model.layers.9.self_attn.q_proj.lora_router.default.value.weight
+base_model.model.model.layers.9.self_attn.q_proj.lora_router.default.value.bias
+base_model.model.model.layers.9.self_attn.k_proj.lora_router.default.query.weight
+base_model.model.model.layers.9.self_attn.k_proj.lora_router.default.query.bias
+base_model.model.model.layers.9.self_attn.k_proj.lora_router.default.key.weight
+base_model.model.model.layers.9.self_attn.k_proj.lora_router.default.key.bias
+base_model.model.model.layers.9.self_attn.k_proj.lora_router.default.value.weight
+base_model.model.model.layers.9.self_attn.k_proj.lora_router.default.value.bias
+base_model.model.model.layers.9.self_attn.v_proj.lora_router.default.query.weight
+base_model.model.model.layers.9.self_attn.v_proj.lora_router.default.query.bias
+base_model.model.model.layers.9.self_attn.v_proj.lora_router.default.key.weight
+base_model.model.model.layers.9.self_attn.v_proj.lora_router.default.key.bias
+base_model.model.model.layers.9.self_attn.v_proj.lora_router.default.value.weight
+base_model.model.model.layers.9.self_attn.v_proj.lora_router.default.value.bias
+base_model.model.model.layers.9.self_attn.o_proj.lora_router.default.query.weight
+base_model.model.model.layers.9.self_attn.o_proj.lora_router.default.query.bias
+base_model.model.model.layers.9.self_attn.o_proj.lora_router.default.key.weight
+base_model.model.model.layers.9.self_attn.o_proj.lora_router.default.key.bias
+base_model.model.model.layers.9.self_attn.o_proj.lora_router.default.value.weight
+base_model.model.model.layers.9.self_attn.o_proj.lora_router.default.value.bias
+base_model.model.model.layers.9.mlp.gate_proj.lora_router.default.query.weight
+base_model.model.model.layers.9.mlp.gate_proj.lora_router.default.query.bias
+base_model.model.model.layers.9.mlp.gate_proj.lora_router.default.key.weight
+base_model.model.model.layers.9.mlp.gate_proj.lora_router.default.key.bias
+base_model.model.model.layers.9.mlp.gate_proj.lora_router.default.value.weight
+base_model.model.model.layers.9.mlp.gate_proj.lora_router.default.value.bias
+base_model.model.model.layers.9.mlp.up_proj.lora_router.default.query.weight
+base_model.model.model.layers.9.mlp.up_proj.lora_router.default.query.bias
+base_model.model.model.layers.9.mlp.up_proj.lora_router.default.key.weight
+base_model.model.model.layers.9.mlp.up_proj.lora_router.default.key.bias
+base_model.model.model.layers.9.mlp.up_proj.lora_router.default.value.weight
+base_model.model.model.layers.9.mlp.up_proj.lora_router.default.value.bias
+base_model.model.model.layers.9.mlp.down_proj.lora_router.default.query.weight
+base_model.model.model.layers.9.mlp.down_proj.lora_router.default.query.bias
+base_model.model.model.layers.9.mlp.down_proj.lora_router.default.key.weight
+base_model.model.model.layers.9.mlp.down_proj.lora_router.default.key.bias
+base_model.model.model.layers.9.mlp.down_proj.lora_router.default.value.weight
+base_model.model.model.layers.9.mlp.down_proj.lora_router.default.value.bias
+base_model.model.model.layers.10.self_attn.q_proj.lora_router.default.query.weight
+base_model.model.model.layers.10.self_attn.q_proj.lora_router.default.query.bias
+base_model.model.model.layers.10.self_attn.q_proj.lora_router.default.key.weight
+base_model.model.model.layers.10.self_attn.q_proj.lora_router.default.key.bias
+base_model.model.model.layers.10.self_attn.q_proj.lora_router.default.value.weight
+base_model.model.model.layers.10.self_attn.q_proj.lora_router.default.value.bias
+base_model.model.model.layers.10.self_attn.k_proj.lora_router.default.query.weight
+base_model.model.model.layers.10.self_attn.k_proj.lora_router.default.query.bias
+base_model.model.model.layers.10.self_attn.k_proj.lora_router.default.key.weight
+base_model.model.model.layers.10.self_attn.k_proj.lora_router.default.key.bias
+base_model.model.model.layers.10.self_attn.k_proj.lora_router.default.value.weight
+base_model.model.model.layers.10.self_attn.k_proj.lora_router.default.value.bias
+base_model.model.model.layers.10.self_attn.v_proj.lora_router.default.query.weight
+base_model.model.model.layers.10.self_attn.v_proj.lora_router.default.query.bias
+base_model.model.model.layers.10.self_attn.v_proj.lora_router.default.key.weight
+base_model.model.model.layers.10.self_attn.v_proj.lora_router.default.key.bias
+base_model.model.model.layers.10.self_attn.v_proj.lora_router.default.value.weight
+base_model.model.model.layers.10.self_attn.v_proj.lora_router.default.value.bias
+base_model.model.model.layers.10.self_attn.o_proj.lora_router.default.query.weight
+base_model.model.model.layers.10.self_attn.o_proj.lora_router.default.query.bias
+base_model.model.model.layers.10.self_attn.o_proj.lora_router.default.key.weight
+base_model.model.model.layers.10.self_attn.o_proj.lora_router.default.key.bias
+base_model.model.model.layers.10.self_attn.o_proj.lora_router.default.value.weight
+base_model.model.model.layers.10.self_attn.o_proj.lora_router.default.value.bias
+base_model.model.model.layers.10.mlp.gate_proj.lora_router.default.query.weight
+base_model.model.model.layers.10.mlp.gate_proj.lora_router.default.query.bias
+base_model.model.model.layers.10.mlp.gate_proj.lora_router.default.key.weight
+base_model.model.model.layers.10.mlp.gate_proj.lora_router.default.key.bias
+base_model.model.model.layers.10.mlp.gate_proj.lora_router.default.value.weight
+base_model.model.model.layers.10.mlp.gate_proj.lora_router.default.value.bias
+base_model.model.model.layers.10.mlp.up_proj.lora_router.default.query.weight
+base_model.model.model.layers.10.mlp.up_proj.lora_router.default.query.bias
+base_model.model.model.layers.10.mlp.up_proj.lora_router.default.key.weight
+base_model.model.model.layers.10.mlp.up_proj.lora_router.default.key.bias
+base_model.model.model.layers.10.mlp.up_proj.lora_router.default.value.weight
+base_model.model.model.layers.10.mlp.up_proj.lora_router.default.value.bias
+base_model.model.model.layers.10.mlp.down_proj.lora_router.default.query.weight
+base_model.model.model.layers.10.mlp.down_proj.lora_router.default.query.bias
+base_model.model.model.layers.10.mlp.down_proj.lora_router.default.key.weight
+base_model.model.model.layers.10.mlp.down_proj.lora_router.default.key.bias
+base_model.model.model.layers.10.mlp.down_proj.lora_router.default.value.weight
+base_model.model.model.layers.10.mlp.down_proj.lora_router.default.value.bias
+base_model.model.model.layers.11.self_attn.q_proj.lora_router.default.query.weight
+base_model.model.model.layers.11.self_attn.q_proj.lora_router.default.query.bias
+base_model.model.model.layers.11.self_attn.q_proj.lora_router.default.key.weight
+base_model.model.model.layers.11.self_attn.q_proj.lora_router.default.key.bias
+base_model.model.model.layers.11.self_attn.q_proj.lora_router.default.value.weight
+base_model.model.model.layers.11.self_attn.q_proj.lora_router.default.value.bias
+base_model.model.model.layers.11.self_attn.k_proj.lora_router.default.query.weight
+base_model.model.model.layers.11.self_attn.k_proj.lora_router.default.query.bias
+base_model.model.model.layers.11.self_attn.k_proj.lora_router.default.key.weight
+base_model.model.model.layers.11.self_attn.k_proj.lora_router.default.key.bias
+base_model.model.model.layers.11.self_attn.k_proj.lora_router.default.value.weight
+base_model.model.model.layers.11.self_attn.k_proj.lora_router.default.value.bias
+base_model.model.model.layers.11.self_attn.v_proj.lora_router.default.query.weight
+base_model.model.model.layers.11.self_attn.v_proj.lora_router.default.query.bias
+base_model.model.model.layers.11.self_attn.v_proj.lora_router.default.key.weight
+base_model.model.model.layers.11.self_attn.v_proj.lora_router.default.key.bias
+base_model.model.model.layers.11.self_attn.v_proj.lora_router.default.value.weight
+base_model.model.model.layers.11.self_attn.v_proj.lora_router.default.value.bias
+base_model.model.model.layers.11.self_attn.o_proj.lora_router.default.query.weight
+base_model.model.model.layers.11.self_attn.o_proj.lora_router.default.query.bias
+base_model.model.model.layers.11.self_attn.o_proj.lora_router.default.key.weight
+base_model.model.model.layers.11.self_attn.o_proj.lora_router.default.key.bias
+base_model.model.model.layers.11.self_attn.o_proj.lora_router.default.value.weight
+base_model.model.model.layers.11.self_attn.o_proj.lora_router.default.value.bias
+base_model.model.model.layers.11.mlp.gate_proj.lora_router.default.query.weight
+base_model.model.model.layers.11.mlp.gate_proj.lora_router.default.query.bias
+base_model.model.model.layers.11.mlp.gate_proj.lora_router.default.key.weight
+base_model.model.model.layers.11.mlp.gate_proj.lora_router.default.key.bias
+base_model.model.model.layers.11.mlp.gate_proj.lora_router.default.value.weight
+base_model.model.model.layers.11.mlp.gate_proj.lora_router.default.value.bias
+base_model.model.model.layers.11.mlp.up_proj.lora_router.default.query.weight
+base_model.model.model.layers.11.mlp.up_proj.lora_router.default.query.bias
+base_model.model.model.layers.11.mlp.up_proj.lora_router.default.key.weight
+base_model.model.model.layers.11.mlp.up_proj.lora_router.default.key.bias
+base_model.model.model.layers.11.mlp.up_proj.lora_router.default.value.weight
+base_model.model.model.layers.11.mlp.up_proj.lora_router.default.value.bias
+base_model.model.model.layers.11.mlp.down_proj.lora_router.default.query.weight
+base_model.model.model.layers.11.mlp.down_proj.lora_router.default.query.bias
+base_model.model.model.layers.11.mlp.down_proj.lora_router.default.key.weight
+base_model.model.model.layers.11.mlp.down_proj.lora_router.default.key.bias
+base_model.model.model.layers.11.mlp.down_proj.lora_router.default.value.weight
+base_model.model.model.layers.11.mlp.down_proj.lora_router.default.value.bias
+base_model.model.model.layers.12.self_attn.q_proj.lora_router.default.query.weight
+base_model.model.model.layers.12.self_attn.q_proj.lora_router.default.query.bias
+base_model.model.model.layers.12.self_attn.q_proj.lora_router.default.key.weight
+base_model.model.model.layers.12.self_attn.q_proj.lora_router.default.key.bias
+base_model.model.model.layers.12.self_attn.q_proj.lora_router.default.value.weight
+base_model.model.model.layers.12.self_attn.q_proj.lora_router.default.value.bias
+base_model.model.model.layers.12.self_attn.k_proj.lora_router.default.query.weight
+base_model.model.model.layers.12.self_attn.k_proj.lora_router.default.query.bias
+base_model.model.model.layers.12.self_attn.k_proj.lora_router.default.key.weight
+base_model.model.model.layers.12.self_attn.k_proj.lora_router.default.key.bias
+base_model.model.model.layers.12.self_attn.k_proj.lora_router.default.value.weight
+base_model.model.model.layers.12.self_attn.k_proj.lora_router.default.value.bias
+base_model.model.model.layers.12.self_attn.v_proj.lora_router.default.query.weight
+base_model.model.model.layers.12.self_attn.v_proj.lora_router.default.query.bias
+base_model.model.model.layers.12.self_attn.v_proj.lora_router.default.key.weight
+base_model.model.model.layers.12.self_attn.v_proj.lora_router.default.key.bias
+base_model.model.model.layers.12.self_attn.v_proj.lora_router.default.value.weight
+base_model.model.model.layers.12.self_attn.v_proj.lora_router.default.value.bias
+base_model.model.model.layers.12.self_attn.o_proj.lora_router.default.query.weight
+base_model.model.model.layers.12.self_attn.o_proj.lora_router.default.query.bias
+base_model.model.model.layers.12.self_attn.o_proj.lora_router.default.key.weight
+base_model.model.model.layers.12.self_attn.o_proj.lora_router.default.key.bias
+base_model.model.model.layers.12.self_attn.o_proj.lora_router.default.value.weight
+base_model.model.model.layers.12.self_attn.o_proj.lora_router.default.value.bias
+base_model.model.model.layers.12.mlp.gate_proj.lora_router.default.query.weight
+base_model.model.model.layers.12.mlp.gate_proj.lora_router.default.query.bias
+base_model.model.model.layers.12.mlp.gate_proj.lora_router.default.key.weight
+base_model.model.model.layers.12.mlp.gate_proj.lora_router.default.key.bias
+base_model.model.model.layers.12.mlp.gate_proj.lora_router.default.value.weight
+base_model.model.model.layers.12.mlp.gate_proj.lora_router.default.value.bias
+base_model.model.model.layers.12.mlp.up_proj.lora_router.default.query.weight
+base_model.model.model.layers.12.mlp.up_proj.lora_router.default.query.bias
+base_model.model.model.layers.12.mlp.up_proj.lora_router.default.key.weight
+base_model.model.model.layers.12.mlp.up_proj.lora_router.default.key.bias
+base_model.model.model.layers.12.mlp.up_proj.lora_router.default.value.weight
+base_model.model.model.layers.12.mlp.up_proj.lora_router.default.value.bias
+base_model.model.model.layers.12.mlp.down_proj.lora_router.default.query.weight
+base_model.model.model.layers.12.mlp.down_proj.lora_router.default.query.bias
+base_model.model.model.layers.12.mlp.down_proj.lora_router.default.key.weight
+base_model.model.model.layers.12.mlp.down_proj.lora_router.default.key.bias
+base_model.model.model.layers.12.mlp.down_proj.lora_router.default.value.weight
+base_model.model.model.layers.12.mlp.down_proj.lora_router.default.value.bias
+base_model.model.model.layers.13.self_attn.q_proj.lora_router.default.query.weight
+base_model.model.model.layers.13.self_attn.q_proj.lora_router.default.query.bias
+base_model.model.model.layers.13.self_attn.q_proj.lora_router.default.key.weight
+base_model.model.model.layers.13.self_attn.q_proj.lora_router.default.key.bias
+base_model.model.model.layers.13.self_attn.q_proj.lora_router.default.value.weight
+base_model.model.model.layers.13.self_attn.q_proj.lora_router.default.value.bias
+base_model.model.model.layers.13.self_attn.k_proj.lora_router.default.query.weight
+base_model.model.model.layers.13.self_attn.k_proj.lora_router.default.query.bias
+base_model.model.model.layers.13.self_attn.k_proj.lora_router.default.key.weight
+base_model.model.model.layers.13.self_attn.k_proj.lora_router.default.key.bias
+base_model.model.model.layers.13.self_attn.k_proj.lora_router.default.value.weight
+base_model.model.model.layers.13.self_attn.k_proj.lora_router.default.value.bias
+base_model.model.model.layers.13.self_attn.v_proj.lora_router.default.query.weight
+base_model.model.model.layers.13.self_attn.v_proj.lora_router.default.query.bias
+base_model.model.model.layers.13.self_attn.v_proj.lora_router.default.key.weight
+base_model.model.model.layers.13.self_attn.v_proj.lora_router.default.key.bias
+base_model.model.model.layers.13.self_attn.v_proj.lora_router.default.value.weight
+base_model.model.model.layers.13.self_attn.v_proj.lora_router.default.value.bias
+base_model.model.model.layers.13.self_attn.o_proj.lora_router.default.query.weight
+base_model.model.model.layers.13.self_attn.o_proj.lora_router.default.query.bias
+base_model.model.model.layers.13.self_attn.o_proj.lora_router.default.key.weight
+base_model.model.model.layers.13.self_attn.o_proj.lora_router.default.key.bias
+base_model.model.model.layers.13.self_attn.o_proj.lora_router.default.value.weight
+base_model.model.model.layers.13.self_attn.o_proj.lora_router.default.value.bias
+base_model.model.model.layers.13.mlp.gate_proj.lora_router.default.query.weight
+base_model.model.model.layers.13.mlp.gate_proj.lora_router.default.query.bias
+base_model.model.model.layers.13.mlp.gate_proj.lora_router.default.key.weight
+base_model.model.model.layers.13.mlp.gate_proj.lora_router.default.key.bias
+base_model.model.model.layers.13.mlp.gate_proj.lora_router.default.value.weight
+base_model.model.model.layers.13.mlp.gate_proj.lora_router.default.value.bias
+base_model.model.model.layers.13.mlp.up_proj.lora_router.default.query.weight
+base_model.model.model.layers.13.mlp.up_proj.lora_router.default.query.bias
+base_model.model.model.layers.13.mlp.up_proj.lora_router.default.key.weight
+base_model.model.model.layers.13.mlp.up_proj.lora_router.default.key.bias
+base_model.model.model.layers.13.mlp.up_proj.lora_router.default.value.weight
+base_model.model.model.layers.13.mlp.up_proj.lora_router.default.value.bias
+base_model.model.model.layers.13.mlp.down_proj.lora_router.default.query.weight
+base_model.model.model.layers.13.mlp.down_proj.lora_router.default.query.bias
+base_model.model.model.layers.13.mlp.down_proj.lora_router.default.key.weight
+base_model.model.model.layers.13.mlp.down_proj.lora_router.default.key.bias
+base_model.model.model.layers.13.mlp.down_proj.lora_router.default.value.weight
+base_model.model.model.layers.13.mlp.down_proj.lora_router.default.value.bias
+base_model.model.model.layers.14.self_attn.q_proj.lora_router.default.query.weight
+base_model.model.model.layers.14.self_attn.q_proj.lora_router.default.query.bias
+base_model.model.model.layers.14.self_attn.q_proj.lora_router.default.key.weight
+base_model.model.model.layers.14.self_attn.q_proj.lora_router.default.key.bias
+base_model.model.model.layers.14.self_attn.q_proj.lora_router.default.value.weight
+base_model.model.model.layers.14.self_attn.q_proj.lora_router.default.value.bias
+base_model.model.model.layers.14.self_attn.k_proj.lora_router.default.query.weight
+base_model.model.model.layers.14.self_attn.k_proj.lora_router.default.query.bias
+base_model.model.model.layers.14.self_attn.k_proj.lora_router.default.key.weight
+base_model.model.model.layers.14.self_attn.k_proj.lora_router.default.key.bias
+base_model.model.model.layers.14.self_attn.k_proj.lora_router.default.value.weight
+base_model.model.model.layers.14.self_attn.k_proj.lora_router.default.value.bias
+base_model.model.model.layers.14.self_attn.v_proj.lora_router.default.query.weight
+base_model.model.model.layers.14.self_attn.v_proj.lora_router.default.query.bias
+base_model.model.model.layers.14.self_attn.v_proj.lora_router.default.key.weight
+base_model.model.model.layers.14.self_attn.v_proj.lora_router.default.key.bias
+base_model.model.model.layers.14.self_attn.v_proj.lora_router.default.value.weight
+base_model.model.model.layers.14.self_attn.v_proj.lora_router.default.value.bias
+base_model.model.model.layers.14.self_attn.o_proj.lora_router.default.query.weight
+base_model.model.model.layers.14.self_attn.o_proj.lora_router.default.query.bias
+base_model.model.model.layers.14.self_attn.o_proj.lora_router.default.key.weight
+base_model.model.model.layers.14.self_attn.o_proj.lora_router.default.key.bias
+base_model.model.model.layers.14.self_attn.o_proj.lora_router.default.value.weight
+base_model.model.model.layers.14.self_attn.o_proj.lora_router.default.value.bias
+base_model.model.model.layers.14.mlp.gate_proj.lora_router.default.query.weight
+base_model.model.model.layers.14.mlp.gate_proj.lora_router.default.query.bias
+base_model.model.model.layers.14.mlp.gate_proj.lora_router.default.key.weight
+base_model.model.model.layers.14.mlp.gate_proj.lora_router.default.key.bias
+base_model.model.model.layers.14.mlp.gate_proj.lora_router.default.value.weight
+base_model.model.model.layers.14.mlp.gate_proj.lora_router.default.value.bias
+base_model.model.model.layers.14.mlp.up_proj.lora_router.default.query.weight
+base_model.model.model.layers.14.mlp.up_proj.lora_router.default.query.bias
+base_model.model.model.layers.14.mlp.up_proj.lora_router.default.key.weight
+base_model.model.model.layers.14.mlp.up_proj.lora_router.default.key.bias
+base_model.model.model.layers.14.mlp.up_proj.lora_router.default.value.weight
+base_model.model.model.layers.14.mlp.up_proj.lora_router.default.value.bias
+base_model.model.model.layers.14.mlp.down_proj.lora_router.default.query.weight
+base_model.model.model.layers.14.mlp.down_proj.lora_router.default.query.bias
+base_model.model.model.layers.14.mlp.down_proj.lora_router.default.key.weight
+base_model.model.model.layers.14.mlp.down_proj.lora_router.default.key.bias
+base_model.model.model.layers.14.mlp.down_proj.lora_router.default.value.weight
+base_model.model.model.layers.14.mlp.down_proj.lora_router.default.value.bias
+base_model.model.model.layers.15.self_attn.q_proj.lora_router.default.query.weight
+base_model.model.model.layers.15.self_attn.q_proj.lora_router.default.query.bias
+base_model.model.model.layers.15.self_attn.q_proj.lora_router.default.key.weight
+base_model.model.model.layers.15.self_attn.q_proj.lora_router.default.key.bias
+base_model.model.model.layers.15.self_attn.q_proj.lora_router.default.value.weight
+base_model.model.model.layers.15.self_attn.q_proj.lora_router.default.value.bias
+base_model.model.model.layers.15.self_attn.k_proj.lora_router.default.query.weight
+base_model.model.model.layers.15.self_attn.k_proj.lora_router.default.query.bias
+base_model.model.model.layers.15.self_attn.k_proj.lora_router.default.key.weight
+base_model.model.model.layers.15.self_attn.k_proj.lora_router.default.key.bias
+base_model.model.model.layers.15.self_attn.k_proj.lora_router.default.value.weight
+base_model.model.model.layers.15.self_attn.k_proj.lora_router.default.value.bias
+base_model.model.model.layers.15.self_attn.v_proj.lora_router.default.query.weight
+base_model.model.model.layers.15.self_attn.v_proj.lora_router.default.query.bias
+base_model.model.model.layers.15.self_attn.v_proj.lora_router.default.key.weight
+base_model.model.model.layers.15.self_attn.v_proj.lora_router.default.key.bias
+base_model.model.model.layers.15.self_attn.v_proj.lora_router.default.value.weight
+base_model.model.model.layers.15.self_attn.v_proj.lora_router.default.value.bias
+base_model.model.model.layers.15.self_attn.o_proj.lora_router.default.query.weight
+base_model.model.model.layers.15.self_attn.o_proj.lora_router.default.query.bias
+base_model.model.model.layers.15.self_attn.o_proj.lora_router.default.key.weight
+base_model.model.model.layers.15.self_attn.o_proj.lora_router.default.key.bias
+base_model.model.model.layers.15.self_attn.o_proj.lora_router.default.value.weight
+base_model.model.model.layers.15.self_attn.o_proj.lora_router.default.value.bias
+base_model.model.model.layers.15.mlp.gate_proj.lora_router.default.query.weight
+base_model.model.model.layers.15.mlp.gate_proj.lora_router.default.query.bias
+base_model.model.model.layers.15.mlp.gate_proj.lora_router.default.key.weight
+base_model.model.model.layers.15.mlp.gate_proj.lora_router.default.key.bias
+base_model.model.model.layers.15.mlp.gate_proj.lora_router.default.value.weight
+base_model.model.model.layers.15.mlp.gate_proj.lora_router.default.value.bias
+base_model.model.model.layers.15.mlp.up_proj.lora_router.default.query.weight
+base_model.model.model.layers.15.mlp.up_proj.lora_router.default.query.bias
+base_model.model.model.layers.15.mlp.up_proj.lora_router.default.key.weight
+base_model.model.model.layers.15.mlp.up_proj.lora_router.default.key.bias
+base_model.model.model.layers.15.mlp.up_proj.lora_router.default.value.weight
+base_model.model.model.layers.15.mlp.up_proj.lora_router.default.value.bias
+base_model.model.model.layers.15.mlp.down_proj.lora_router.default.query.weight
+base_model.model.model.layers.15.mlp.down_proj.lora_router.default.query.bias
+base_model.model.model.layers.15.mlp.down_proj.lora_router.default.key.weight
+base_model.model.model.layers.15.mlp.down_proj.lora_router.default.key.bias
+base_model.model.model.layers.15.mlp.down_proj.lora_router.default.value.weight
+base_model.model.model.layers.15.mlp.down_proj.lora_router.default.value.bias
+base_model.model.model.layers.16.self_attn.q_proj.lora_router.default.query.weight
+base_model.model.model.layers.16.self_attn.q_proj.lora_router.default.query.bias
+base_model.model.model.layers.16.self_attn.q_proj.lora_router.default.key.weight
+base_model.model.model.layers.16.self_attn.q_proj.lora_router.default.key.bias
+base_model.model.model.layers.16.self_attn.q_proj.lora_router.default.value.weight
+base_model.model.model.layers.16.self_attn.q_proj.lora_router.default.value.bias
+base_model.model.model.layers.16.self_attn.k_proj.lora_router.default.query.weight
+base_model.model.model.layers.16.self_attn.k_proj.lora_router.default.query.bias
+base_model.model.model.layers.16.self_attn.k_proj.lora_router.default.key.weight
+base_model.model.model.layers.16.self_attn.k_proj.lora_router.default.key.bias
+base_model.model.model.layers.16.self_attn.k_proj.lora_router.default.value.weight
+base_model.model.model.layers.16.self_attn.k_proj.lora_router.default.value.bias
+base_model.model.model.layers.16.self_attn.v_proj.lora_router.default.query.weight
+base_model.model.model.layers.16.self_attn.v_proj.lora_router.default.query.bias
+base_model.model.model.layers.16.self_attn.v_proj.lora_router.default.key.weight
+base_model.model.model.layers.16.self_attn.v_proj.lora_router.default.key.bias
+base_model.model.model.layers.16.self_attn.v_proj.lora_router.default.value.weight
+base_model.model.model.layers.16.self_attn.v_proj.lora_router.default.value.bias
+base_model.model.model.layers.16.self_attn.o_proj.lora_router.default.query.weight
+base_model.model.model.layers.16.self_attn.o_proj.lora_router.default.query.bias
+base_model.model.model.layers.16.self_attn.o_proj.lora_router.default.key.weight
+base_model.model.model.layers.16.self_attn.o_proj.lora_router.default.key.bias
+base_model.model.model.layers.16.self_attn.o_proj.lora_router.default.value.weight
+base_model.model.model.layers.16.self_attn.o_proj.lora_router.default.value.bias
+base_model.model.model.layers.16.mlp.gate_proj.lora_router.default.query.weight
+base_model.model.model.layers.16.mlp.gate_proj.lora_router.default.query.bias
+base_model.model.model.layers.16.mlp.gate_proj.lora_router.default.key.weight
+base_model.model.model.layers.16.mlp.gate_proj.lora_router.default.key.bias
+base_model.model.model.layers.16.mlp.gate_proj.lora_router.default.value.weight
+base_model.model.model.layers.16.mlp.gate_proj.lora_router.default.value.bias
+base_model.model.model.layers.16.mlp.up_proj.lora_router.default.query.weight
+base_model.model.model.layers.16.mlp.up_proj.lora_router.default.query.bias
+base_model.model.model.layers.16.mlp.up_proj.lora_router.default.key.weight
+base_model.model.model.layers.16.mlp.up_proj.lora_router.default.key.bias
+base_model.model.model.layers.16.mlp.up_proj.lora_router.default.value.weight
+base_model.model.model.layers.16.mlp.up_proj.lora_router.default.value.bias
+base_model.model.model.layers.16.mlp.down_proj.lora_router.default.query.weight
+base_model.model.model.layers.16.mlp.down_proj.lora_router.default.query.bias
+base_model.model.model.layers.16.mlp.down_proj.lora_router.default.key.weight
+base_model.model.model.layers.16.mlp.down_proj.lora_router.default.key.bias
+base_model.model.model.layers.16.mlp.down_proj.lora_router.default.value.weight
+base_model.model.model.layers.16.mlp.down_proj.lora_router.default.value.bias
+base_model.model.model.layers.17.self_attn.q_proj.lora_router.default.query.weight
+base_model.model.model.layers.17.self_attn.q_proj.lora_router.default.query.bias
+base_model.model.model.layers.17.self_attn.q_proj.lora_router.default.key.weight
+base_model.model.model.layers.17.self_attn.q_proj.lora_router.default.key.bias
+base_model.model.model.layers.17.self_attn.q_proj.lora_router.default.value.weight
+base_model.model.model.layers.17.self_attn.q_proj.lora_router.default.value.bias
+base_model.model.model.layers.17.self_attn.k_proj.lora_router.default.query.weight
+base_model.model.model.layers.17.self_attn.k_proj.lora_router.default.query.bias
+base_model.model.model.layers.17.self_attn.k_proj.lora_router.default.key.weight
+base_model.model.model.layers.17.self_attn.k_proj.lora_router.default.key.bias
+base_model.model.model.layers.17.self_attn.k_proj.lora_router.default.value.weight
+base_model.model.model.layers.17.self_attn.k_proj.lora_router.default.value.bias
+base_model.model.model.layers.17.self_attn.v_proj.lora_router.default.query.weight
+base_model.model.model.layers.17.self_attn.v_proj.lora_router.default.query.bias
+base_model.model.model.layers.17.self_attn.v_proj.lora_router.default.key.weight
+base_model.model.model.layers.17.self_attn.v_proj.lora_router.default.key.bias
+base_model.model.model.layers.17.self_attn.v_proj.lora_router.default.value.weight
+base_model.model.model.layers.17.self_attn.v_proj.lora_router.default.value.bias
+base_model.model.model.layers.17.self_attn.o_proj.lora_router.default.query.weight
+base_model.model.model.layers.17.self_attn.o_proj.lora_router.default.query.bias
+base_model.model.model.layers.17.self_attn.o_proj.lora_router.default.key.weight
+base_model.model.model.layers.17.self_attn.o_proj.lora_router.default.key.bias
+base_model.model.model.layers.17.self_attn.o_proj.lora_router.default.value.weight
+base_model.model.model.layers.17.self_attn.o_proj.lora_router.default.value.bias
+base_model.model.model.layers.17.mlp.gate_proj.lora_router.default.query.weight
+base_model.model.model.layers.17.mlp.gate_proj.lora_router.default.query.bias
+base_model.model.model.layers.17.mlp.gate_proj.lora_router.default.key.weight
+base_model.model.model.layers.17.mlp.gate_proj.lora_router.default.key.bias
+base_model.model.model.layers.17.mlp.gate_proj.lora_router.default.value.weight
+base_model.model.model.layers.17.mlp.gate_proj.lora_router.default.value.bias
+base_model.model.model.layers.17.mlp.up_proj.lora_router.default.query.weight
+base_model.model.model.layers.17.mlp.up_proj.lora_router.default.query.bias
+base_model.model.model.layers.17.mlp.up_proj.lora_router.default.key.weight
+base_model.model.model.layers.17.mlp.up_proj.lora_router.default.key.bias
+base_model.model.model.layers.17.mlp.up_proj.lora_router.default.value.weight
+base_model.model.model.layers.17.mlp.up_proj.lora_router.default.value.bias
+base_model.model.model.layers.17.mlp.down_proj.lora_router.default.query.weight
+base_model.model.model.layers.17.mlp.down_proj.lora_router.default.query.bias
+base_model.model.model.layers.17.mlp.down_proj.lora_router.default.key.weight
+base_model.model.model.layers.17.mlp.down_proj.lora_router.default.key.bias
+base_model.model.model.layers.17.mlp.down_proj.lora_router.default.value.weight
+base_model.model.model.layers.17.mlp.down_proj.lora_router.default.value.bias
+base_model.model.model.layers.18.self_attn.q_proj.lora_router.default.query.weight
+base_model.model.model.layers.18.self_attn.q_proj.lora_router.default.query.bias
+base_model.model.model.layers.18.self_attn.q_proj.lora_router.default.key.weight
+base_model.model.model.layers.18.self_attn.q_proj.lora_router.default.key.bias
+base_model.model.model.layers.18.self_attn.q_proj.lora_router.default.value.weight
+base_model.model.model.layers.18.self_attn.q_proj.lora_router.default.value.bias
+base_model.model.model.layers.18.self_attn.k_proj.lora_router.default.query.weight
+base_model.model.model.layers.18.self_attn.k_proj.lora_router.default.query.bias
+base_model.model.model.layers.18.self_attn.k_proj.lora_router.default.key.weight
+base_model.model.model.layers.18.self_attn.k_proj.lora_router.default.key.bias
+base_model.model.model.layers.18.self_attn.k_proj.lora_router.default.value.weight
+base_model.model.model.layers.18.self_attn.k_proj.lora_router.default.value.bias
+base_model.model.model.layers.18.self_attn.v_proj.lora_router.default.query.weight
+base_model.model.model.layers.18.self_attn.v_proj.lora_router.default.query.bias
+base_model.model.model.layers.18.self_attn.v_proj.lora_router.default.key.weight
+base_model.model.model.layers.18.self_attn.v_proj.lora_router.default.key.bias
+base_model.model.model.layers.18.self_attn.v_proj.lora_router.default.value.weight
+base_model.model.model.layers.18.self_attn.v_proj.lora_router.default.value.bias
+base_model.model.model.layers.18.self_attn.o_proj.lora_router.default.query.weight
+base_model.model.model.layers.18.self_attn.o_proj.lora_router.default.query.bias
+base_model.model.model.layers.18.self_attn.o_proj.lora_router.default.key.weight
+base_model.model.model.layers.18.self_attn.o_proj.lora_router.default.key.bias
+base_model.model.model.layers.18.self_attn.o_proj.lora_router.default.value.weight
+base_model.model.model.layers.18.self_attn.o_proj.lora_router.default.value.bias
+base_model.model.model.layers.18.mlp.gate_proj.lora_router.default.query.weight
+base_model.model.model.layers.18.mlp.gate_proj.lora_router.default.query.bias
+base_model.model.model.layers.18.mlp.gate_proj.lora_router.default.key.weight
+base_model.model.model.layers.18.mlp.gate_proj.lora_router.default.key.bias
+base_model.model.model.layers.18.mlp.gate_proj.lora_router.default.value.weight
+base_model.model.model.layers.18.mlp.gate_proj.lora_router.default.value.bias
+base_model.model.model.layers.18.mlp.up_proj.lora_router.default.query.weight
+base_model.model.model.layers.18.mlp.up_proj.lora_router.default.query.bias
+base_model.model.model.layers.18.mlp.up_proj.lora_router.default.key.weight
+base_model.model.model.layers.18.mlp.up_proj.lora_router.default.key.bias
+base_model.model.model.layers.18.mlp.up_proj.lora_router.default.value.weight
+base_model.model.model.layers.18.mlp.up_proj.lora_router.default.value.bias
+base_model.model.model.layers.18.mlp.down_proj.lora_router.default.query.weight
+base_model.model.model.layers.18.mlp.down_proj.lora_router.default.query.bias
+base_model.model.model.layers.18.mlp.down_proj.lora_router.default.key.weight
+base_model.model.model.layers.18.mlp.down_proj.lora_router.default.key.bias
+base_model.model.model.layers.18.mlp.down_proj.lora_router.default.value.weight
+base_model.model.model.layers.18.mlp.down_proj.lora_router.default.value.bias
+base_model.model.model.layers.19.self_attn.q_proj.lora_router.default.query.weight
+base_model.model.model.layers.19.self_attn.q_proj.lora_router.default.query.bias
+base_model.model.model.layers.19.self_attn.q_proj.lora_router.default.key.weight
+base_model.model.model.layers.19.self_attn.q_proj.lora_router.default.key.bias
+base_model.model.model.layers.19.self_attn.q_proj.lora_router.default.value.weight
+base_model.model.model.layers.19.self_attn.q_proj.lora_router.default.value.bias
+base_model.model.model.layers.19.self_attn.k_proj.lora_router.default.query.weight
+base_model.model.model.layers.19.self_attn.k_proj.lora_router.default.query.bias
+base_model.model.model.layers.19.self_attn.k_proj.lora_router.default.key.weight
+base_model.model.model.layers.19.self_attn.k_proj.lora_router.default.key.bias
+base_model.model.model.layers.19.self_attn.k_proj.lora_router.default.value.weight
+base_model.model.model.layers.19.self_attn.k_proj.lora_router.default.value.bias
+base_model.model.model.layers.19.self_attn.v_proj.lora_router.default.query.weight
+base_model.model.model.layers.19.self_attn.v_proj.lora_router.default.query.bias
+base_model.model.model.layers.19.self_attn.v_proj.lora_router.default.key.weight
+base_model.model.model.layers.19.self_attn.v_proj.lora_router.default.key.bias
+base_model.model.model.layers.19.self_attn.v_proj.lora_router.default.value.weight
+base_model.model.model.layers.19.self_attn.v_proj.lora_router.default.value.bias
+base_model.model.model.layers.19.self_attn.o_proj.lora_router.default.query.weight
+base_model.model.model.layers.19.self_attn.o_proj.lora_router.default.query.bias
+base_model.model.model.layers.19.self_attn.o_proj.lora_router.default.key.weight
+base_model.model.model.layers.19.self_attn.o_proj.lora_router.default.key.bias
+base_model.model.model.layers.19.self_attn.o_proj.lora_router.default.value.weight
+base_model.model.model.layers.19.self_attn.o_proj.lora_router.default.value.bias
+base_model.model.model.layers.19.mlp.gate_proj.lora_router.default.query.weight
+base_model.model.model.layers.19.mlp.gate_proj.lora_router.default.query.bias
+base_model.model.model.layers.19.mlp.gate_proj.lora_router.default.key.weight
+base_model.model.model.layers.19.mlp.gate_proj.lora_router.default.key.bias
+base_model.model.model.layers.19.mlp.gate_proj.lora_router.default.value.weight
+base_model.model.model.layers.19.mlp.gate_proj.lora_router.default.value.bias
+base_model.model.model.layers.19.mlp.up_proj.lora_router.default.query.weight
+base_model.model.model.layers.19.mlp.up_proj.lora_router.default.query.bias
+base_model.model.model.layers.19.mlp.up_proj.lora_router.default.key.weight
+base_model.model.model.layers.19.mlp.up_proj.lora_router.default.key.bias
+base_model.model.model.layers.19.mlp.up_proj.lora_router.default.value.weight
+base_model.model.model.layers.19.mlp.up_proj.lora_router.default.value.bias
+base_model.model.model.layers.19.mlp.down_proj.lora_router.default.query.weight
+base_model.model.model.layers.19.mlp.down_proj.lora_router.default.query.bias
+base_model.model.model.layers.19.mlp.down_proj.lora_router.default.key.weight
+base_model.model.model.layers.19.mlp.down_proj.lora_router.default.key.bias
+base_model.model.model.layers.19.mlp.down_proj.lora_router.default.value.weight
+base_model.model.model.layers.19.mlp.down_proj.lora_router.default.value.bias
+base_model.model.model.layers.20.self_attn.q_proj.lora_router.default.query.weight
+base_model.model.model.layers.20.self_attn.q_proj.lora_router.default.query.bias
+base_model.model.model.layers.20.self_attn.q_proj.lora_router.default.key.weight
+base_model.model.model.layers.20.self_attn.q_proj.lora_router.default.key.bias
+base_model.model.model.layers.20.self_attn.q_proj.lora_router.default.value.weight
+base_model.model.model.layers.20.self_attn.q_proj.lora_router.default.value.bias
+base_model.model.model.layers.20.self_attn.k_proj.lora_router.default.query.weight
+base_model.model.model.layers.20.self_attn.k_proj.lora_router.default.query.bias
+base_model.model.model.layers.20.self_attn.k_proj.lora_router.default.key.weight
+base_model.model.model.layers.20.self_attn.k_proj.lora_router.default.key.bias
+base_model.model.model.layers.20.self_attn.k_proj.lora_router.default.value.weight
+base_model.model.model.layers.20.self_attn.k_proj.lora_router.default.value.bias
+base_model.model.model.layers.20.self_attn.v_proj.lora_router.default.query.weight
+base_model.model.model.layers.20.self_attn.v_proj.lora_router.default.query.bias
+base_model.model.model.layers.20.self_attn.v_proj.lora_router.default.key.weight
+base_model.model.model.layers.20.self_attn.v_proj.lora_router.default.key.bias
+base_model.model.model.layers.20.self_attn.v_proj.lora_router.default.value.weight
+base_model.model.model.layers.20.self_attn.v_proj.lora_router.default.value.bias
+base_model.model.model.layers.20.self_attn.o_proj.lora_router.default.query.weight
+base_model.model.model.layers.20.self_attn.o_proj.lora_router.default.query.bias
+base_model.model.model.layers.20.self_attn.o_proj.lora_router.default.key.weight
+base_model.model.model.layers.20.self_attn.o_proj.lora_router.default.key.bias
+base_model.model.model.layers.20.self_attn.o_proj.lora_router.default.value.weight
+base_model.model.model.layers.20.self_attn.o_proj.lora_router.default.value.bias
+base_model.model.model.layers.20.mlp.gate_proj.lora_router.default.query.weight
+base_model.model.model.layers.20.mlp.gate_proj.lora_router.default.query.bias
+base_model.model.model.layers.20.mlp.gate_proj.lora_router.default.key.weight
+base_model.model.model.layers.20.mlp.gate_proj.lora_router.default.key.bias
+base_model.model.model.layers.20.mlp.gate_proj.lora_router.default.value.weight
+base_model.model.model.layers.20.mlp.gate_proj.lora_router.default.value.bias
+base_model.model.model.layers.20.mlp.up_proj.lora_router.default.query.weight
+base_model.model.model.layers.20.mlp.up_proj.lora_router.default.query.bias
+base_model.model.model.layers.20.mlp.up_proj.lora_router.default.key.weight
+base_model.model.model.layers.20.mlp.up_proj.lora_router.default.key.bias
+base_model.model.model.layers.20.mlp.up_proj.lora_router.default.value.weight
+base_model.model.model.layers.20.mlp.up_proj.lora_router.default.value.bias
+base_model.model.model.layers.20.mlp.down_proj.lora_router.default.query.weight
+base_model.model.model.layers.20.mlp.down_proj.lora_router.default.query.bias
+base_model.model.model.layers.20.mlp.down_proj.lora_router.default.key.weight
+base_model.model.model.layers.20.mlp.down_proj.lora_router.default.key.bias
+base_model.model.model.layers.20.mlp.down_proj.lora_router.default.value.weight
+base_model.model.model.layers.20.mlp.down_proj.lora_router.default.value.bias
+base_model.model.model.layers.21.self_attn.q_proj.lora_router.default.query.weight
+base_model.model.model.layers.21.self_attn.q_proj.lora_router.default.query.bias
+base_model.model.model.layers.21.self_attn.q_proj.lora_router.default.key.weight
+base_model.model.model.layers.21.self_attn.q_proj.lora_router.default.key.bias
+base_model.model.model.layers.21.self_attn.q_proj.lora_router.default.value.weight
+base_model.model.model.layers.21.self_attn.q_proj.lora_router.default.value.bias
+base_model.model.model.layers.21.self_attn.k_proj.lora_router.default.query.weight
+base_model.model.model.layers.21.self_attn.k_proj.lora_router.default.query.bias
+base_model.model.model.layers.21.self_attn.k_proj.lora_router.default.key.weight
+base_model.model.model.layers.21.self_attn.k_proj.lora_router.default.key.bias
+base_model.model.model.layers.21.self_attn.k_proj.lora_router.default.value.weight
+base_model.model.model.layers.21.self_attn.k_proj.lora_router.default.value.bias
+base_model.model.model.layers.21.self_attn.v_proj.lora_router.default.query.weight
+base_model.model.model.layers.21.self_attn.v_proj.lora_router.default.query.bias
+base_model.model.model.layers.21.self_attn.v_proj.lora_router.default.key.weight
+base_model.model.model.layers.21.self_attn.v_proj.lora_router.default.key.bias
+base_model.model.model.layers.21.self_attn.v_proj.lora_router.default.value.weight
+base_model.model.model.layers.21.self_attn.v_proj.lora_router.default.value.bias
+base_model.model.model.layers.21.self_attn.o_proj.lora_router.default.query.weight
+base_model.model.model.layers.21.self_attn.o_proj.lora_router.default.query.bias
+base_model.model.model.layers.21.self_attn.o_proj.lora_router.default.key.weight
+base_model.model.model.layers.21.self_attn.o_proj.lora_router.default.key.bias
+base_model.model.model.layers.21.self_attn.o_proj.lora_router.default.value.weight
+base_model.model.model.layers.21.self_attn.o_proj.lora_router.default.value.bias
+base_model.model.model.layers.21.mlp.gate_proj.lora_router.default.query.weight
+base_model.model.model.layers.21.mlp.gate_proj.lora_router.default.query.bias
+base_model.model.model.layers.21.mlp.gate_proj.lora_router.default.key.weight
+base_model.model.model.layers.21.mlp.gate_proj.lora_router.default.key.bias
+base_model.model.model.layers.21.mlp.gate_proj.lora_router.default.value.weight
+base_model.model.model.layers.21.mlp.gate_proj.lora_router.default.value.bias
+base_model.model.model.layers.21.mlp.up_proj.lora_router.default.query.weight
+base_model.model.model.layers.21.mlp.up_proj.lora_router.default.query.bias
+base_model.model.model.layers.21.mlp.up_proj.lora_router.default.key.weight
+base_model.model.model.layers.21.mlp.up_proj.lora_router.default.key.bias
+base_model.model.model.layers.21.mlp.up_proj.lora_router.default.value.weight
+base_model.model.model.layers.21.mlp.up_proj.lora_router.default.value.bias
+base_model.model.model.layers.21.mlp.down_proj.lora_router.default.query.weight
+base_model.model.model.layers.21.mlp.down_proj.lora_router.default.query.bias
+base_model.model.model.layers.21.mlp.down_proj.lora_router.default.key.weight
+base_model.model.model.layers.21.mlp.down_proj.lora_router.default.key.bias
+base_model.model.model.layers.21.mlp.down_proj.lora_router.default.value.weight
+base_model.model.model.layers.21.mlp.down_proj.lora_router.default.value.bias
+base_model.model.model.layers.22.self_attn.q_proj.lora_router.default.query.weight
+base_model.model.model.layers.22.self_attn.q_proj.lora_router.default.query.bias
+base_model.model.model.layers.22.self_attn.q_proj.lora_router.default.key.weight
+base_model.model.model.layers.22.self_attn.q_proj.lora_router.default.key.bias
+base_model.model.model.layers.22.self_attn.q_proj.lora_router.default.value.weight
+base_model.model.model.layers.22.self_attn.q_proj.lora_router.default.value.bias
+base_model.model.model.layers.22.self_attn.k_proj.lora_router.default.query.weight
+base_model.model.model.layers.22.self_attn.k_proj.lora_router.default.query.bias
+base_model.model.model.layers.22.self_attn.k_proj.lora_router.default.key.weight
+base_model.model.model.layers.22.self_attn.k_proj.lora_router.default.key.bias
+base_model.model.model.layers.22.self_attn.k_proj.lora_router.default.value.weight
+base_model.model.model.layers.22.self_attn.k_proj.lora_router.default.value.bias
+base_model.model.model.layers.22.self_attn.v_proj.lora_router.default.query.weight
+base_model.model.model.layers.22.self_attn.v_proj.lora_router.default.query.bias
+base_model.model.model.layers.22.self_attn.v_proj.lora_router.default.key.weight
+base_model.model.model.layers.22.self_attn.v_proj.lora_router.default.key.bias
+base_model.model.model.layers.22.self_attn.v_proj.lora_router.default.value.weight
+base_model.model.model.layers.22.self_attn.v_proj.lora_router.default.value.bias
+base_model.model.model.layers.22.self_attn.o_proj.lora_router.default.query.weight
+base_model.model.model.layers.22.self_attn.o_proj.lora_router.default.query.bias
+base_model.model.model.layers.22.self_attn.o_proj.lora_router.default.key.weight
+base_model.model.model.layers.22.self_attn.o_proj.lora_router.default.key.bias
+base_model.model.model.layers.22.self_attn.o_proj.lora_router.default.value.weight
+base_model.model.model.layers.22.self_attn.o_proj.lora_router.default.value.bias
+base_model.model.model.layers.22.mlp.gate_proj.lora_router.default.query.weight
+base_model.model.model.layers.22.mlp.gate_proj.lora_router.default.query.bias
+base_model.model.model.layers.22.mlp.gate_proj.lora_router.default.key.weight
+base_model.model.model.layers.22.mlp.gate_proj.lora_router.default.key.bias
+base_model.model.model.layers.22.mlp.gate_proj.lora_router.default.value.weight
+base_model.model.model.layers.22.mlp.gate_proj.lora_router.default.value.bias
+base_model.model.model.layers.22.mlp.up_proj.lora_router.default.query.weight
+base_model.model.model.layers.22.mlp.up_proj.lora_router.default.query.bias
+base_model.model.model.layers.22.mlp.up_proj.lora_router.default.key.weight
+base_model.model.model.layers.22.mlp.up_proj.lora_router.default.key.bias
+base_model.model.model.layers.22.mlp.up_proj.lora_router.default.value.weight
+base_model.model.model.layers.22.mlp.up_proj.lora_router.default.value.bias
+base_model.model.model.layers.22.mlp.down_proj.lora_router.default.query.weight
+base_model.model.model.layers.22.mlp.down_proj.lora_router.default.query.bias
+base_model.model.model.layers.22.mlp.down_proj.lora_router.default.key.weight
+base_model.model.model.layers.22.mlp.down_proj.lora_router.default.key.bias
+base_model.model.model.layers.22.mlp.down_proj.lora_router.default.value.weight
+base_model.model.model.layers.22.mlp.down_proj.lora_router.default.value.bias
+base_model.model.model.layers.23.self_attn.q_proj.lora_router.default.query.weight
+base_model.model.model.layers.23.self_attn.q_proj.lora_router.default.query.bias
+base_model.model.model.layers.23.self_attn.q_proj.lora_router.default.key.weight
+base_model.model.model.layers.23.self_attn.q_proj.lora_router.default.key.bias
+base_model.model.model.layers.23.self_attn.q_proj.lora_router.default.value.weight
+base_model.model.model.layers.23.self_attn.q_proj.lora_router.default.value.bias
+base_model.model.model.layers.23.self_attn.k_proj.lora_router.default.query.weight
+base_model.model.model.layers.23.self_attn.k_proj.lora_router.default.query.bias
+base_model.model.model.layers.23.self_attn.k_proj.lora_router.default.key.weight
+base_model.model.model.layers.23.self_attn.k_proj.lora_router.default.key.bias
+base_model.model.model.layers.23.self_attn.k_proj.lora_router.default.value.weight
+base_model.model.model.layers.23.self_attn.k_proj.lora_router.default.value.bias
+base_model.model.model.layers.23.self_attn.v_proj.lora_router.default.query.weight
+base_model.model.model.layers.23.self_attn.v_proj.lora_router.default.query.bias
+base_model.model.model.layers.23.self_attn.v_proj.lora_router.default.key.weight
+base_model.model.model.layers.23.self_attn.v_proj.lora_router.default.key.bias
+base_model.model.model.layers.23.self_attn.v_proj.lora_router.default.value.weight
+base_model.model.model.layers.23.self_attn.v_proj.lora_router.default.value.bias
+base_model.model.model.layers.23.self_attn.o_proj.lora_router.default.query.weight
+base_model.model.model.layers.23.self_attn.o_proj.lora_router.default.query.bias
+base_model.model.model.layers.23.self_attn.o_proj.lora_router.default.key.weight
+base_model.model.model.layers.23.self_attn.o_proj.lora_router.default.key.bias
+base_model.model.model.layers.23.self_attn.o_proj.lora_router.default.value.weight
+base_model.model.model.layers.23.self_attn.o_proj.lora_router.default.value.bias
+base_model.model.model.layers.23.mlp.gate_proj.lora_router.default.query.weight
+base_model.model.model.layers.23.mlp.gate_proj.lora_router.default.query.bias
+base_model.model.model.layers.23.mlp.gate_proj.lora_router.default.key.weight
+base_model.model.model.layers.23.mlp.gate_proj.lora_router.default.key.bias
+base_model.model.model.layers.23.mlp.gate_proj.lora_router.default.value.weight
+base_model.model.model.layers.23.mlp.gate_proj.lora_router.default.value.bias
+base_model.model.model.layers.23.mlp.up_proj.lora_router.default.query.weight
+base_model.model.model.layers.23.mlp.up_proj.lora_router.default.query.bias
+base_model.model.model.layers.23.mlp.up_proj.lora_router.default.key.weight
+base_model.model.model.layers.23.mlp.up_proj.lora_router.default.key.bias
+base_model.model.model.layers.23.mlp.up_proj.lora_router.default.value.weight
+base_model.model.model.layers.23.mlp.up_proj.lora_router.default.value.bias
+base_model.model.model.layers.23.mlp.down_proj.lora_router.default.query.weight
+base_model.model.model.layers.23.mlp.down_proj.lora_router.default.query.bias
+base_model.model.model.layers.23.mlp.down_proj.lora_router.default.key.weight
+base_model.model.model.layers.23.mlp.down_proj.lora_router.default.key.bias
+base_model.model.model.layers.23.mlp.down_proj.lora_router.default.value.weight
+base_model.model.model.layers.23.mlp.down_proj.lora_router.default.value.bias
+base_model.model.model.layers.24.self_attn.q_proj.lora_router.default.query.weight
+base_model.model.model.layers.24.self_attn.q_proj.lora_router.default.query.bias
+base_model.model.model.layers.24.self_attn.q_proj.lora_router.default.key.weight
+base_model.model.model.layers.24.self_attn.q_proj.lora_router.default.key.bias
+base_model.model.model.layers.24.self_attn.q_proj.lora_router.default.value.weight
+base_model.model.model.layers.24.self_attn.q_proj.lora_router.default.value.bias
+base_model.model.model.layers.24.self_attn.k_proj.lora_router.default.query.weight
+base_model.model.model.layers.24.self_attn.k_proj.lora_router.default.query.bias
+base_model.model.model.layers.24.self_attn.k_proj.lora_router.default.key.weight
+base_model.model.model.layers.24.self_attn.k_proj.lora_router.default.key.bias
+base_model.model.model.layers.24.self_attn.k_proj.lora_router.default.value.weight
+base_model.model.model.layers.24.self_attn.k_proj.lora_router.default.value.bias
+base_model.model.model.layers.24.self_attn.v_proj.lora_router.default.query.weight
+base_model.model.model.layers.24.self_attn.v_proj.lora_router.default.query.bias
+base_model.model.model.layers.24.self_attn.v_proj.lora_router.default.key.weight
+base_model.model.model.layers.24.self_attn.v_proj.lora_router.default.key.bias
+base_model.model.model.layers.24.self_attn.v_proj.lora_router.default.value.weight
+base_model.model.model.layers.24.self_attn.v_proj.lora_router.default.value.bias
+base_model.model.model.layers.24.self_attn.o_proj.lora_router.default.query.weight
+base_model.model.model.layers.24.self_attn.o_proj.lora_router.default.query.bias
+base_model.model.model.layers.24.self_attn.o_proj.lora_router.default.key.weight
+base_model.model.model.layers.24.self_attn.o_proj.lora_router.default.key.bias
+base_model.model.model.layers.24.self_attn.o_proj.lora_router.default.value.weight
+base_model.model.model.layers.24.self_attn.o_proj.lora_router.default.value.bias
+base_model.model.model.layers.24.mlp.gate_proj.lora_router.default.query.weight
+base_model.model.model.layers.24.mlp.gate_proj.lora_router.default.query.bias
+base_model.model.model.layers.24.mlp.gate_proj.lora_router.default.key.weight
+base_model.model.model.layers.24.mlp.gate_proj.lora_router.default.key.bias
+base_model.model.model.layers.24.mlp.gate_proj.lora_router.default.value.weight
+base_model.model.model.layers.24.mlp.gate_proj.lora_router.default.value.bias
+base_model.model.model.layers.24.mlp.up_proj.lora_router.default.query.weight
+base_model.model.model.layers.24.mlp.up_proj.lora_router.default.query.bias
+base_model.model.model.layers.24.mlp.up_proj.lora_router.default.key.weight
+base_model.model.model.layers.24.mlp.up_proj.lora_router.default.key.bias
+base_model.model.model.layers.24.mlp.up_proj.lora_router.default.value.weight
+base_model.model.model.layers.24.mlp.up_proj.lora_router.default.value.bias
+base_model.model.model.layers.24.mlp.down_proj.lora_router.default.query.weight
+base_model.model.model.layers.24.mlp.down_proj.lora_router.default.query.bias
+base_model.model.model.layers.24.mlp.down_proj.lora_router.default.key.weight
+base_model.model.model.layers.24.mlp.down_proj.lora_router.default.key.bias
+base_model.model.model.layers.24.mlp.down_proj.lora_router.default.value.weight
+base_model.model.model.layers.24.mlp.down_proj.lora_router.default.value.bias
+base_model.model.model.layers.25.self_attn.q_proj.lora_router.default.query.weight
+base_model.model.model.layers.25.self_attn.q_proj.lora_router.default.query.bias
+base_model.model.model.layers.25.self_attn.q_proj.lora_router.default.key.weight
+base_model.model.model.layers.25.self_attn.q_proj.lora_router.default.key.bias
+base_model.model.model.layers.25.self_attn.q_proj.lora_router.default.value.weight
+base_model.model.model.layers.25.self_attn.q_proj.lora_router.default.value.bias
+base_model.model.model.layers.25.self_attn.k_proj.lora_router.default.query.weight
+base_model.model.model.layers.25.self_attn.k_proj.lora_router.default.query.bias
+base_model.model.model.layers.25.self_attn.k_proj.lora_router.default.key.weight
+base_model.model.model.layers.25.self_attn.k_proj.lora_router.default.key.bias
+base_model.model.model.layers.25.self_attn.k_proj.lora_router.default.value.weight
+base_model.model.model.layers.25.self_attn.k_proj.lora_router.default.value.bias
+base_model.model.model.layers.25.self_attn.v_proj.lora_router.default.query.weight
+base_model.model.model.layers.25.self_attn.v_proj.lora_router.default.query.bias
+base_model.model.model.layers.25.self_attn.v_proj.lora_router.default.key.weight
+base_model.model.model.layers.25.self_attn.v_proj.lora_router.default.key.bias
+base_model.model.model.layers.25.self_attn.v_proj.lora_router.default.value.weight
+base_model.model.model.layers.25.self_attn.v_proj.lora_router.default.value.bias
+base_model.model.model.layers.25.self_attn.o_proj.lora_router.default.query.weight
+base_model.model.model.layers.25.self_attn.o_proj.lora_router.default.query.bias
+base_model.model.model.layers.25.self_attn.o_proj.lora_router.default.key.weight
+base_model.model.model.layers.25.self_attn.o_proj.lora_router.default.key.bias
+base_model.model.model.layers.25.self_attn.o_proj.lora_router.default.value.weight
+base_model.model.model.layers.25.self_attn.o_proj.lora_router.default.value.bias
+base_model.model.model.layers.25.mlp.gate_proj.lora_router.default.query.weight
+base_model.model.model.layers.25.mlp.gate_proj.lora_router.default.query.bias
+base_model.model.model.layers.25.mlp.gate_proj.lora_router.default.key.weight
+base_model.model.model.layers.25.mlp.gate_proj.lora_router.default.key.bias
+base_model.model.model.layers.25.mlp.gate_proj.lora_router.default.value.weight
+base_model.model.model.layers.25.mlp.gate_proj.lora_router.default.value.bias
+base_model.model.model.layers.25.mlp.up_proj.lora_router.default.query.weight
+base_model.model.model.layers.25.mlp.up_proj.lora_router.default.query.bias
+base_model.model.model.layers.25.mlp.up_proj.lora_router.default.key.weight
+base_model.model.model.layers.25.mlp.up_proj.lora_router.default.key.bias
+base_model.model.model.layers.25.mlp.up_proj.lora_router.default.value.weight
+base_model.model.model.layers.25.mlp.up_proj.lora_router.default.value.bias
+base_model.model.model.layers.25.mlp.down_proj.lora_router.default.query.weight
+base_model.model.model.layers.25.mlp.down_proj.lora_router.default.query.bias
+base_model.model.model.layers.25.mlp.down_proj.lora_router.default.key.weight
+base_model.model.model.layers.25.mlp.down_proj.lora_router.default.key.bias
+base_model.model.model.layers.25.mlp.down_proj.lora_router.default.value.weight
+base_model.model.model.layers.25.mlp.down_proj.lora_router.default.value.bias
+base_model.model.model.layers.26.self_attn.q_proj.lora_router.default.query.weight
+base_model.model.model.layers.26.self_attn.q_proj.lora_router.default.query.bias
+base_model.model.model.layers.26.self_attn.q_proj.lora_router.default.key.weight
+base_model.model.model.layers.26.self_attn.q_proj.lora_router.default.key.bias
+base_model.model.model.layers.26.self_attn.q_proj.lora_router.default.value.weight
+base_model.model.model.layers.26.self_attn.q_proj.lora_router.default.value.bias
+base_model.model.model.layers.26.self_attn.k_proj.lora_router.default.query.weight
+base_model.model.model.layers.26.self_attn.k_proj.lora_router.default.query.bias
+base_model.model.model.layers.26.self_attn.k_proj.lora_router.default.key.weight
+base_model.model.model.layers.26.self_attn.k_proj.lora_router.default.key.bias
+base_model.model.model.layers.26.self_attn.k_proj.lora_router.default.value.weight
+base_model.model.model.layers.26.self_attn.k_proj.lora_router.default.value.bias
+base_model.model.model.layers.26.self_attn.v_proj.lora_router.default.query.weight
+base_model.model.model.layers.26.self_attn.v_proj.lora_router.default.query.bias
+base_model.model.model.layers.26.self_attn.v_proj.lora_router.default.key.weight
+base_model.model.model.layers.26.self_attn.v_proj.lora_router.default.key.bias
+base_model.model.model.layers.26.self_attn.v_proj.lora_router.default.value.weight
+base_model.model.model.layers.26.self_attn.v_proj.lora_router.default.value.bias
+base_model.model.model.layers.26.self_attn.o_proj.lora_router.default.query.weight
+base_model.model.model.layers.26.self_attn.o_proj.lora_router.default.query.bias
+base_model.model.model.layers.26.self_attn.o_proj.lora_router.default.key.weight
+base_model.model.model.layers.26.self_attn.o_proj.lora_router.default.key.bias
+base_model.model.model.layers.26.self_attn.o_proj.lora_router.default.value.weight
+base_model.model.model.layers.26.self_attn.o_proj.lora_router.default.value.bias
+base_model.model.model.layers.26.mlp.gate_proj.lora_router.default.query.weight
+base_model.model.model.layers.26.mlp.gate_proj.lora_router.default.query.bias
+base_model.model.model.layers.26.mlp.gate_proj.lora_router.default.key.weight
+base_model.model.model.layers.26.mlp.gate_proj.lora_router.default.key.bias
+base_model.model.model.layers.26.mlp.gate_proj.lora_router.default.value.weight
+base_model.model.model.layers.26.mlp.gate_proj.lora_router.default.value.bias
+base_model.model.model.layers.26.mlp.up_proj.lora_router.default.query.weight
+base_model.model.model.layers.26.mlp.up_proj.lora_router.default.query.bias
+base_model.model.model.layers.26.mlp.up_proj.lora_router.default.key.weight
+base_model.model.model.layers.26.mlp.up_proj.lora_router.default.key.bias
+base_model.model.model.layers.26.mlp.up_proj.lora_router.default.value.weight
+base_model.model.model.layers.26.mlp.up_proj.lora_router.default.value.bias
+base_model.model.model.layers.26.mlp.down_proj.lora_router.default.query.weight
+base_model.model.model.layers.26.mlp.down_proj.lora_router.default.query.bias
+base_model.model.model.layers.26.mlp.down_proj.lora_router.default.key.weight
+base_model.model.model.layers.26.mlp.down_proj.lora_router.default.key.bias
+base_model.model.model.layers.26.mlp.down_proj.lora_router.default.value.weight
+base_model.model.model.layers.26.mlp.down_proj.lora_router.default.value.bias
+base_model.model.model.layers.27.self_attn.q_proj.lora_router.default.query.weight
+base_model.model.model.layers.27.self_attn.q_proj.lora_router.default.query.bias
+base_model.model.model.layers.27.self_attn.q_proj.lora_router.default.key.weight
+base_model.model.model.layers.27.self_attn.q_proj.lora_router.default.key.bias
+base_model.model.model.layers.27.self_attn.q_proj.lora_router.default.value.weight
+base_model.model.model.layers.27.self_attn.q_proj.lora_router.default.value.bias
+base_model.model.model.layers.27.self_attn.k_proj.lora_router.default.query.weight
+base_model.model.model.layers.27.self_attn.k_proj.lora_router.default.query.bias
+base_model.model.model.layers.27.self_attn.k_proj.lora_router.default.key.weight
+base_model.model.model.layers.27.self_attn.k_proj.lora_router.default.key.bias
+base_model.model.model.layers.27.self_attn.k_proj.lora_router.default.value.weight
+base_model.model.model.layers.27.self_attn.k_proj.lora_router.default.value.bias
+base_model.model.model.layers.27.self_attn.v_proj.lora_router.default.query.weight
+base_model.model.model.layers.27.self_attn.v_proj.lora_router.default.query.bias
+base_model.model.model.layers.27.self_attn.v_proj.lora_router.default.key.weight
+base_model.model.model.layers.27.self_attn.v_proj.lora_router.default.key.bias
+base_model.model.model.layers.27.self_attn.v_proj.lora_router.default.value.weight
+base_model.model.model.layers.27.self_attn.v_proj.lora_router.default.value.bias
+base_model.model.model.layers.27.self_attn.o_proj.lora_router.default.query.weight
+base_model.model.model.layers.27.self_attn.o_proj.lora_router.default.query.bias
+base_model.model.model.layers.27.self_attn.o_proj.lora_router.default.key.weight
+base_model.model.model.layers.27.self_attn.o_proj.lora_router.default.key.bias
+base_model.model.model.layers.27.self_attn.o_proj.lora_router.default.value.weight
+base_model.model.model.layers.27.self_attn.o_proj.lora_router.default.value.bias
+base_model.model.model.layers.27.mlp.gate_proj.lora_router.default.query.weight
+base_model.model.model.layers.27.mlp.gate_proj.lora_router.default.query.bias
+base_model.model.model.layers.27.mlp.gate_proj.lora_router.default.key.weight
+base_model.model.model.layers.27.mlp.gate_proj.lora_router.default.key.bias
+base_model.model.model.layers.27.mlp.gate_proj.lora_router.default.value.weight
+base_model.model.model.layers.27.mlp.gate_proj.lora_router.default.value.bias
+base_model.model.model.layers.27.mlp.up_proj.lora_router.default.query.weight
+base_model.model.model.layers.27.mlp.up_proj.lora_router.default.query.bias
+base_model.model.model.layers.27.mlp.up_proj.lora_router.default.key.weight
+base_model.model.model.layers.27.mlp.up_proj.lora_router.default.key.bias
+base_model.model.model.layers.27.mlp.up_proj.lora_router.default.value.weight
+base_model.model.model.layers.27.mlp.up_proj.lora_router.default.value.bias
+base_model.model.model.layers.27.mlp.down_proj.lora_router.default.query.weight
+base_model.model.model.layers.27.mlp.down_proj.lora_router.default.query.bias
+base_model.model.model.layers.27.mlp.down_proj.lora_router.default.key.weight
+base_model.model.model.layers.27.mlp.down_proj.lora_router.default.key.bias
+base_model.model.model.layers.27.mlp.down_proj.lora_router.default.value.weight
+base_model.model.model.layers.27.mlp.down_proj.lora_router.default.value.bias
+base_model.model.model.layers.28.self_attn.q_proj.lora_router.default.query.weight
+base_model.model.model.layers.28.self_attn.q_proj.lora_router.default.query.bias
+base_model.model.model.layers.28.self_attn.q_proj.lora_router.default.key.weight
+base_model.model.model.layers.28.self_attn.q_proj.lora_router.default.key.bias
+base_model.model.model.layers.28.self_attn.q_proj.lora_router.default.value.weight
+base_model.model.model.layers.28.self_attn.q_proj.lora_router.default.value.bias
+base_model.model.model.layers.28.self_attn.k_proj.lora_router.default.query.weight
+base_model.model.model.layers.28.self_attn.k_proj.lora_router.default.query.bias
+base_model.model.model.layers.28.self_attn.k_proj.lora_router.default.key.weight
+base_model.model.model.layers.28.self_attn.k_proj.lora_router.default.key.bias
+base_model.model.model.layers.28.self_attn.k_proj.lora_router.default.value.weight
+base_model.model.model.layers.28.self_attn.k_proj.lora_router.default.value.bias
+base_model.model.model.layers.28.self_attn.v_proj.lora_router.default.query.weight
+base_model.model.model.layers.28.self_attn.v_proj.lora_router.default.query.bias
+base_model.model.model.layers.28.self_attn.v_proj.lora_router.default.key.weight
+base_model.model.model.layers.28.self_attn.v_proj.lora_router.default.key.bias
+base_model.model.model.layers.28.self_attn.v_proj.lora_router.default.value.weight
+base_model.model.model.layers.28.self_attn.v_proj.lora_router.default.value.bias
+base_model.model.model.layers.28.self_attn.o_proj.lora_router.default.query.weight
+base_model.model.model.layers.28.self_attn.o_proj.lora_router.default.query.bias
+base_model.model.model.layers.28.self_attn.o_proj.lora_router.default.key.weight
+base_model.model.model.layers.28.self_attn.o_proj.lora_router.default.key.bias
+base_model.model.model.layers.28.self_attn.o_proj.lora_router.default.value.weight
+base_model.model.model.layers.28.self_attn.o_proj.lora_router.default.value.bias
+base_model.model.model.layers.28.mlp.gate_proj.lora_router.default.query.weight
+base_model.model.model.layers.28.mlp.gate_proj.lora_router.default.query.bias
+base_model.model.model.layers.28.mlp.gate_proj.lora_router.default.key.weight
+base_model.model.model.layers.28.mlp.gate_proj.lora_router.default.key.bias
+base_model.model.model.layers.28.mlp.gate_proj.lora_router.default.value.weight
+base_model.model.model.layers.28.mlp.gate_proj.lora_router.default.value.bias
+base_model.model.model.layers.28.mlp.up_proj.lora_router.default.query.weight
+base_model.model.model.layers.28.mlp.up_proj.lora_router.default.query.bias
+base_model.model.model.layers.28.mlp.up_proj.lora_router.default.key.weight
+base_model.model.model.layers.28.mlp.up_proj.lora_router.default.key.bias
+base_model.model.model.layers.28.mlp.up_proj.lora_router.default.value.weight
+base_model.model.model.layers.28.mlp.up_proj.lora_router.default.value.bias
+base_model.model.model.layers.28.mlp.down_proj.lora_router.default.query.weight
+base_model.model.model.layers.28.mlp.down_proj.lora_router.default.query.bias
+base_model.model.model.layers.28.mlp.down_proj.lora_router.default.key.weight
+base_model.model.model.layers.28.mlp.down_proj.lora_router.default.key.bias
+base_model.model.model.layers.28.mlp.down_proj.lora_router.default.value.weight
+base_model.model.model.layers.28.mlp.down_proj.lora_router.default.value.bias
+base_model.model.model.layers.29.self_attn.q_proj.lora_router.default.query.weight
+base_model.model.model.layers.29.self_attn.q_proj.lora_router.default.query.bias
+base_model.model.model.layers.29.self_attn.q_proj.lora_router.default.key.weight
+base_model.model.model.layers.29.self_attn.q_proj.lora_router.default.key.bias
+base_model.model.model.layers.29.self_attn.q_proj.lora_router.default.value.weight
+base_model.model.model.layers.29.self_attn.q_proj.lora_router.default.value.bias
+base_model.model.model.layers.29.self_attn.k_proj.lora_router.default.query.weight
+base_model.model.model.layers.29.self_attn.k_proj.lora_router.default.query.bias
+base_model.model.model.layers.29.self_attn.k_proj.lora_router.default.key.weight
+base_model.model.model.layers.29.self_attn.k_proj.lora_router.default.key.bias
+base_model.model.model.layers.29.self_attn.k_proj.lora_router.default.value.weight
+base_model.model.model.layers.29.self_attn.k_proj.lora_router.default.value.bias
+base_model.model.model.layers.29.self_attn.v_proj.lora_router.default.query.weight
+base_model.model.model.layers.29.self_attn.v_proj.lora_router.default.query.bias
+base_model.model.model.layers.29.self_attn.v_proj.lora_router.default.key.weight
+base_model.model.model.layers.29.self_attn.v_proj.lora_router.default.key.bias
+base_model.model.model.layers.29.self_attn.v_proj.lora_router.default.value.weight
+base_model.model.model.layers.29.self_attn.v_proj.lora_router.default.value.bias
+base_model.model.model.layers.29.self_attn.o_proj.lora_router.default.query.weight
+base_model.model.model.layers.29.self_attn.o_proj.lora_router.default.query.bias
+base_model.model.model.layers.29.self_attn.o_proj.lora_router.default.key.weight
+base_model.model.model.layers.29.self_attn.o_proj.lora_router.default.key.bias
+base_model.model.model.layers.29.self_attn.o_proj.lora_router.default.value.weight
+base_model.model.model.layers.29.self_attn.o_proj.lora_router.default.value.bias
+base_model.model.model.layers.29.mlp.gate_proj.lora_router.default.query.weight
+base_model.model.model.layers.29.mlp.gate_proj.lora_router.default.query.bias
+base_model.model.model.layers.29.mlp.gate_proj.lora_router.default.key.weight
+base_model.model.model.layers.29.mlp.gate_proj.lora_router.default.key.bias
+base_model.model.model.layers.29.mlp.gate_proj.lora_router.default.value.weight
+base_model.model.model.layers.29.mlp.gate_proj.lora_router.default.value.bias
+base_model.model.model.layers.29.mlp.up_proj.lora_router.default.query.weight
+base_model.model.model.layers.29.mlp.up_proj.lora_router.default.query.bias
+base_model.model.model.layers.29.mlp.up_proj.lora_router.default.key.weight
+base_model.model.model.layers.29.mlp.up_proj.lora_router.default.key.bias
+base_model.model.model.layers.29.mlp.up_proj.lora_router.default.value.weight
+base_model.model.model.layers.29.mlp.up_proj.lora_router.default.value.bias
+base_model.model.model.layers.29.mlp.down_proj.lora_router.default.query.weight
+base_model.model.model.layers.29.mlp.down_proj.lora_router.default.query.bias
+base_model.model.model.layers.29.mlp.down_proj.lora_router.default.key.weight
+base_model.model.model.layers.29.mlp.down_proj.lora_router.default.key.bias
+base_model.model.model.layers.29.mlp.down_proj.lora_router.default.value.weight
+base_model.model.model.layers.29.mlp.down_proj.lora_router.default.value.bias
+base_model.model.model.layers.30.self_attn.q_proj.lora_router.default.query.weight
+base_model.model.model.layers.30.self_attn.q_proj.lora_router.default.query.bias
+base_model.model.model.layers.30.self_attn.q_proj.lora_router.default.key.weight
+base_model.model.model.layers.30.self_attn.q_proj.lora_router.default.key.bias
+base_model.model.model.layers.30.self_attn.q_proj.lora_router.default.value.weight
+base_model.model.model.layers.30.self_attn.q_proj.lora_router.default.value.bias
+base_model.model.model.layers.30.self_attn.k_proj.lora_router.default.query.weight
+base_model.model.model.layers.30.self_attn.k_proj.lora_router.default.query.bias
+base_model.model.model.layers.30.self_attn.k_proj.lora_router.default.key.weight
+base_model.model.model.layers.30.self_attn.k_proj.lora_router.default.key.bias
+base_model.model.model.layers.30.self_attn.k_proj.lora_router.default.value.weight
+base_model.model.model.layers.30.self_attn.k_proj.lora_router.default.value.bias
+base_model.model.model.layers.30.self_attn.v_proj.lora_router.default.query.weight
+base_model.model.model.layers.30.self_attn.v_proj.lora_router.default.query.bias
+base_model.model.model.layers.30.self_attn.v_proj.lora_router.default.key.weight
+base_model.model.model.layers.30.self_attn.v_proj.lora_router.default.key.bias
+base_model.model.model.layers.30.self_attn.v_proj.lora_router.default.value.weight
+base_model.model.model.layers.30.self_attn.v_proj.lora_router.default.value.bias
+base_model.model.model.layers.30.self_attn.o_proj.lora_router.default.query.weight
+base_model.model.model.layers.30.self_attn.o_proj.lora_router.default.query.bias
+base_model.model.model.layers.30.self_attn.o_proj.lora_router.default.key.weight
+base_model.model.model.layers.30.self_attn.o_proj.lora_router.default.key.bias
+base_model.model.model.layers.30.self_attn.o_proj.lora_router.default.value.weight
+base_model.model.model.layers.30.self_attn.o_proj.lora_router.default.value.bias
+base_model.model.model.layers.30.mlp.gate_proj.lora_router.default.query.weight
+base_model.model.model.layers.30.mlp.gate_proj.lora_router.default.query.bias
+base_model.model.model.layers.30.mlp.gate_proj.lora_router.default.key.weight
+base_model.model.model.layers.30.mlp.gate_proj.lora_router.default.key.bias
+base_model.model.model.layers.30.mlp.gate_proj.lora_router.default.value.weight
+base_model.model.model.layers.30.mlp.gate_proj.lora_router.default.value.bias
+base_model.model.model.layers.30.mlp.up_proj.lora_router.default.query.weight
+base_model.model.model.layers.30.mlp.up_proj.lora_router.default.query.bias
+base_model.model.model.layers.30.mlp.up_proj.lora_router.default.key.weight
+base_model.model.model.layers.30.mlp.up_proj.lora_router.default.key.bias
+base_model.model.model.layers.30.mlp.up_proj.lora_router.default.value.weight
+base_model.model.model.layers.30.mlp.up_proj.lora_router.default.value.bias
+base_model.model.model.layers.30.mlp.down_proj.lora_router.default.query.weight
+base_model.model.model.layers.30.mlp.down_proj.lora_router.default.query.bias
+base_model.model.model.layers.30.mlp.down_proj.lora_router.default.key.weight
+base_model.model.model.layers.30.mlp.down_proj.lora_router.default.key.bias
+base_model.model.model.layers.30.mlp.down_proj.lora_router.default.value.weight
+base_model.model.model.layers.30.mlp.down_proj.lora_router.default.value.bias
+base_model.model.model.layers.31.self_attn.q_proj.lora_router.default.query.weight
+base_model.model.model.layers.31.self_attn.q_proj.lora_router.default.query.bias
+base_model.model.model.layers.31.self_attn.q_proj.lora_router.default.key.weight
+base_model.model.model.layers.31.self_attn.q_proj.lora_router.default.key.bias
+base_model.model.model.layers.31.self_attn.q_proj.lora_router.default.value.weight
+base_model.model.model.layers.31.self_attn.q_proj.lora_router.default.value.bias
+base_model.model.model.layers.31.self_attn.k_proj.lora_router.default.query.weight
+base_model.model.model.layers.31.self_attn.k_proj.lora_router.default.query.bias
+base_model.model.model.layers.31.self_attn.k_proj.lora_router.default.key.weight
+base_model.model.model.layers.31.self_attn.k_proj.lora_router.default.key.bias
+base_model.model.model.layers.31.self_attn.k_proj.lora_router.default.value.weight
+base_model.model.model.layers.31.self_attn.k_proj.lora_router.default.value.bias
+base_model.model.model.layers.31.self_attn.v_proj.lora_router.default.query.weight
+base_model.model.model.layers.31.self_attn.v_proj.lora_router.default.query.bias
+base_model.model.model.layers.31.self_attn.v_proj.lora_router.default.key.weight
+base_model.model.model.layers.31.self_attn.v_proj.lora_router.default.key.bias
+base_model.model.model.layers.31.self_attn.v_proj.lora_router.default.value.weight
+base_model.model.model.layers.31.self_attn.v_proj.lora_router.default.value.bias
+base_model.model.model.layers.31.self_attn.o_proj.lora_router.default.query.weight
+base_model.model.model.layers.31.self_attn.o_proj.lora_router.default.query.bias
+base_model.model.model.layers.31.self_attn.o_proj.lora_router.default.key.weight
+base_model.model.model.layers.31.self_attn.o_proj.lora_router.default.key.bias
+base_model.model.model.layers.31.self_attn.o_proj.lora_router.default.value.weight
+base_model.model.model.layers.31.self_attn.o_proj.lora_router.default.value.bias
+base_model.model.model.layers.31.mlp.gate_proj.lora_router.default.query.weight
+base_model.model.model.layers.31.mlp.gate_proj.lora_router.default.query.bias
+base_model.model.model.layers.31.mlp.gate_proj.lora_router.default.key.weight
+base_model.model.model.layers.31.mlp.gate_proj.lora_router.default.key.bias
+base_model.model.model.layers.31.mlp.gate_proj.lora_router.default.value.weight
+base_model.model.model.layers.31.mlp.gate_proj.lora_router.default.value.bias
+base_model.model.model.layers.31.mlp.up_proj.lora_router.default.query.weight
+base_model.model.model.layers.31.mlp.up_proj.lora_router.default.query.bias
+base_model.model.model.layers.31.mlp.up_proj.lora_router.default.key.weight
+base_model.model.model.layers.31.mlp.up_proj.lora_router.default.key.bias
+base_model.model.model.layers.31.mlp.up_proj.lora_router.default.value.weight
+base_model.model.model.layers.31.mlp.up_proj.lora_router.default.value.bias
+base_model.model.model.layers.31.mlp.down_proj.lora_router.default.query.weight
+base_model.model.model.layers.31.mlp.down_proj.lora_router.default.query.bias
+base_model.model.model.layers.31.mlp.down_proj.lora_router.default.key.weight
+base_model.model.model.layers.31.mlp.down_proj.lora_router.default.key.bias
+base_model.model.model.layers.31.mlp.down_proj.lora_router.default.value.weight
+base_model.model.model.layers.31.mlp.down_proj.lora_router.default.value.bias
+{'loss': 9.0317, 'learning_rate': 0.0003, 'epoch': 0.0}
+{'loss': 3.5352, 'learning_rate': 0.0003, 'epoch': 0.0}
+{'loss': 0.926, 'learning_rate': 0.0003, 'epoch': 0.0}
+{'loss': 0.8141, 'learning_rate': 0.0003, 'epoch': 0.01}
+{'loss': 0.8062, 'learning_rate': 0.0003, 'epoch': 0.01}
+{'loss': 0.7978, 'learning_rate': 0.0003, 'epoch': 0.01}
+{'loss': 0.8012, 'learning_rate': 0.0003, 'epoch': 0.01}
+{'loss': 0.7861, 'learning_rate': 0.0003, 'epoch': 0.01}
+{'loss': 0.7976, 'learning_rate': 0.0003, 'epoch': 0.01}
+{'loss': 0.7801, 'learning_rate': 0.0003, 'epoch': 0.02}
+{'loss': 0.7858, 'learning_rate': 0.0003, 'epoch': 0.02}
+{'loss': 0.7533, 'learning_rate': 0.0003, 'epoch': 0.02}
+{'loss': 0.7745, 'learning_rate': 0.0003, 'epoch': 0.02}
+{'loss': 0.7555, 'learning_rate': 0.0003, 'epoch': 0.02}
+{'loss': 0.7827, 'learning_rate': 0.0003, 'epoch': 0.02}
+{'loss': 0.7744, 'learning_rate': 0.0003, 'epoch': 0.02}
+{'loss': 0.7622, 'learning_rate': 0.0003, 'epoch': 0.03}
+{'loss': 0.7524, 'learning_rate': 0.0003, 'epoch': 0.03}
+{'loss': 0.7491, 'learning_rate': 0.0003, 'epoch': 0.03}
+{'loss': 0.7684, 'learning_rate': 0.0003, 'epoch': 0.03}
+{'loss': 0.7576, 'learning_rate': 0.0003, 'epoch': 0.03}
+{'loss': 0.7497, 'learning_rate': 0.0003, 'epoch': 0.03}
+{'loss': 0.7662, 'learning_rate': 0.0003, 'epoch': 0.04}
+{'loss': 0.7477, 'learning_rate': 0.0003, 'epoch': 0.04}
+{'loss': 0.7535, 'learning_rate': 0.0003, 'epoch': 0.04}
+{'loss': 0.7517, 'learning_rate': 0.0003, 'epoch': 0.04}
+{'loss': 0.7462, 'learning_rate': 0.0003, 'epoch': 0.04}
+{'loss': 0.7408, 'learning_rate': 0.0003, 'epoch': 0.04}
+{'loss': 0.7651, 'learning_rate': 0.0003, 'epoch': 0.04}
+{'loss': 0.7495, 'learning_rate': 0.0003, 'epoch': 0.05}
+{'loss': 0.7431, 'learning_rate': 0.0003, 'epoch': 0.05}
+{'loss': 0.7527, 'learning_rate': 0.0003, 'epoch': 0.05}
+{'loss': 0.7529, 'learning_rate': 0.0003, 'epoch': 0.05}
+{'loss': 0.7507, 'learning_rate': 0.0003, 'epoch': 0.05}
+{'loss': 0.7645, 'learning_rate': 0.0003, 'epoch': 0.05}
+{'loss': 0.7377, 'learning_rate': 0.0003, 'epoch': 0.06}
+{'loss': 0.7511, 'learning_rate': 0.0003, 'epoch': 0.06}
+{'loss': 0.7488, 'learning_rate': 0.0003, 'epoch': 0.06}
+{'loss': 0.7534, 'learning_rate': 0.0003, 'epoch': 0.06}
+{'loss': 0.7397, 'learning_rate': 0.0003, 'epoch': 0.06}
+{'loss': 0.7457, 'learning_rate': 0.0003, 'epoch': 0.06}
+{'loss': 0.7498, 'learning_rate': 0.0003, 'epoch': 0.06}
+{'loss': 0.7509, 'learning_rate': 0.0003, 'epoch': 0.07}
+{'loss': 0.7389, 'learning_rate': 0.0003, 'epoch': 0.07}
+{'loss': 0.7584, 'learning_rate': 0.0003, 'epoch': 0.07}
+{'loss': 0.741, 'learning_rate': 0.0003, 'epoch': 0.07}
+{'loss': 0.757, 'learning_rate': 0.0003, 'epoch': 0.07}
+{'loss': 0.7689, 'learning_rate': 0.0003, 'epoch': 0.07}
+{'loss': 0.7634, 'learning_rate': 0.0003, 'epoch': 0.08}
+{'loss': 0.7637, 'learning_rate': 0.0003, 'epoch': 0.08}
+{'loss': 0.7575, 'learning_rate': 0.0003, 'epoch': 0.08}
+{'loss': 0.749, 'learning_rate': 0.0003, 'epoch': 0.08}
+{'loss': 0.7539, 'learning_rate': 0.0003, 'epoch': 0.08}
+{'loss': 0.7592, 'learning_rate': 0.0003, 'epoch': 0.08}
+{'loss': 0.7493, 'learning_rate': 0.0003, 'epoch': 0.09}
+{'loss': 0.7491, 'learning_rate': 0.0003, 'epoch': 0.09}
+{'loss': 0.7592, 'learning_rate': 0.0003, 'epoch': 0.09}
+{'loss': 0.7602, 'learning_rate': 0.0003, 'epoch': 0.09}
+{'loss': 0.7544, 'learning_rate': 0.0003, 'epoch': 0.09}
+{'loss': 0.7443, 'learning_rate': 0.0003, 'epoch': 0.09}
+{'loss': 0.7433, 'learning_rate': 0.0003, 'epoch': 0.09}
+{'loss': 0.7388, 'learning_rate': 0.0003, 'epoch': 0.1}
+{'loss': 0.7509, 'learning_rate': 0.0003, 'epoch': 0.1}
+{'loss': 0.7534, 'learning_rate': 0.0003, 'epoch': 0.1}
+{'loss': 0.7491, 'learning_rate': 0.0003, 'epoch': 0.1}
+{'loss': 0.7707, 'learning_rate': 0.0003, 'epoch': 0.1}
+{'loss': 0.7395, 'learning_rate': 0.0003, 'epoch': 0.1}
+{'loss': 0.7696, 'learning_rate': 0.0003, 'epoch': 0.11}
+{'loss': 0.7474, 'learning_rate': 0.0003, 'epoch': 0.11}
+{'loss': 0.7685, 'learning_rate': 0.0003, 'epoch': 0.11}
+{'loss': 0.7455, 'learning_rate': 0.0003, 'epoch': 0.11}
+{'loss': 0.7385, 'learning_rate': 0.0003, 'epoch': 1.0}
+{'loss': 0.7355, 'learning_rate': 0.0003, 'epoch': 1.0}
+{'loss': 0.7301, 'learning_rate': 0.0003, 'epoch': 1.0}
+{'loss': 0.7347, 'learning_rate': 0.0003, 'epoch': 1.01}
+{'loss': 0.7588, 'learning_rate': 0.0003, 'epoch': 1.01}
+{'loss': 0.742, 'learning_rate': 0.0003, 'epoch': 1.01}
+{'loss': 0.7436, 'learning_rate': 0.0003, 'epoch': 1.01}
+{'loss': 0.7341, 'learning_rate': 0.0003, 'epoch': 1.01}
+{'loss': 0.7575, 'learning_rate': 0.0003, 'epoch': 1.01}
+{'loss': 0.7304, 'learning_rate': 0.0003, 'epoch': 1.01}
+{'loss': 0.7341, 'learning_rate': 0.0003, 'epoch': 1.02}
+{'loss': 0.7534, 'learning_rate': 0.0003, 'epoch': 1.02}
+{'loss': 0.7261, 'learning_rate': 0.0003, 'epoch': 1.02}
+{'loss': 0.7374, 'learning_rate': 0.0003, 'epoch': 1.02}
+{'loss': 0.7426, 'learning_rate': 0.0003, 'epoch': 1.02}
+{'loss': 0.7246, 'learning_rate': 0.0003, 'epoch': 1.02}
+{'loss': 0.7459, 'learning_rate': 0.0003, 'epoch': 1.03}
+{'loss': 0.7353, 'learning_rate': 0.0003, 'epoch': 1.03}
+{'loss': 0.7459, 'learning_rate': 0.0003, 'epoch': 1.03}
+{'loss': 0.7323, 'learning_rate': 0.0003, 'epoch': 1.03}
+{'loss': 0.7328, 'learning_rate': 0.0003, 'epoch': 1.03}
+{'loss': 0.7193, 'learning_rate': 0.0003, 'epoch': 1.03}
+{'loss': 0.7314, 'learning_rate': 0.0003, 'epoch': 1.03}
+{'loss': 0.7406, 'learning_rate': 0.0003, 'epoch': 1.04}
+{'loss': 0.7403, 'learning_rate': 0.0003, 'epoch': 1.04}
+{'loss': 0.7263, 'learning_rate': 0.0003, 'epoch': 1.04}
+{'loss': 0.718, 'learning_rate': 0.0003, 'epoch': 1.04}
+{'loss': 0.7353, 'learning_rate': 0.0003, 'epoch': 1.04}
+{'loss': 0.7392, 'learning_rate': 0.0003, 'epoch': 1.04}
+{'loss': 0.7348, 'learning_rate': 0.0003, 'epoch': 1.05}
+{'loss': 0.7295, 'learning_rate': 0.0003, 'epoch': 1.05}
+{'loss': 0.7262, 'learning_rate': 0.0003, 'epoch': 1.05}
+{'loss': 0.7296, 'learning_rate': 0.0003, 'epoch': 1.05}
+{'loss': 0.7265, 'learning_rate': 0.0003, 'epoch': 1.05}
+{'loss': 0.7284, 'learning_rate': 0.0003, 'epoch': 1.05}
+{'loss': 0.7213, 'learning_rate': 0.0003, 'epoch': 1.05}
+{'loss': 0.7201, 'learning_rate': 0.0003, 'epoch': 1.06}
+{'loss': 0.7264, 'learning_rate': 0.0003, 'epoch': 1.06}
+{'loss': 0.7311, 'learning_rate': 0.0003, 'epoch': 1.06}
+{'loss': 0.7301, 'learning_rate': 0.0003, 'epoch': 1.06}
+{'loss': 0.732, 'learning_rate': 0.0003, 'epoch': 1.06}
+{'loss': 0.727, 'learning_rate': 0.0003, 'epoch': 1.06}
+{'loss': 0.7428, 'learning_rate': 0.0003, 'epoch': 1.07}
+{'loss': 0.7415, 'learning_rate': 0.0003, 'epoch': 1.07}
+{'loss': 0.7294, 'learning_rate': 0.0003, 'epoch': 1.07}
+{'loss': 0.7384, 'learning_rate': 0.0003, 'epoch': 1.07}
+{'loss': 0.7295, 'learning_rate': 0.0003, 'epoch': 1.07}
+{'loss': 0.7352, 'learning_rate': 0.0003, 'epoch': 1.07}
+{'loss': 0.7323, 'learning_rate': 0.0003, 'epoch': 1.07}
+{'loss': 0.7511, 'learning_rate': 0.0003, 'epoch': 1.08}
+{'loss': 0.7338, 'learning_rate': 0.0003, 'epoch': 1.08}
+{'loss': 0.7351, 'learning_rate': 0.0003, 'epoch': 1.08}
+{'loss': 0.741, 'learning_rate': 0.0003, 'epoch': 1.08}
+{'loss': 0.7381, 'learning_rate': 0.0003, 'epoch': 1.08}
+{'loss': 0.7297, 'learning_rate': 0.0003, 'epoch': 1.08}
+{'loss': 0.7397, 'learning_rate': 0.0003, 'epoch': 1.09}
+{'loss': 0.7318, 'learning_rate': 0.0003, 'epoch': 1.09}
+{'loss': 0.7331, 'learning_rate': 0.0003, 'epoch': 1.09}
+{'loss': 0.7237, 'learning_rate': 0.0003, 'epoch': 1.09}
+{'loss': 0.7259, 'learning_rate': 0.0003, 'epoch': 1.09}
+{'loss': 0.7418, 'learning_rate': 0.0003, 'epoch': 1.09}
+{'loss': 0.7444, 'learning_rate': 0.0003, 'epoch': 1.09}
+{'loss': 0.7277, 'learning_rate': 0.0003, 'epoch': 1.1}
+{'loss': 0.7294, 'learning_rate': 0.0003, 'epoch': 1.1}
+{'loss': 0.7261, 'learning_rate': 0.0003, 'epoch': 1.1}
+{'loss': 0.7303, 'learning_rate': 0.0003, 'epoch': 1.1}
+{'loss': 0.7208, 'learning_rate': 0.0003, 'epoch': 1.1}
+{'loss': 0.7294, 'learning_rate': 0.0003, 'epoch': 1.1}
+{'loss': 0.7324, 'learning_rate': 0.0003, 'epoch': 1.11}
+{'loss': 0.7442, 'learning_rate': 0.0003, 'epoch': 1.11}
+{'loss': 0.7294, 'learning_rate': 0.0003, 'epoch': 1.11}
+{'loss': 0.7314, 'learning_rate': 0.0003, 'epoch': 1.11}
+{'train_runtime': 32294.2709, 'train_samples_per_second': 3.206, 'train_steps_per_second': 0.401, 'train_loss': 0.8246875230199544, 'epoch': 1.11}

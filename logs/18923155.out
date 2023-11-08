@@ -1,0 +1,17 @@
+trainable params: 41,115,872 || all params: 6,779,531,488 || trainable%: 0.6064706989380679
+{'loss': 0.9722, 'learning_rate': 0.0003, 'epoch': 0.02}
+{'loss': 0.9612, 'learning_rate': 0.0003, 'epoch': 0.04}
+{'loss': 0.9407, 'learning_rate': 0.0003, 'epoch': 0.06}
+{'loss': 0.9277, 'learning_rate': 0.0003, 'epoch': 0.08}
+{'loss': 0.9258, 'learning_rate': 0.0003, 'epoch': 0.1}
+{'loss': 0.9313, 'learning_rate': 0.0003, 'epoch': 0.11}
+{'loss': 0.9246, 'learning_rate': 0.0003, 'epoch': 0.13}
+{'loss': 0.8274, 'learning_rate': 0.0003, 'epoch': 1.01}
+{'loss': 0.5486, 'learning_rate': 0.0003, 'epoch': 1.02}
+{'loss': 0.5662, 'learning_rate': 0.0003, 'epoch': 1.04}
+{'loss': 0.535, 'learning_rate': 0.0003, 'epoch': 1.06}
+{'loss': 0.5599, 'learning_rate': 0.0003, 'epoch': 1.08}
+{'loss': 0.5724, 'learning_rate': 0.0003, 'epoch': 1.1}
+{'loss': 0.5937, 'learning_rate': 0.0003, 'epoch': 1.12}
+{'loss': 0.6062, 'learning_rate': 0.0003, 'epoch': 1.14}
+{'train_runtime': 1747.0565, 'train_samples_per_second': 4.797, 'train_steps_per_second': 0.6, 'train_loss': 0.7557784442777757, 'epoch': 1.15}

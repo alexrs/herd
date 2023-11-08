@@ -82,16 +82,23 @@ def _finetune_base(dataset, config, peft_strategy, tokenizer, model_values, path
 
 
 def _finetune_all(dataset, config, peft_strategy, tokenizer, model_values, path_values):
-    expert_name = "all"
-
-    training_args = _get_training_arguments(config, peft_strategy, expert_name)
-    output_dir = os.path.join(path_values.output_dir, peft_strategy, expert_name)
-    training_args.output_dir = output_dir
-
     model, peft_config = prepare_model(model_values.model, path_values.cache_dir, config, peft_strategy)
     model_to_train = get_peft_model(model, peft_config)
     model_to_train.print_trainable_parameters()
 
+    for name, param in model_to_train.named_parameters():
+        if param.requires_grad:
+            print(name)
+
+    expert_name = f"all_r_{peft_config.r}"
+    if peft_config.peft_type == "MOLORA" and peft_config.self_attn_router:
+        expert_name += "_self_attn_" + str(peft_config.self_attn_hidden_dim)
+        if peft_config.self_attn_use_value:
+            expert_name += "_use_value"
+
+    training_args = _get_training_arguments(config, peft_strategy, expert_name)
+    output_dir = os.path.join(path_values.output_dir, peft_strategy, expert_name)
+    training_args.output_dir = output_dir
 
     trainer = _init_trainer(model_to_train, dataset, peft_config, tokenizer, training_args)
 
@@ -121,22 +128,44 @@ def reset_router_weights(model):
             # initialize to zero
             torch.nn.init.zeros_(param)
 
+def _finetune_router(
+        dataset,
+        tokenizer,
+        config,
+        experts,
+        peft_strategy,
+        model_values,
+        path_values,
+    ):
 
-
-def _finetune_router(dataset, tokenizer, config, experts, peft_strategy, model_values, path_values, top_k=0):
     output_dir = os.path.join(path_values.output_dir, peft_strategy)
-
-    training_args = _get_training_arguments(config, peft_strategy, f"router_top_k_{top_k}")
-    training_args.output_dir = os.path.join(output_dir, f"router_top_k_{top_k}")
 
     model, peft_config = prepare_model(model_values.model, path_values.cache_dir, config, peft_strategy)
     peft_config.experts_to_combine = list(experts.keys())
     peft_config.num_experts = len(experts.keys())
     peft_config.inference_mode = False
     peft_config.only_router = True
-    peft_config.top_k = top_k
+    # peft_config.self_attn_router = model_values.self_attn_router
+    # peft_config.self_attn_hidden_dim = model_values.self_attn_hidden_dim
+    # peft_config.self_attn_use_value = model_values.self_attn_use_value
+
+
+    model_name = "router"
+
+    if peft_config.self_attn_router:
+        model_name += "_self_attn_" + str(peft_config.self_attn_hidden_dim)
+        if peft_config.self_attn_use_value:
+            model_name += "_use_value"
+
+    training_args = _get_training_arguments(config, peft_strategy, model_name)
+    training_args.output_dir = os.path.join(output_dir, model_name)
+
+    print(peft_config)
 
     model_peft = get_peft_model(model, peft_config)
+
+    print(model_peft)
+
     logger.info(f"Loading experts: {experts.keys()}")
 
     model_peft.load_experts(output_dir, 'default', list(experts.keys()), True)
@@ -171,7 +200,7 @@ def _finetune_experts(dataset, tokenizer, config, experts, peft_strategy, use_ba
 
             if peft_config.num_experts != 1:
                 peft_config.num_experts = 1
-                logger.warning(f"Number of experts is not 1 but we are training the an expert, setting it to 1. num_experts: {peft_config.num_experts}")
+                logger.warning(f"Number of experts is not 1 but we are training an expert, setting it to 1. num_experts: {peft_config.num_experts}")
 
             model = get_peft_model(model, peft_config)
             model.load_adapter(base_path, "default")
@@ -208,14 +237,32 @@ def _finetune_experts(dataset, tokenizer, config, experts, peft_strategy, use_ba
         trainer.save_model(training_args.output_dir)
 
 
-def finetune(model_values, path_values, config, experts, peft_strategy='lora', is_base=False, use_base=False, only_router=False, all=False, top_k=0) -> None:
+def finetune(
+        model_values,
+        path_values,
+        config,
+        experts,
+        peft_strategy='lora',
+        is_base=False,
+        use_base=False,
+        only_router=False,
+        all=False,
+    ) -> None:
     dataset = datasets.load_dataset(model_values.dataset, split="train")
     tokenizer = prepare_tokenizer(model_values.model, path_values.cache_dir)
 
     if is_base:
         _finetune_base(dataset, config, peft_strategy, tokenizer, model_values, path_values)
     elif only_router:
-        _finetune_router(dataset, tokenizer, config, experts, peft_strategy, model_values, path_values, top_k)
+        _finetune_router(
+            dataset,
+            tokenizer,
+            config,
+            experts,
+            peft_strategy,
+            model_values,
+            path_values,
+        )
     elif all:
         _finetune_all(dataset, config, peft_strategy, tokenizer, model_values, path_values)
     else:

@@ -1,0 +1,54 @@
+Loaded module: cuda/11.6
+Loaded dependency [python3/3.11.4]: gcc/12.3.0-binutils-2.40
+Loaded dependency [python3/3.11.4]: sqlite3/3.42.0
+Loaded module: python3/3.11.4
+
+Loading python3/3.11.4
+  Loading requirement: gcc/12.3.0-binutils-2.40 sqlite3/3.42.0
+Found cached dataset parquet (/work3/s212722/herd/datasets/cache/alexrs___parquet/alexrs--alpaca-cleaned-15-clusters-dc700effb75224a8/0.0.0/14a00e99c0d15a23649d0db8944380ac81082d4b021f398733dd84f3a6c569a7)
+Filter:   0%|          | 0/51760 [00:00<?, ? examples/s]Filter:  21%|██▏       | 11000/51760 [00:00<00:00, 87193.41 examples/s]Filter:  43%|████▎     | 22000/51760 [00:00<00:00, 48898.11 examples/s]Filter:  56%|█████▌    | 29000/51760 [00:00<00:00, 51296.80 examples/s]Filter:  71%|███████▏  | 37000/51760 [00:00<00:00, 55172.81 examples/s]Filter:  85%|████████▌ | 44000/51760 [00:00<00:00, 53748.65 examples/s]Filter:  99%|█████████▊| 51000/51760 [00:00<00:00, 48558.13 examples/s]                                                                       2023-10-28 18:29:29.638 | INFO     | herd.finetune_utils:get_peft_config:30 - Fine-tuning with MoLoRA using 15 experts
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards:  50%|█████     | 1/2 [00:03<00:03,  3.30s/it]Loading checkpoint shards: 100%|██████████| 2/2 [00:04<00:00,  2.11s/it]Loading checkpoint shards: 100%|██████████| 2/2 [00:04<00:00,  2.29s/it]
+2023-10-28 18:29:35.950 | WARNING  | herd.finetune:_finetune_experts:174 - Number of experts is not 1 but we are training an expert, setting it to 1. num_experts: 1
+/zhome/03/c/164482/code/herd/.venv/lib/python3.11/site-packages/trl/trainer/utils.py:246: UserWarning: The passed formatting_func has more than one argument. Usually that function should have a single argument `example` which corresponds to the dictonnary returned by each element of the dataset. Make sure you know what you are doing.
+  warnings.warn(
+2023-10-28 18:30:09.791 | INFO     | herd.finetune:_finetune_experts:206 - Training expert: expert_14, output_dir: /work3/s212722/herd/meta-llama/Llama-2-7b-hf/alpaca-15/all_linear_paged_adam_no_quant/molora/expert_14
+wandb: Currently logged in as: alexrs95. Use `wandb login --relogin` to force relogin
+wandb: wandb version 0.15.12 is available!  To upgrade, please run:
+wandb:  $ pip install wandb --upgrade
+wandb: Tracking run with wandb version 0.15.10
+wandb: Run data is saved locally in /zhome/03/c/164482/code/herd/wandb/run-20231028_183011-3lxubk1z
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run molora/expert_14
+wandb: ⭐️ View project at https://wandb.ai/alexrs95/herd-llama
+wandb: 🚀 View run at https://wandb.ai/alexrs95/herd-llama/runs/3lxubk1z
+  0%|          | 0/546 [00:00<?, ?it/s]You're using a LlamaTokenizerFast tokenizer. Please note that with a fast tokenizer, using the `__call__` method is faster than using a method to encode the text followed by a call to the `pad` method to get a padded encoding.
+`use_cache=True` is incompatible with gradient checkpointing. Setting `use_cache=False`...
+  0%|          | 1/546 [00:12<1:50:03, 12.12s/it]  0%|          | 2/546 [00:23<1:43:57, 11.47s/it]  1%|          | 3/546 [00:34<1:41:58, 11.27s/it]  1%|          | 4/546 [00:45<1:41:01, 11.18s/it]  1%|          | 5/546 [00:56<1:40:27, 11.14s/it]  1%|          | 6/546 [01:07<1:40:04, 11.12s/it]  1%|▏         | 7/546 [01:18<1:39:48, 11.11s/it]  1%|▏         | 8/546 [01:29<1:39:33, 11.10s/it]  2%|▏         | 9/546 [01:40<1:39:22, 11.10s/it]  2%|▏         | 10/546 [01:51<1:39:10, 11.10s/it]                                                    2%|▏         | 10/546 [01:51<1:39:10, 11.10s/it]  2%|▏         | 11/546 [02:02<1:39:00, 11.10s/it]  2%|▏         | 12/546 [02:13<1:38:49, 11.10s/it]  2%|▏         | 13/546 [02:25<1:38:38, 11.10s/it]  3%|▎         | 14/546 [02:36<1:38:27, 11.11s/it]  3%|▎         | 15/546 [02:47<1:38:16, 11.10s/it]  3%|▎         | 16/546 [02:58<1:38:05, 11.10s/it]  3%|▎         | 17/546 [03:09<1:37:55, 11.11s/it]  3%|▎         | 18/546 [03:20<1:37:45, 11.11s/it]  3%|▎         | 19/546 [03:31<1:37:34, 11.11s/it]  4%|▎         | 20/546 [03:42<1:37:23, 11.11s/it]                                                    4%|▎         | 20/546 [03:42<1:37:23, 11.11s/it]  4%|▍         | 21/546 [03:53<1:37:12, 11.11s/it]  4%|▍         | 22/546 [04:05<1:37:01, 11.11s/it]  4%|▍         | 23/546 [04:16<1:36:50, 11.11s/it]  4%|▍         | 24/546 [04:27<1:36:40, 11.11s/it]  5%|▍         | 25/546 [04:38<1:36:29, 11.11s/it]  5%|▍         | 26/546 [04:49<1:36:19, 11.11s/it]  5%|▍         | 27/546 [05:00<1:36:08, 11.11s/it]  5%|▌         | 28/546 [05:11<1:35:56, 11.11s/it]  5%|▌         | 29/546 [05:22<1:35:44, 11.11s/it]  5%|▌         | 30/546 [05:33<1:35:35, 11.11s/it]                                                    5%|▌         | 30/546 [05:33<1:35:35, 11.11s/it]  6%|▌         | 31/546 [05:45<1:36:04, 11.19s/it]  6%|▌         | 32/546 [05:56<1:35:40, 11.17s/it]  6%|▌         | 33/546 [06:07<1:35:20, 11.15s/it]  6%|▌         | 34/546 [06:18<1:35:03, 11.14s/it]  6%|▋         | 35/546 [06:29<1:34:46, 11.13s/it]  7%|▋         | 36/546 [06:40<1:34:32, 11.12s/it]  7%|▋         | 37/546 [06:51<1:34:19, 11.12s/it]  7%|▋         | 38/546 [07:03<1:34:08, 11.12s/it]  7%|▋         | 39/546 [07:14<1:33:55, 11.12s/it]  7%|▋         | 40/546 [07:25<1:33:43, 11.11s/it]                                                    7%|▋         | 40/546 [07:25<1:33:43, 11.11s/it]  8%|▊         | 41/546 [07:36<1:33:32, 11.11s/it]  8%|▊         | 42/546 [07:47<1:33:22, 11.12s/it]  8%|▊         | 43/546 [07:58<1:33:12, 11.12s/it]  8%|▊         | 44/546 [08:09<1:33:00, 11.12s/it]  8%|▊         | 45/546 [08:20<1:32:47, 11.11s/it]  8%|▊         | 46/546 [08:32<1:32:35, 11.11s/it]  9%|▊         | 47/546 [08:43<1:32:23, 11.11s/it]  9%|▉         | 48/546 [08:54<1:32:12, 11.11s/it]  9%|▉         | 49/546 [09:05<1:32:03, 11.11s/it]  9%|▉         | 50/546 [09:16<1:31:51, 11.11s/it]                                                    9%|▉         | 50/546 [09:16<1:31:51, 11.11s/it]  9%|▉         | 51/546 [09:27<1:31:40, 11.11s/it] 10%|▉         | 52/546 [09:38<1:31:28, 11.11s/it] 10%|▉         | 53/546 [09:49<1:31:17, 11.11s/it] 10%|▉         | 54/546 [10:00<1:31:06, 11.11s/it] 10%|█         | 55/546 [10:12<1:30:55, 11.11s/it] 10%|█         | 56/546 [10:23<1:30:45, 11.11s/it] 10%|█         | 57/546 [10:34<1:30:34, 11.11s/it] 11%|█         | 58/546 [10:45<1:30:23, 11.11s/it] 11%|█         | 59/546 [10:56<1:30:13, 11.12s/it] 11%|█         | 60/546 [11:07<1:30:02, 11.12s/it]                                                   11%|█         | 60/546 [11:07<1:30:02, 11.12s/it] 11%|█         | 61/546 [11:17<1:26:48, 10.74s/it]                                                   11%|█         | 61/546 [11:18<1:26:48, 10.74s/it] 11%|█         | 61/546 [11:18<1:29:55, 11.13s/it]
+wandb: Waiting for W&B process to finish... (success).
+wandb: 
+wandb: Run history:
+wandb:                    train/epoch ▁▁▁▇███
+wandb:              train/global_step ▁▂▄▅▆██
+wandb:            train/learning_rate ▁▁▁▁▁▁
+wandb:                     train/loss ███▂▁▂
+wandb:               train/total_flos ▁
+wandb:               train/train_loss ▁
+wandb:            train/train_runtime ▁
+wandb: train/train_samples_per_second ▁
+wandb:   train/train_steps_per_second ▁
+wandb: 
+wandb: Run summary:
+wandb:                    train/epoch 1.11
+wandb:              train/global_step 61
+wandb:            train/learning_rate 0.0003
+wandb:                     train/loss 0.4723
+wandb:               train/total_flos 3.970438731163238e+16
+wandb:               train/train_loss 0.6574
+wandb:            train/train_runtime 680.9683
+wandb: train/train_samples_per_second 6.414
+wandb:   train/train_steps_per_second 0.802
+wandb: 
+wandb: 🚀 View run molora/expert_14 at: https://wandb.ai/alexrs95/herd-llama/runs/3lxubk1z
+wandb: ️⚡ View job at https://wandb.ai/alexrs95/herd-llama/jobs/QXJ0aWZhY3RDb2xsZWN0aW9uOjk5NjEyNzE2/version_details/v13
+wandb: Synced 5 W&B file(s), 0 media file(s), 0 artifact file(s) and 0 other file(s)
+wandb: Find logs at: ./wandb/run-20231028_183011-3lxubk1z/logs

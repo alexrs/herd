@@ -1,0 +1,123 @@
+Loaded module: cuda/11.6
+Loaded dependency [python3/3.11.4]: gcc/12.3.0-binutils-2.40
+Loaded dependency [python3/3.11.4]: sqlite3/3.42.0
+Loaded module: python3/3.11.4
+
+Loading python3/3.11.4
+  Loading requirement: gcc/12.3.0-binutils-2.40 sqlite3/3.42.0
+Found cached dataset parquet (/work3/s212722/herd/datasets/cache/alexrs___parquet/alexrs--alpaca-cleaned-30-clusters-a73d614e768ecc90/0.0.0/14a00e99c0d15a23649d0db8944380ac81082d4b021f398733dd84f3a6c569a7)
+Loading cached processed dataset at /work3/s212722/herd/datasets/cache/alexrs___parquet/alexrs--alpaca-cleaned-30-clusters-a73d614e768ecc90/0.0.0/14a00e99c0d15a23649d0db8944380ac81082d4b021f398733dd84f3a6c569a7/cache-53a903de7d37ddfa.arrow
+2023-10-28 19:52:30.058 | INFO     | herd.finetune_utils:get_peft_config:30 - Fine-tuning with MoLoRA using 30 experts
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards:  50%|█████     | 1/2 [00:03<00:03,  3.31s/it]Loading checkpoint shards: 100%|██████████| 2/2 [00:04<00:00,  2.07s/it]Loading checkpoint shards: 100%|██████████| 2/2 [00:04<00:00,  2.25s/it]
+2023-10-28 19:52:36.341 | WARNING  | herd.finetune:_finetune_experts:174 - Number of experts is not 1 but we are training an expert, setting it to 1. num_experts: 1
+/zhome/03/c/164482/code/herd/.venv/lib/python3.11/site-packages/trl/trainer/utils.py:246: UserWarning: The passed formatting_func has more than one argument. Usually that function should have a single argument `example` which corresponds to the dictonnary returned by each element of the dataset. Make sure you know what you are doing.
+  warnings.warn(
+2023-10-28 19:53:09.932 | INFO     | herd.finetune:_finetune_experts:206 - Training expert: expert_4, output_dir: /work3/s212722/herd/meta-llama/Llama-2-7b-hf/alpaca-30/all_linear_paged_adam_4bit/molora/expert_4
+wandb: Currently logged in as: alexrs95. Use `wandb login --relogin` to force relogin
+wandb: wandb version 0.15.12 is available!  To upgrade, please run:
+wandb:  $ pip install wandb --upgrade
+wandb: Tracking run with wandb version 0.15.10
+wandb: Run data is saved locally in /zhome/03/c/164482/code/herd/wandb/run-20231028_195311-gziuwe77
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run molora/expert_4
+wandb: ⭐️ View project at https://wandb.ai/alexrs95/herd-llama
+wandb: 🚀 View run at https://wandb.ai/alexrs95/herd-llama/runs/gziuwe77
+  0%|          | 0/810 [00:00<?, ?it/s]You're using a LlamaTokenizerFast tokenizer. Please note that with a fast tokenizer, using the `__call__` method is faster than using a method to encode the text followed by a call to the `pad` method to get a padded encoding.
+`use_cache=True` is incompatible with gradient checkpointing. Setting `use_cache=False`...
+  0%|          | 1/810 [00:12<2:49:23, 12.56s/it]  0%|          | 2/810 [00:23<2:37:10, 11.67s/it]  0%|          | 3/810 [00:34<2:33:22, 11.40s/it]  0%|          | 4/810 [00:45<2:31:38, 11.29s/it]  1%|          | 5/810 [00:56<2:30:39, 11.23s/it]  1%|          | 6/810 [01:08<2:30:09, 11.21s/it]  1%|          | 7/810 [01:19<2:29:48, 11.19s/it]  1%|          | 8/810 [01:30<2:29:37, 11.19s/it]  1%|          | 9/810 [01:41<2:29:31, 11.20s/it]  1%|          | 10/810 [01:52<2:29:26, 11.21s/it]                                                    1%|          | 10/810 [01:52<2:29:26, 11.21s/it]  1%|▏         | 11/810 [02:04<2:29:22, 11.22s/it]  1%|▏         | 12/810 [02:15<2:29:17, 11.23s/it]  2%|▏         | 13/810 [02:26<2:29:14, 11.24s/it]  2%|▏         | 14/810 [02:37<2:29:10, 11.24s/it]  2%|▏         | 15/810 [02:49<2:29:05, 11.25s/it]  2%|▏         | 16/810 [03:00<2:28:59, 11.26s/it]  2%|▏         | 17/810 [03:11<2:28:54, 11.27s/it]  2%|▏         | 18/810 [03:23<2:28:46, 11.27s/it]  2%|▏         | 19/810 [03:34<2:28:38, 11.28s/it]  2%|▏         | 20/810 [03:45<2:28:31, 11.28s/it]                                                    2%|▏         | 20/810 [03:45<2:28:31, 11.28s/it]  3%|▎         | 21/810 [03:56<2:28:23, 11.28s/it]  3%|▎         | 22/810 [04:08<2:28:15, 11.29s/it]  3%|▎         | 23/810 [04:19<2:28:05, 11.29s/it]  3%|▎         | 24/810 [04:30<2:27:55, 11.29s/it]  3%|▎         | 25/810 [04:42<2:27:47, 11.30s/it]  3%|▎         | 26/810 [04:53<2:27:36, 11.30s/it]  3%|▎         | 27/810 [05:04<2:27:25, 11.30s/it]  3%|▎         | 28/810 [05:15<2:27:14, 11.30s/it]  4%|▎         | 29/810 [05:27<2:27:03, 11.30s/it]  4%|▎         | 30/810 [05:38<2:26:52, 11.30s/it]                                                    4%|▎         | 30/810 [05:38<2:26:52, 11.30s/it]  4%|▍         | 31/810 [05:49<2:26:42, 11.30s/it]  4%|▍         | 32/810 [06:01<2:26:31, 11.30s/it]  4%|▍         | 33/810 [06:12<2:26:19, 11.30s/it]  4%|▍         | 34/810 [06:23<2:26:08, 11.30s/it]  4%|▍         | 35/810 [06:35<2:25:56, 11.30s/it]  4%|▍         | 36/810 [06:46<2:25:45, 11.30s/it]  5%|▍         | 37/810 [06:57<2:25:34, 11.30s/it]  5%|▍         | 38/810 [07:08<2:25:23, 11.30s/it]  5%|▍         | 39/810 [07:20<2:25:13, 11.30s/it]  5%|▍         | 40/810 [07:31<2:25:04, 11.30s/it]                                                    5%|▍         | 40/810 [07:31<2:25:04, 11.30s/it]  5%|▌         | 41/810 [07:42<2:24:53, 11.31s/it]  5%|▌         | 42/810 [07:54<2:24:43, 11.31s/it]  5%|▌         | 43/810 [08:05<2:24:31, 11.31s/it]  5%|▌         | 44/810 [08:16<2:24:18, 11.30s/it]  6%|▌         | 45/810 [08:28<2:24:07, 11.30s/it]  6%|▌         | 46/810 [08:39<2:23:56, 11.30s/it]  6%|▌         | 47/810 [08:50<2:23:44, 11.30s/it]  6%|▌         | 48/810 [09:02<2:23:32, 11.30s/it]  6%|▌         | 49/810 [09:13<2:23:20, 11.30s/it]  6%|▌         | 50/810 [09:24<2:23:09, 11.30s/it]                                                    6%|▌         | 50/810 [09:24<2:23:09, 11.30s/it]  6%|▋         | 51/810 [09:35<2:22:58, 11.30s/it]  6%|▋         | 52/810 [09:47<2:22:46, 11.30s/it]  7%|▋         | 53/810 [09:58<2:22:35, 11.30s/it]  7%|▋         | 54/810 [10:09<2:22:24, 11.30s/it]  7%|▋         | 55/810 [10:21<2:22:13, 11.30s/it]  7%|▋         | 56/810 [10:32<2:22:03, 11.30s/it]  7%|▋         | 57/810 [10:43<2:21:51, 11.30s/it]  7%|▋         | 58/810 [10:55<2:21:39, 11.30s/it]  7%|▋         | 59/810 [11:06<2:21:27, 11.30s/it]  7%|▋         | 60/810 [11:17<2:21:15, 11.30s/it]                                                    7%|▋         | 60/810 [11:17<2:21:15, 11.30s/it]  8%|▊         | 61/810 [11:24<2:06:16, 10.12s/it]  8%|▊         | 62/810 [11:37<2:15:53, 10.90s/it]  8%|▊         | 63/810 [11:49<2:17:12, 11.02s/it]  8%|▊         | 64/810 [12:00<2:18:04, 11.11s/it]  8%|▊         | 65/810 [12:11<2:18:38, 11.17s/it]  8%|▊         | 66/810 [12:22<2:18:58, 11.21s/it]  8%|▊         | 67/810 [12:34<2:19:17, 11.25s/it]  8%|▊         | 68/810 [12:45<2:19:20, 11.27s/it]  9%|▊         | 69/810 [12:56<2:19:18, 11.28s/it]  9%|▊         | 70/810 [13:08<2:19:12, 11.29s/it]                                                    9%|▊         | 70/810 [13:08<2:19:12, 11.29s/it]  9%|▉         | 71/810 [13:19<2:19:05, 11.29s/it]  9%|▉         | 72/810 [13:30<2:18:57, 11.30s/it]  9%|▉         | 73/810 [13:42<2:18:49, 11.30s/it]  9%|▉         | 74/810 [13:53<2:18:39, 11.30s/it]  9%|▉         | 75/810 [14:04<2:18:28, 11.30s/it]  9%|▉         | 76/810 [14:16<2:18:17, 11.30s/it] 10%|▉         | 77/810 [14:27<2:18:05, 11.30s/it] 10%|▉         | 78/810 [14:38<2:17:55, 11.31s/it] 10%|▉         | 79/810 [14:49<2:17:44, 11.31s/it] 10%|▉         | 80/810 [15:01<2:17:33, 11.31s/it]                                                   10%|▉         | 80/810 [15:01<2:17:33, 11.31s/it] 10%|█         | 81/810 [15:12<2:17:22, 11.31s/it] 10%|█         | 82/810 [15:23<2:17:09, 11.30s/it] 10%|█         | 83/810 [15:35<2:16:57, 11.30s/it] 10%|█         | 84/810 [15:46<2:16:46, 11.30s/it] 10%|█         | 85/810 [15:57<2:16:34, 11.30s/it] 11%|█         | 86/810 [16:09<2:16:22, 11.30s/it] 11%|█         | 87/810 [16:20<2:16:11, 11.30s/it] 11%|█         | 88/810 [16:31<2:16:00, 11.30s/it] 11%|█         | 89/810 [16:42<2:15:48, 11.30s/it] 11%|█         | 90/810 [16:54<2:15:38, 11.30s/it]                                                   11%|█         | 90/810 [16:54<2:15:38, 11.30s/it] 11%|█         | 91/810 [17:05<2:15:26, 11.30s/it] 11%|█▏        | 92/810 [17:16<2:15:14, 11.30s/it] 11%|█▏        | 93/810 [17:28<2:15:01, 11.30s/it] 12%|█▏        | 94/810 [17:39<2:14:49, 11.30s/it] 12%|█▏        | 95/810 [17:50<2:14:37, 11.30s/it] 12%|█▏        | 96/810 [18:02<2:14:26, 11.30s/it] 12%|█▏        | 97/810 [18:13<2:14:14, 11.30s/it] 12%|█▏        | 98/810 [18:24<2:14:03, 11.30s/it] 12%|█▏        | 99/810 [18:35<2:13:52, 11.30s/it] 12%|█▏        | 100/810 [18:47<2:13:42, 11.30s/it]                                                    12%|█▏        | 100/810 [18:47<2:13:42, 11.30s/it] 12%|█▏        | 101/810 [18:58<2:13:31, 11.30s/it] 13%|█▎        | 102/810 [19:09<2:13:19, 11.30s/it] 13%|█▎        | 103/810 [19:21<2:13:07, 11.30s/it] 13%|█▎        | 104/810 [19:32<2:12:55, 11.30s/it] 13%|█▎        | 105/810 [19:43<2:12:43, 11.30s/it] 13%|█▎        | 106/810 [19:55<2:12:32, 11.30s/it] 13%|█▎        | 107/810 [20:06<2:12:20, 11.30s/it] 13%|█▎        | 108/810 [20:17<2:12:10, 11.30s/it] 13%|█▎        | 109/810 [20:28<2:11:59, 11.30s/it] 14%|█▎        | 110/810 [20:40<2:11:47, 11.30s/it]                                                    14%|█▎        | 110/810 [20:40<2:11:47, 11.30s/it] 14%|█▎        | 111/810 [20:51<2:11:36, 11.30s/it] 14%|█▍        | 112/810 [21:02<2:11:24, 11.30s/it] 14%|█▍        | 113/810 [21:14<2:11:13, 11.30s/it] 14%|█▍        | 114/810 [21:25<2:11:02, 11.30s/it] 14%|█▍        | 115/810 [21:36<2:10:51, 11.30s/it] 14%|█▍        | 116/810 [21:48<2:10:40, 11.30s/it] 14%|█▍        | 117/810 [21:59<2:10:30, 11.30s/it] 15%|█▍        | 118/810 [22:10<2:10:18, 11.30s/it] 15%|█▍        | 119/810 [22:21<2:10:08, 11.30s/it] 15%|█▍        | 120/810 [22:33<2:09:56, 11.30s/it]                                                    15%|█▍        | 120/810 [22:33<2:09:56, 11.30s/it] 15%|█▍        | 121/810 [22:44<2:09:46, 11.30s/it] 15%|█▌        | 122/810 [22:51<1:55:59, 10.12s/it]                                                    15%|█▌        | 122/810 [22:52<1:55:59, 10.12s/it] 15%|█▌        | 122/810 [22:52<2:09:00, 11.25s/it]
+wandb: Waiting for W&B process to finish... (success).
+wandb: 
+wandb: Run history:
+wandb:                    train/epoch ▁▁▁▁▂▂▇▇█████
+wandb:              train/global_step ▁▂▂▃▃▄▅▅▆▇▇██
+wandb:            train/learning_rate ▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:                     train/loss ████▇█▂▁▁▂▂▂
+wandb:               train/total_flos ▁
+wandb:               train/train_loss ▁
+wandb:            train/train_runtime ▁
+wandb: train/train_samples_per_second ▁
+wandb:   train/train_steps_per_second ▁
+wandb: 
+wandb: Run summary:
+wandb:                    train/epoch 1.15
+wandb:              train/global_step 122
+wandb:            train/learning_rate 0.0003
+wandb:                     train/loss 0.6322
+wandb:               train/total_flos 7.900713219391488e+16
+wandb:               train/train_loss 0.759
+wandb:            train/train_runtime 1374.8828
+wandb: train/train_samples_per_second 4.71
+wandb:   train/train_steps_per_second 0.589
+wandb: 
+wandb: 🚀 View run molora/expert_4 at: https://wandb.ai/alexrs95/herd-llama/runs/gziuwe77
+wandb: ️⚡ View job at https://wandb.ai/alexrs95/herd-llama/jobs/QXJ0aWZhY3RDb2xsZWN0aW9uOjk5NjEyNzE2/version_details/v13
+wandb: Synced 5 W&B file(s), 0 media file(s), 0 artifact file(s) and 0 other file(s)
+wandb: Find logs at: ./wandb/run-20231028_195311-gziuwe77/logs
+Exception in thread IntMsgThr:
+Exception in thread NetStatThr:
+Traceback (most recent call last):
+Traceback (most recent call last):
+  File "/appl/python/3.11.4/lib/python3.11/threading.py", line 1038, in _bootstrap_inner
+  File "/appl/python/3.11.4/lib/python3.11/threading.py", line 1038, in _bootstrap_inner
+        self.run()self.run()
+
+  File "/appl/python/3.11.4/lib/python3.11/threading.py", line 975, in run
+  File "/appl/python/3.11.4/lib/python3.11/threading.py", line 975, in run
+    self._target(*self._args, **self._kwargs)
+  File "/zhome/03/c/164482/code/herd/.venv/lib/python3.11/site-packages/wandb/sdk/wandb_run.py", line 267, in check_network_status
+    self._target(*self._args, **self._kwargs)
+  File "/zhome/03/c/164482/code/herd/.venv/lib/python3.11/site-packages/wandb/sdk/wandb_run.py", line 299, in check_internal_messages
+    self._loop_check_status(
+  File "/zhome/03/c/164482/code/herd/.venv/lib/python3.11/site-packages/wandb/sdk/wandb_run.py", line 223, in _loop_check_status
+    self._loop_check_status(
+  File "/zhome/03/c/164482/code/herd/.venv/lib/python3.11/site-packages/wandb/sdk/wandb_run.py", line 223, in _loop_check_status
+    local_handle = request()
+                   ^^^^^^^^^
+    local_handle = request()
+  File "/zhome/03/c/164482/code/herd/.venv/lib/python3.11/site-packages/wandb/sdk/interface/interface.py", line 735, in deliver_network_status
+                   ^^^^^^^^^
+  File "/zhome/03/c/164482/code/herd/.venv/lib/python3.11/site-packages/wandb/sdk/interface/interface.py", line 743, in deliver_internal_messages
+    return self._deliver_internal_messages(internal_message)
+    return self._deliver_network_status(status)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/zhome/03/c/164482/code/herd/.venv/lib/python3.11/site-packages/wandb/sdk/interface/interface_shared.py", line 472, in _deliver_internal_messages
+  File "/zhome/03/c/164482/code/herd/.venv/lib/python3.11/site-packages/wandb/sdk/interface/interface_shared.py", line 466, in _deliver_network_status
+        return self._deliver_record(record)return self._deliver_record(record)
+
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/zhome/03/c/164482/code/herd/.venv/lib/python3.11/site-packages/wandb/sdk/interface/interface_shared.py", line 425, in _deliver_record
+  File "/zhome/03/c/164482/code/herd/.venv/lib/python3.11/site-packages/wandb/sdk/interface/interface_shared.py", line 425, in _deliver_record
+    handle = mailbox._deliver_record(record, interface=self)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/zhome/03/c/164482/code/herd/.venv/lib/python3.11/site-packages/wandb/sdk/lib/mailbox.py", line 455, in _deliver_record
+    handle = mailbox._deliver_record(record, interface=self)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/zhome/03/c/164482/code/herd/.venv/lib/python3.11/site-packages/wandb/sdk/lib/mailbox.py", line 455, in _deliver_record
+    interface._publish(record)
+    interface._publish(record)
+  File "/zhome/03/c/164482/code/herd/.venv/lib/python3.11/site-packages/wandb/sdk/interface/interface_sock.py", line 51, in _publish
+  File "/zhome/03/c/164482/code/herd/.venv/lib/python3.11/site-packages/wandb/sdk/interface/interface_sock.py", line 51, in _publish
+    self._sock_client.send_record_publish(record)
+  File "/zhome/03/c/164482/code/herd/.venv/lib/python3.11/site-packages/wandb/sdk/lib/sock_client.py", line 221, in send_record_publish
+    self._sock_client.send_record_publish(record)
+  File "/zhome/03/c/164482/code/herd/.venv/lib/python3.11/site-packages/wandb/sdk/lib/sock_client.py", line 221, in send_record_publish
+    self.send_server_request(server_req)
+    self.send_server_request(server_req)
+  File "/zhome/03/c/164482/code/herd/.venv/lib/python3.11/site-packages/wandb/sdk/lib/sock_client.py", line 155, in send_server_request
+  File "/zhome/03/c/164482/code/herd/.venv/lib/python3.11/site-packages/wandb/sdk/lib/sock_client.py", line 155, in send_server_request
+    self._send_message(msg)
+  File "/zhome/03/c/164482/code/herd/.venv/lib/python3.11/site-packages/wandb/sdk/lib/sock_client.py", line 152, in _send_message
+    self._send_message(msg)
+  File "/zhome/03/c/164482/code/herd/.venv/lib/python3.11/site-packages/wandb/sdk/lib/sock_client.py", line 152, in _send_message
+    self._sendall_with_error_handle(header + data)
+  File "/zhome/03/c/164482/code/herd/.venv/lib/python3.11/site-packages/wandb/sdk/lib/sock_client.py", line 130, in _sendall_with_error_handle
+    self._sendall_with_error_handle(header + data)
+  File "/zhome/03/c/164482/code/herd/.venv/lib/python3.11/site-packages/wandb/sdk/lib/sock_client.py", line 130, in _sendall_with_error_handle
+    sent = self._sock.send(data)
+           ^^^^^^^^^^^^^^^^^^^^^
+BrokenPipeError: [Errno 32] Broken pipe
+    sent = self._sock.send(data)
+           ^^^^^^^^^^^^^^^^^^^^^
+BrokenPipeError: [Errno 32] Broken pipe

@@ -28,6 +28,7 @@ def main():
     parser.add_argument("--only-router", default=False, type=bool)
     parser.add_argument("--all", default=False, type=bool)
     parser.add_argument("--top-k", default=0, type=int)
+    parser.add_argument("--top-p", default=0.0, type=float)
     args = parser.parse_args()
 
     config = ConfigParser(interpolation=ExtendedInterpolation())
@@ -51,7 +52,17 @@ def main():
         # Process based on action
         match args.action:
             case "finetune":
-                finetune(model_values, path_values, config, experts, args.peft_strategy, args.is_base, args.use_base, args.only_router, args.all, args.top_k)
+                finetune(
+                    model_values,
+                    path_values,
+                    config,
+                    experts,
+                    args.peft_strategy,
+                    args.is_base,
+                    args.use_base,
+                    args.only_router,
+                    args.all,
+                    )
             case "run_model":
                 run_model(
                     model_values, path_values, experts, args.only_base, args.interactive, args.peft_strategy, args.top

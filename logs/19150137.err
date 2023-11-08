@@ -1,0 +1,21 @@
+Loaded module: cuda/11.6
+Loaded dependency [python3/3.11.4]: gcc/12.3.0-binutils-2.40
+Loaded dependency [python3/3.11.4]: sqlite3/3.42.0
+Loaded module: python3/3.11.4
+
+Loading python3/3.11.4
+  Loading requirement: gcc/12.3.0-binutils-2.40 sqlite3/3.42.0
+Found cached dataset parquet (/work3/s212722/herd/datasets/cache/alexrs___parquet/alexrs--alpaca-cleaned-10-clusters-e0d2361138237477/0.0.0/14a00e99c0d15a23649d0db8944380ac81082d4b021f398733dd84f3a6c569a7)
+2023-11-04 20:25:52.158 | INFO     | herd.finetune_utils:get_peft_config:30 - Fine-tuning with MoLoRA using 10 experts
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards:  50%|█████     | 1/2 [05:21<05:21, 321.67s/it]Loading checkpoint shards: 100%|██████████| 2/2 [08:22<00:00, 238.97s/it]Loading checkpoint shards: 100%|██████████| 2/2 [08:22<00:00, 251.37s/it]
+Traceback (most recent call last):
+  File "/zhome/03/c/164482/code/herd/main.py", line 78, in <module>
+    main()
+  File "/zhome/03/c/164482/code/herd/main.py", line 55, in main
+    finetune(
+  File "/zhome/03/c/164482/code/herd/herd/finetune.py", line 254, in finetune
+    _finetune_router(
+  File "/zhome/03/c/164482/code/herd/herd/finetune.py", line 145, in _finetune_router
+    peft_config.self_attn_router = model_values.self_attn_router
+                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'ModelValues' object has no attribute 'self_attn_router'

@@ -1,0 +1,25 @@
+Loaded module: cuda/11.6
+Loaded dependency [python3/3.11.4]: gcc/12.3.0-binutils-2.40
+Loaded dependency [python3/3.11.4]: sqlite3/3.42.0
+Loaded module: python3/3.11.4
+
+Loading python3/3.11.4
+  Loading requirement: gcc/12.3.0-binutils-2.40 sqlite3/3.42.0
+Found cached dataset parquet (/work3/s212722/herd/datasets/cache/alexrs___parquet/alexrs--alpaca-cleaned-10-clusters-e0d2361138237477/0.0.0/14a00e99c0d15a23649d0db8944380ac81082d4b021f398733dd84f3a6c569a7)
+Traceback (most recent call last):
+  File "/zhome/03/c/164482/code/herd/main.py", line 78, in <module>
+    main()
+  File "/zhome/03/c/164482/code/herd/main.py", line 55, in main
+    finetune(
+  File "/zhome/03/c/164482/code/herd/herd/finetune.py", line 253, in finetune
+    _finetune_router(
+  File "/zhome/03/c/164482/code/herd/herd/finetune.py", line 150, in _finetune_router
+    model, peft_config = prepare_model(model_values.model, path_values.cache_dir, config, peft_strategy)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/zhome/03/c/164482/code/herd/herd/finetune_utils.py", line 37, in prepare_model
+    peft_config = get_peft_config(config, peft_strategy)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/zhome/03/c/164482/code/herd/herd/finetune_utils.py", line 29, in get_peft_config
+    peft_config = MoloraConfig(**asdict(MoloraConfigValues(**dict(config.items("MoLoraConfig")))))
+                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: MoloraConfigValues.__init__() got an unexpected keyword argument 'self_attn_router'

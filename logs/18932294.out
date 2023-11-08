@@ -1,0 +1,5 @@
+Total Sum for i 0: tensor([[[889.2068, 891.2675, 871.2969, 877.4189, 950.8102]]], device='cuda:0')
+Total Sum for i 1: tensor([[[885.8080, 890.9667, 874.5662, 883.5560, 945.1028]]], device='cuda:0')
+Total Sum for i 2: tensor([[[886.7034, 893.3062, 878.1002, 879.5905, 942.2999]]], device='cuda:0')
+Total Sum for i 3: tensor([[[879.5981, 897.6978, 874.2225, 882.3686, 946.1132]]], device='cuda:0')
+Total Sum for i 4: tensor([[[886.2031, 895.8142, 879.2589, 882.8676, 935.8563]]], device='cuda:0')

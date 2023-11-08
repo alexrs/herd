@@ -19,13 +19,20 @@ class LoraConfigValues:
         else:
             self.target_modules = None
 
+
 @dataclass
 class MoloraConfigValues(LoraConfigValues):
     num_experts: int
+    self_attn_router: bool = False
+    self_attn_hidden_dim: int = 4
+    self_attn_use_value: bool = False
 
     def __post_init__(self):
         super().__post_init__()
         self.num_experts = int(self.num_experts)
+        self.self_attn_hidden_dim = int(self.self_attn_hidden_dim)
+        self.self_attn_router = bool(self.self_attn_router)
+        self.self_attn_use_value = bool(self.self_attn_use_value)
 
 
 @dataclass

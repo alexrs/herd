@@ -1,0 +1,8 @@
+trainable params: 41,115,872 || all params: 6,779,531,488 || trainable%: 0.6064706989380679
+{'loss': 0.8655, 'learning_rate': 0.0003, 'epoch': 0.03}
+{'loss': 0.8515, 'learning_rate': 0.0003, 'epoch': 0.07}
+{'loss': 0.8442, 'learning_rate': 0.0003, 'epoch': 0.1}
+{'loss': 0.6423, 'learning_rate': 0.0003, 'epoch': 1.02}
+{'loss': 0.4286, 'learning_rate': 0.0003, 'epoch': 1.05}
+{'loss': 0.4357, 'learning_rate': 0.0003, 'epoch': 1.09}
+{'train_runtime': 767.23, 'train_samples_per_second': 6.238, 'train_steps_per_second': 0.779, 'train_loss': 0.6501704989999965, 'epoch': 1.12}
