@@ -1,55 +1,0 @@
-Loaded module: cuda/11.6
-Loaded dependency [python3/3.11.4]: gcc/12.3.0-binutils-2.40
-Loaded dependency [python3/3.11.4]: sqlite3/3.42.0
-Loaded module: python3/3.11.4
-
-Loading python3/3.11.4
-  Loading requirement: gcc/12.3.0-binutils-2.40 sqlite3/3.42.0
-Found cached dataset parquet (/work3/s212722/herd/datasets/cache/alexrs___parquet/alexrs--alpaca-cleaned-30-clusters-a73d614e768ecc90/0.0.0/14a00e99c0d15a23649d0db8944380ac81082d4b021f398733dd84f3a6c569a7)
-Loading cached processed dataset at /work3/s212722/herd/datasets/cache/alexrs___parquet/alexrs--alpaca-cleaned-30-clusters-a73d614e768ecc90/0.0.0/14a00e99c0d15a23649d0db8944380ac81082d4b021f398733dd84f3a6c569a7/cache-8c4ae51ba3e07e36.arrow
-2023-11-01 21:58:03.790 | INFO     | herd.finetune_utils:get_peft_config:30 - Fine-tuning with MoLoRA using 30 experts
-Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards:  50%|█████     | 1/2 [00:03<00:03,  3.31s/it]Loading checkpoint shards: 100%|██████████| 2/2 [00:04<00:00,  2.11s/it]Loading checkpoint shards: 100%|██████████| 2/2 [00:04<00:00,  2.29s/it]
-2023-11-01 21:58:10.265 | WARNING  | herd.finetune:_finetune_experts:183 - Number of experts is not 1 but we are training an expert, setting it to 1. num_experts: 1
-/zhome/03/c/164482/code/herd/.venv/lib/python3.11/site-packages/trl/trainer/utils.py:246: UserWarning: The passed formatting_func has more than one argument. Usually that function should have a single argument `example` which corresponds to the dictonnary returned by each element of the dataset. Make sure you know what you are doing.
-  warnings.warn(
-2023-11-01 21:58:43.876 | INFO     | herd.finetune:_finetune_experts:215 - Training expert: expert_26, output_dir: /work3/s212722/herd/meta-llama/Llama-2-7b-hf/alpaca-30/all_linear_paged_adam_4bit/molora/expert_26
-wandb: Currently logged in as: alexrs95. Use `wandb login --relogin` to force relogin
-wandb: wandb version 0.15.12 is available!  To upgrade, please run:
-wandb:  $ pip install wandb --upgrade
-wandb: Tracking run with wandb version 0.15.10
-wandb: Run data is saved locally in /zhome/03/c/164482/code/herd/wandb/run-20231101_215846-3k3o2fz8
-wandb: Run `wandb offline` to turn off syncing.
-wandb: Syncing run molora/expert_26
-wandb: ⭐️ View project at https://wandb.ai/alexrs95/herd-llama
-wandb: 🚀 View run at https://wandb.ai/alexrs95/herd-llama/runs/3k3o2fz8
-  0%|          | 0/354 [00:00<?, ?it/s]You're using a LlamaTokenizerFast tokenizer. Please note that with a fast tokenizer, using the `__call__` method is faster than using a method to encode the text followed by a call to the `pad` method to get a padded encoding.
-`use_cache=True` is incompatible with gradient checkpointing. Setting `use_cache=False`...
-  0%|          | 1/354 [00:06<39:27,  6.71s/it]  1%|          | 2/354 [00:12<36:30,  6.22s/it]  1%|          | 3/354 [00:18<35:31,  6.07s/it]  1%|          | 4/354 [00:24<35:02,  6.01s/it]  1%|▏         | 5/354 [00:30<34:44,  5.97s/it]  2%|▏         | 6/354 [00:36<34:31,  5.95s/it]  2%|▏         | 7/354 [00:42<34:21,  5.94s/it]  2%|▏         | 8/354 [00:48<34:14,  5.94s/it]  3%|▎         | 9/354 [00:53<34:06,  5.93s/it]  3%|▎         | 10/354 [00:59<34:00,  5.93s/it]                                                  3%|▎         | 10/354 [00:59<34:00,  5.93s/it]  3%|▎         | 11/354 [01:05<33:55,  5.94s/it]  3%|▎         | 12/354 [01:11<33:49,  5.94s/it]  4%|▎         | 13/354 [01:17<33:43,  5.94s/it]  4%|▍         | 14/354 [01:23<33:38,  5.94s/it]  4%|▍         | 15/354 [01:29<33:33,  5.94s/it]  5%|▍         | 16/354 [01:35<33:28,  5.94s/it]  5%|▍         | 17/354 [01:41<33:22,  5.94s/it]  5%|▌         | 18/354 [01:47<33:16,  5.94s/it]  5%|▌         | 19/354 [01:53<34:10,  6.12s/it]  6%|▌         | 20/354 [01:59<33:46,  6.07s/it]                                                  6%|▌         | 20/354 [01:59<33:46,  6.07s/it]  6%|▌         | 21/354 [02:05<33:28,  6.03s/it]  6%|▌         | 22/354 [02:11<33:13,  6.00s/it]  6%|▋         | 23/354 [02:17<33:01,  5.99s/it]  7%|▋         | 24/354 [02:23<32:51,  5.97s/it]  7%|▋         | 25/354 [02:29<32:42,  5.97s/it]  7%|▋         | 26/354 [02:35<32:35,  5.96s/it]  8%|▊         | 27/354 [02:41<32:28,  5.96s/it]  8%|▊         | 28/354 [02:47<32:22,  5.96s/it]  8%|▊         | 29/354 [02:53<32:16,  5.96s/it]  8%|▊         | 30/354 [02:59<32:10,  5.96s/it]                                                  8%|▊         | 30/354 [02:59<32:10,  5.96s/it]  9%|▉         | 31/354 [03:05<32:04,  5.96s/it]  9%|▉         | 32/354 [03:11<31:57,  5.96s/it]  9%|▉         | 33/354 [03:17<31:51,  5.95s/it] 10%|▉         | 34/354 [03:23<31:45,  5.95s/it] 10%|▉         | 35/354 [03:29<31:38,  5.95s/it] 10%|█         | 36/354 [03:35<31:32,  5.95s/it] 10%|█         | 37/354 [03:41<31:26,  5.95s/it]                                                 10%|█         | 37/354 [03:41<31:26,  5.95s/it] 10%|█         | 37/354 [03:41<31:38,  5.99s/it]
-wandb: Waiting for W&B process to finish... (success).
-wandb: 
-wandb: Run history:
-wandb:                    train/epoch ▁▇██
-wandb:              train/global_step ▁▄▆█
-wandb:            train/learning_rate ▁▁▁
-wandb:                     train/loss █▇▁
-wandb:               train/total_flos ▁
-wandb:               train/train_loss ▁
-wandb:            train/train_runtime ▁
-wandb: train/train_samples_per_second ▁
-wandb:   train/train_steps_per_second ▁
-wandb: 
-wandb: Run summary:
-wandb:                    train/epoch 1.1
-wandb:              train/global_step 37
-wandb:            train/learning_rate 0.0003
-wandb:                     train/loss 0.4841
-wandb:               train/total_flos 1.2054696458452992e+16
-wandb:               train/train_loss 0.71928
-wandb:            train/train_runtime 224.3459
-wandb: train/train_samples_per_second 6.321
-wandb:   train/train_steps_per_second 1.578
-wandb: 
-wandb: 🚀 View run molora/expert_26 at: https://wandb.ai/alexrs95/herd-llama/runs/3k3o2fz8
-wandb: ️⚡ View job at https://wandb.ai/alexrs95/herd-llama/jobs/QXJ0aWZhY3RDb2xsZWN0aW9uOjk5NjEyNzE2/version_details/v15
-wandb: Synced 5 W&B file(s), 0 media file(s), 0 artifact file(s) and 0 other file(s)
-wandb: Find logs at: ./wandb/run-20231101_215846-3k3o2fz8/logs

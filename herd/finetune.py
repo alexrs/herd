@@ -157,6 +157,9 @@ def _finetune_router(
         if peft_config.self_attn_use_value:
             model_name += "_use_value"
 
+    if peft_config.router_dropout > 0:
+        model_name += "_dropout_" + str(peft_config.router_dropout)
+
     training_args = _get_training_arguments(config, peft_strategy, model_name)
     training_args.output_dir = os.path.join(output_dir, model_name)
 
@@ -173,6 +176,13 @@ def _finetune_router(
     model_peft.print_trainable_parameters()
     reset_router_weights(model_peft)
     trainer = _init_trainer(model_peft, dataset, peft_config, tokenizer, training_args)
+
+    if hasattr(model_peft, "enable_input_require_grads"):
+        model_peft.enable_input_require_grads()
+    else:
+        def make_inputs_require_grad(module, input, output):
+            output.requires_grad_(True)
+        model_peft.get_input_embeddings().register_forward_hook(make_inputs_require_grad)
 
     for name, param in model_peft.named_parameters():
         if param.requires_grad:
@@ -206,35 +216,24 @@ def _finetune_experts(dataset, tokenizer, config, experts, peft_strategy, use_ba
             model.load_adapter(base_path, "default")
             model.set_adapter("default")
 
-            # print(model)
-            # w0 = model.base_model.model.model.layers[3].self_attn.v_proj.lora_A['default'][0:1]
-            # print(w0)
-            # wb = load_peft_weights(base_path)
-            # w1 = wb['base_model.model.model.layers.3.self_attn.v_proj.lora_A']
-            # print(w1)
-
-            # print(torch.allclose(w0, w1))
-
-            # for name, param in model.named_parameters():
-            #     if param.requires_grad:
-            #         print(name)
-
-            # raise Exception("Base loaded")
-
             trainer = _init_trainer(model, expert_dataset, None, tokenizer, training_args)
         else:
-            base_dataset = dataset.shuffle().select(range(len(dataset) // 10))
             # Append base dataset to expert dataset
-            expert_dataset = datasets.concatenate_datasets([base_dataset, expert_dataset])
             model, peft_config = prepare_model(model_values.model, path_values.cache_dir, config, peft_strategy)
+            if peft_config.num_experts != 1:
+                peft_config.num_experts = 1
+                logger.warning(f"Number of experts is not 1 but we are training the base expert, setting it to 1. num_experts: {peft_config.num_experts}")
+
             model = get_peft_model(model, peft_config)
             trainer = _init_trainer(model, expert_dataset, peft_config, tokenizer, training_args)
 
+        print(model)
         model.print_trainable_parameters()
 
         logger.info(f"Training expert: {expert_name}, output_dir: {training_args.output_dir}")
         trainer.train()
         trainer.save_model(training_args.output_dir)
+
 
 
 def finetune(

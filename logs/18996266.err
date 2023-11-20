@@ -1,74 +1,0 @@
-Loaded module: cuda/11.6
-Loaded dependency [python3/3.11.4]: gcc/12.3.0-binutils-2.40
-Loaded dependency [python3/3.11.4]: sqlite3/3.42.0
-Loaded module: python3/3.11.4
-
-Loading python3/3.11.4
-  Loading requirement: gcc/12.3.0-binutils-2.40 sqlite3/3.42.0
-Found cached dataset parquet (/work3/s212722/herd/datasets/cache/alexrs___parquet/alexrs--alpaca-cleaned-30-clusters-a73d614e768ecc90/0.0.0/14a00e99c0d15a23649d0db8944380ac81082d4b021f398733dd84f3a6c569a7)
-Loading cached processed dataset at /work3/s212722/herd/datasets/cache/alexrs___parquet/alexrs--alpaca-cleaned-30-clusters-a73d614e768ecc90/0.0.0/14a00e99c0d15a23649d0db8944380ac81082d4b021f398733dd84f3a6c569a7/cache-f295d4e8db4c6dd8.arrow
-2023-11-01 20:59:56.387 | INFO     | herd.finetune_utils:get_peft_config:30 - Fine-tuning with MoLoRA using 30 experts
-Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards:  50%|█████     | 1/2 [00:03<00:03,  3.36s/it]Loading checkpoint shards: 100%|██████████| 2/2 [00:04<00:00,  2.13s/it]Loading checkpoint shards: 100%|██████████| 2/2 [00:04<00:00,  2.31s/it]
-2023-11-01 21:00:05.633 | WARNING  | herd.finetune:_finetune_experts:183 - Number of experts is not 1 but we are training an expert, setting it to 1. num_experts: 1
-/zhome/03/c/164482/code/herd/.venv/lib/python3.11/site-packages/trl/trainer/utils.py:246: UserWarning: The passed formatting_func has more than one argument. Usually that function should have a single argument `example` which corresponds to the dictonnary returned by each element of the dataset. Make sure you know what you are doing.
-  warnings.warn(
-2023-11-01 21:00:39.483 | INFO     | herd.finetune:_finetune_experts:215 - Training expert: expert_13, output_dir: /work3/s212722/herd/meta-llama/Llama-2-7b-hf/alpaca-30/all_linear_paged_adam_4bit/molora/expert_13
-wandb: Currently logged in as: alexrs95. Use `wandb login --relogin` to force relogin
-wandb: wandb version 0.15.12 is available!  To upgrade, please run:
-wandb:  $ pip install wandb --upgrade
-wandb: Tracking run with wandb version 0.15.10
-wandb: Run data is saved locally in /zhome/03/c/164482/code/herd/wandb/run-20231101_210041-ysapiyjs
-wandb: Run `wandb offline` to turn off syncing.
-wandb: Syncing run molora/expert_13
-wandb: ⭐️ View project at https://wandb.ai/alexrs95/herd-llama
-wandb: 🚀 View run at https://wandb.ai/alexrs95/herd-llama/runs/ysapiyjs
-  0%|          | 0/650 [00:00<?, ?it/s]You're using a LlamaTokenizerFast tokenizer. Please note that with a fast tokenizer, using the `__call__` method is faster than using a method to encode the text followed by a call to the `pad` method to get a padded encoding.
-`use_cache=True` is incompatible with gradient checkpointing. Setting `use_cache=False`...
-  0%|          | 1/650 [00:10<1:56:26, 10.76s/it]  0%|          | 2/650 [00:16<1:25:42,  7.94s/it]  0%|          | 3/650 [00:22<1:15:52,  7.04s/it]  1%|          | 4/650 [00:28<1:11:15,  6.62s/it]  1%|          | 5/650 [00:34<1:08:41,  6.39s/it]  1%|          | 6/650 [00:40<1:07:07,  6.25s/it]  1%|          | 7/650 [00:46<1:06:08,  6.17s/it]  1%|          | 8/650 [00:52<1:05:28,  6.12s/it]  1%|▏         | 9/650 [00:58<1:05:00,  6.08s/it]  2%|▏         | 10/650 [01:04<1:04:40,  6.06s/it]                                                    2%|▏         | 10/650 [01:04<1:04:40,  6.06s/it]  2%|▏         | 11/650 [01:10<1:04:28,  6.05s/it]  2%|▏         | 12/650 [01:16<1:04:17,  6.05s/it]  2%|▏         | 13/650 [01:22<1:04:08,  6.04s/it]  2%|▏         | 14/650 [01:28<1:04:00,  6.04s/it]  2%|▏         | 15/650 [01:34<1:03:54,  6.04s/it]  2%|▏         | 16/650 [01:40<1:03:49,  6.04s/it]  3%|▎         | 17/650 [01:46<1:03:43,  6.04s/it]  3%|▎         | 18/650 [01:52<1:03:39,  6.04s/it]  3%|▎         | 19/650 [01:59<1:03:33,  6.04s/it]  3%|▎         | 20/650 [02:05<1:03:27,  6.04s/it]                                                    3%|▎         | 20/650 [02:05<1:03:27,  6.04s/it]  3%|▎         | 21/650 [02:11<1:03:23,  6.05s/it]  3%|▎         | 22/650 [02:17<1:03:18,  6.05s/it]  4%|▎         | 23/650 [02:23<1:03:13,  6.05s/it]  4%|▎         | 24/650 [02:29<1:03:07,  6.05s/it]  4%|▍         | 25/650 [02:35<1:03:02,  6.05s/it]  4%|▍         | 26/650 [02:41<1:02:56,  6.05s/it]  4%|▍         | 27/650 [02:47<1:02:52,  6.06s/it]Traceback (most recent call last):
-  File "/zhome/03/c/164482/code/herd/main.py", line 68, in <module>
-    main()
-  File "/zhome/03/c/164482/code/herd/main.py", line 54, in main
-    finetune(model_values, path_values, config, experts, args.peft_strategy, args.is_base, args.use_base, args.only_router, args.all, args.top_k)
-  File "/zhome/03/c/164482/code/herd/herd/finetune.py", line 231, in finetune
-    _finetune_experts(dataset, tokenizer, config, experts, peft_strategy, use_base, model_values, path_values)
-  File "/zhome/03/c/164482/code/herd/herd/finetune.py", line 216, in _finetune_experts
-    trainer.train()
-  File "/zhome/03/c/164482/code/herd/.venv/lib/python3.11/site-packages/transformers/trainer.py", line 1591, in train
-    return inner_training_loop(
-           ^^^^^^^^^^^^^^^^^^^^
-  File "/zhome/03/c/164482/code/herd/.venv/lib/python3.11/site-packages/transformers/trainer.py", line 1999, in _inner_training_loop
-    self._maybe_log_save_evaluate(tr_loss, model, trial, epoch, ignore_keys_for_eval)
-  File "/zhome/03/c/164482/code/herd/.venv/lib/python3.11/site-packages/transformers/trainer.py", line 2339, in _maybe_log_save_evaluate
-    self._save_checkpoint(model, trial, metrics=metrics)
-  File "/zhome/03/c/164482/code/herd/.venv/lib/python3.11/site-packages/transformers/trainer.py", line 2396, in _save_checkpoint
-    self.save_model(output_dir, _internal_call=True)
-  File "/zhome/03/c/164482/code/herd/.venv/lib/python3.11/site-packages/transformers/trainer.py", line 2901, in save_model
-    self._save(output_dir)
-  File "/zhome/03/c/164482/code/herd/.venv/lib/python3.11/site-packages/transformers/trainer.py", line 2959, in _save
-    self.model.save_pretrained(
-  File "/zhome/03/c/164482/code/herd/.venv/lib/python3.11/site-packages/peft/peft_model.py", line 180, in save_pretrained
-    self.create_or_update_model_card(save_directory)
-  File "/zhome/03/c/164482/code/herd/.venv/lib/python3.11/site-packages/peft/peft_model.py", line 781, in create_or_update_model_card
-    card.save(filename)
-  File "/zhome/03/c/164482/code/herd/.venv/lib/python3.11/site-packages/huggingface_hub/repocard.py", line 131, in save
-    with open(filepath, mode="w", newline="", encoding="utf-8") as f:
-         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-OSError: [Errno 122] Disk quota exceeded: '/work3/s212722/herd/meta-llama/Llama-2-7b-hf/alpaca-30/all_linear_paged_adam_4bit/molora/expert_13/checkpoint-27/README.md'
-wandb: Waiting for W&B process to finish... (failed 1). Press Control-C to abort syncing.
-wandb: - 0.005 MB of 0.005 MB uploaded (0.000 MB deduped)wandb: \ 0.005 MB of 0.019 MB uploaded (0.000 MB deduped)wandb: | 0.019 MB of 0.019 MB uploaded (0.000 MB deduped)wandb: 
-wandb: Run history:
-wandb:         train/epoch ▁█
-wandb:   train/global_step ▁█
-wandb: train/learning_rate ▁▁
-wandb:          train/loss █▁
-wandb: 
-wandb: Run summary:
-wandb:         train/epoch 0.06
-wandb:   train/global_step 20
-wandb: train/learning_rate 0.0003
-wandb:          train/loss 0.8242
-wandb: 
-wandb: 🚀 View run molora/expert_13 at: https://wandb.ai/alexrs95/herd-llama/runs/ysapiyjs
-wandb: ️⚡ View job at https://wandb.ai/alexrs95/herd-llama/jobs/QXJ0aWZhY3RDb2xsZWN0aW9uOjk5NjEyNzE2/version_details/v14
-wandb: Synced 5 W&B file(s), 0 media file(s), 0 artifact file(s) and 0 other file(s)
-wandb: Find logs at: ./wandb/run-20231101_210041-ysapiyjs/logs

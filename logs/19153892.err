@@ -1,99 +1,0 @@
-Loaded module: cuda/11.6
-Loaded dependency [python3/3.11.4]: gcc/12.3.0-binutils-2.40
-Loaded dependency [python3/3.11.4]: sqlite3/3.42.0
-Loaded module: python3/3.11.4
-
-Loading python3/3.11.4
-  Loading requirement: gcc/12.3.0-binutils-2.40 sqlite3/3.42.0
-Found cached dataset parquet (/work3/s212722/herd/datasets/cache/alexrs___parquet/alexrs--alpaca-cleaned-10-clusters-e0d2361138237477/0.0.0/14a00e99c0d15a23649d0db8944380ac81082d4b021f398733dd84f3a6c569a7)
-Loading cached processed dataset at /work3/s212722/herd/datasets/cache/alexrs___parquet/alexrs--alpaca-cleaned-10-clusters-e0d2361138237477/0.0.0/14a00e99c0d15a23649d0db8944380ac81082d4b021f398733dd84f3a6c569a7/cache-dd77dbeeee1b1a95.arrow
-2023-11-05 17:37:32.492 | INFO     | herd.finetune_utils:get_peft_config:30 - Fine-tuning with MoLoRA using 10 experts
-Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards:  50%|█████     | 1/2 [16:24<16:24, 984.79s/it]Loading checkpoint shards: 100%|██████████| 2/2 [22:04<00:00, 605.04s/it]Loading checkpoint shards: 100%|██████████| 2/2 [22:04<00:00, 662.01s/it]
-/zhome/03/c/164482/code/herd/.venv/lib/python3.11/site-packages/trl/trainer/utils.py:246: UserWarning: The passed formatting_func has more than one argument. Usually that function should have a single argument `example` which corresponds to the dictonnary returned by each element of the dataset. Make sure you know what you are doing.
-  warnings.warn(
-2023-11-05 18:01:05.720 | INFO     | herd.finetune:_finetune_experts:235 - Training expert: expert_0, output_dir: /work3/s212722/herd/meta-llama/Llama-2-7b-hf/alpaca-10/all_linear_paged_adam_no_quant/molora/expert_0
-wandb: Currently logged in as: alexrs95. Use `wandb login --relogin` to force relogin
-wandb: wandb version 0.15.12 is available!  To upgrade, please run:
-wandb:  $ pip install wandb --upgrade
-wandb: Tracking run with wandb version 0.15.10
-wandb: Run data is saved locally in /zhome/03/c/164482/code/herd/wandb/run-20231105_180109-balvnpr1
-wandb: Run `wandb offline` to turn off syncing.
-wandb: Syncing run molora/expert_0
-wandb: ⭐️ View project at https://wandb.ai/alexrs95/herd-llama
-wandb: 🚀 View run at https://wandb.ai/alexrs95/herd-llama/runs/balvnpr1
-  0%|          | 0/2464 [00:00<?, ?it/s]You're using a LlamaTokenizerFast tokenizer. Please note that with a fast tokenizer, using the `__call__` method is faster than using a method to encode the text followed by a call to the `pad` method to get a padded encoding.
-`use_cache=True` is incompatible with gradient checkpointing. Setting `use_cache=False`...
-Traceback (most recent call last):
-  File "/zhome/03/c/164482/code/herd/main.py", line 78, in <module>
-    main()
-  File "/zhome/03/c/164482/code/herd/main.py", line 55, in main
-    finetune(
-  File "/zhome/03/c/164482/code/herd/herd/finetune.py", line 269, in finetune
-    _finetune_experts(dataset, tokenizer, config, experts, peft_strategy, use_base, model_values, path_values)
-  File "/zhome/03/c/164482/code/herd/herd/finetune.py", line 236, in _finetune_experts
-    trainer.train()
-  File "/zhome/03/c/164482/code/herd/.venv/lib/python3.11/site-packages/transformers/trainer.py", line 1591, in train
-    return inner_training_loop(
-           ^^^^^^^^^^^^^^^^^^^^
-  File "/zhome/03/c/164482/code/herd/.venv/lib/python3.11/site-packages/transformers/trainer.py", line 1892, in _inner_training_loop
-    tr_loss_step = self.training_step(model, inputs)
-                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/zhome/03/c/164482/code/herd/.venv/lib/python3.11/site-packages/transformers/trainer.py", line 2787, in training_step
-    self.accelerator.backward(loss)
-  File "/zhome/03/c/164482/code/herd/.venv/lib/python3.11/site-packages/accelerate/accelerator.py", line 1853, in backward
-    loss.backward(**kwargs)
-  File "/zhome/03/c/164482/code/herd/.venv/lib/python3.11/site-packages/torch/_tensor.py", line 487, in backward
-    torch.autograd.backward(
-  File "/zhome/03/c/164482/code/herd/.venv/lib/python3.11/site-packages/torch/autograd/__init__.py", line 200, in backward
-    Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass
-  File "/zhome/03/c/164482/code/herd/.venv/lib/python3.11/site-packages/torch/autograd/function.py", line 274, in apply
-    return user_fn(self, *args)
-           ^^^^^^^^^^^^^^^^^^^^
-  File "/zhome/03/c/164482/code/herd/.venv/lib/python3.11/site-packages/torch/utils/checkpoint.py", line 141, in backward
-    outputs = ctx.run_function(*detached_inputs)
-              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/zhome/03/c/164482/code/herd/.venv/lib/python3.11/site-packages/transformers/models/llama/modeling_llama.py", line 917, in custom_forward
-    return module(*inputs, past_key_value, output_attentions, padding_mask=padding_mask)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/zhome/03/c/164482/code/herd/.venv/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1501, in _call_impl
-    return forward_call(*args, **kwargs)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/zhome/03/c/164482/code/herd/.venv/lib/python3.11/site-packages/accelerate/hooks.py", line 165, in new_forward
-    output = old_forward(*args, **kwargs)
-             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/zhome/03/c/164482/code/herd/.venv/lib/python3.11/site-packages/transformers/models/llama/modeling_llama.py", line 649, in forward
-    hidden_states = self.mlp(hidden_states)
-                    ^^^^^^^^^^^^^^^^^^^^^^^
-  File "/zhome/03/c/164482/code/herd/.venv/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1501, in _call_impl
-    return forward_call(*args, **kwargs)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/zhome/03/c/164482/code/herd/.venv/lib/python3.11/site-packages/accelerate/hooks.py", line 165, in new_forward
-    output = old_forward(*args, **kwargs)
-             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/zhome/03/c/164482/code/herd/.venv/lib/python3.11/site-packages/transformers/models/llama/modeling_llama.py", line 247, in forward
-    down_proj = self.down_proj(self.act_fn(self.gate_proj(x)) * self.up_proj(x))
-                                                                ^^^^^^^^^^^^^^^
-  File "/zhome/03/c/164482/code/herd/.venv/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1501, in _call_impl
-    return forward_call(*args, **kwargs)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/zhome/03/c/164482/code/herd/.venv/lib/python3.11/site-packages/peft/tuners/molora/bnb.py", line 268, in forward
-    output = lora_router(x, bax)
-             ^^^^^^^^^^^^^^^^^^^
-  File "/zhome/03/c/164482/code/herd/.venv/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1501, in _call_impl
-    return forward_call(*args, **kwargs)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/zhome/03/c/164482/code/herd/.venv/lib/python3.11/site-packages/peft/tuners/molora/layer.py", line 44, in forward
-    values = self.value(bax)  # [batch_size, seq_len, num_experts, output_dim]
-             ^^^^^^^^^^^^^^^
-  File "/zhome/03/c/164482/code/herd/.venv/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1501, in _call_impl
-    return forward_call(*args, **kwargs)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/zhome/03/c/164482/code/herd/.venv/lib/python3.11/site-packages/torch/nn/modules/linear.py", line 114, in forward
-    return F.linear(input, self.weight, self.bias)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-torch.cuda.OutOfMemoryError: CUDA out of memory. Tried to allocate 1.68 GiB (GPU 0; 79.15 GiB total capacity; 69.69 GiB already allocated; 921.25 MiB free; 77.73 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
-wandb: Waiting for W&B process to finish... (failed 1). Press Control-C to abort syncing.
-wandb: - 0.004 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: \ 0.004 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: | 0.004 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: / 0.004 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: - 0.004 MB of 0.004 MB uploaded (0.000 MB deduped)wandb: 🚀 View run molora/expert_0 at: https://wandb.ai/alexrs95/herd-llama/runs/balvnpr1
-wandb: ️⚡ View job at https://wandb.ai/alexrs95/herd-llama/jobs/QXJ0aWZhY3RDb2xsZWN0aW9uOjk5NjEyNzE2/version_details/v16
-wandb: Synced 5 W&B file(s), 0 media file(s), 2 artifact file(s) and 0 other file(s)
-wandb: Find logs at: ./wandb/run-20231105_180109-balvnpr1/logs

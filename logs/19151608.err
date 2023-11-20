@@ -1,132 +1,0 @@
-Loaded module: cuda/11.6
-Loaded dependency [python3/3.11.4]: gcc/12.3.0-binutils-2.40
-Loaded dependency [python3/3.11.4]: sqlite3/3.42.0
-Loaded module: python3/3.11.4
-
-Loading python3/3.11.4
-  Loading requirement: gcc/12.3.0-binutils-2.40 sqlite3/3.42.0
-Found cached dataset parquet (/work3/s212722/herd/datasets/cache/alexrs___parquet/alexrs--alpaca-cleaned-10-clusters-e0d2361138237477/0.0.0/14a00e99c0d15a23649d0db8944380ac81082d4b021f398733dd84f3a6c569a7)
-Loading cached processed dataset at /work3/s212722/herd/datasets/cache/alexrs___parquet/alexrs--alpaca-cleaned-10-clusters-e0d2361138237477/0.0.0/14a00e99c0d15a23649d0db8944380ac81082d4b021f398733dd84f3a6c569a7/cache-dd77dbeeee1b1a95.arrow
-2023-11-05 14:01:38.428 | INFO     | herd.finetune_utils:get_peft_config:30 - Fine-tuning with MoLoRA using 10 experts
-Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards:  50%|█████     | 1/2 [16:43<16:43, 1003.16s/it]Loading checkpoint shards: 100%|██████████| 2/2 [22:02<00:00, 601.05s/it] Loading checkpoint shards: 100%|██████████| 2/2 [22:02<00:00, 661.36s/it]
-2023-11-05 14:23:53.130 | WARNING  | herd.finetune:_finetune_experts:200 - Number of experts is not 1 but we are training an expert, setting it to 1. num_experts: 1
-/zhome/03/c/164482/code/herd/.venv/lib/python3.11/site-packages/trl/trainer/utils.py:246: UserWarning: The passed formatting_func has more than one argument. Usually that function should have a single argument `example` which corresponds to the dictonnary returned by each element of the dataset. Make sure you know what you are doing.
-  warnings.warn(
-2023-11-05 14:24:06.117 | INFO     | herd.finetune:_finetune_experts:232 - Training expert: expert_0, output_dir: /work3/s212722/herd/meta-llama/Llama-2-7b-hf/alpaca-10/q_v_r4/molora/expert_0
-wandb: Currently logged in as: alexrs95. Use `wandb login --relogin` to force relogin
-wandb: wandb version 0.15.12 is available!  To upgrade, please run:
-wandb:  $ pip install wandb --upgrade
-wandb: Tracking run with wandb version 0.15.10
-wandb: Run data is saved locally in /zhome/03/c/164482/code/herd/wandb/run-20231105_142409-1vq6hz8l
-wandb: Run `wandb offline` to turn off syncing.
-wandb: Syncing run molora/expert_0
-wandb: ⭐️ View project at https://wandb.ai/alexrs95/herd-llama
-wandb: 🚀 View run at https://wandb.ai/alexrs95/herd-llama/runs/1vq6hz8l
-  0%|          | 0/1170 [00:00<?, ?it/s]You're using a LlamaTokenizerFast tokenizer. Please note that with a fast tokenizer, using the `__call__` method is faster than using a method to encode the text followed by a call to the `pad` method to get a padded encoding.
-`use_cache=True` is incompatible with gradient checkpointing. Setting `use_cache=False`...
-  0%|          | 1/1170 [00:27<9:02:37, 27.85s/it]  0%|          | 2/1170 [00:38<5:43:01, 17.62s/it]  0%|          | 3/1170 [00:48<4:32:44, 14.02s/it]  0%|          | 4/1170 [00:57<3:59:56, 12.35s/it]  0%|          | 5/1170 [01:07<3:41:52, 11.43s/it]  1%|          | 6/1170 [01:17<3:31:03, 10.88s/it]  1%|          | 7/1170 [01:27<3:24:17, 10.54s/it]  1%|          | 8/1170 [01:37<3:19:53, 10.32s/it]  1%|          | 9/1170 [01:47<3:16:59, 10.18s/it]  1%|          | 10/1170 [01:56<3:15:02, 10.09s/it]                                                     1%|          | 10/1170 [01:56<3:15:02, 10.09s/it]  1%|          | 11/1170 [02:06<3:13:42, 10.03s/it]  1%|          | 12/1170 [02:16<3:12:45,  9.99s/it]  1%|          | 13/1170 [02:26<3:12:01,  9.96s/it]  1%|          | 14/1170 [02:36<3:11:28,  9.94s/it]  1%|▏         | 15/1170 [02:46<3:11:00,  9.92s/it]  1%|▏         | 16/1170 [02:56<3:10:38,  9.91s/it]  1%|▏         | 17/1170 [03:06<3:10:20,  9.91s/it]  2%|▏         | 18/1170 [03:16<3:10:04,  9.90s/it]  2%|▏         | 19/1170 [03:25<3:09:47,  9.89s/it]  2%|▏         | 20/1170 [03:35<3:09:29,  9.89s/it]                                                     2%|▏         | 20/1170 [03:35<3:09:29,  9.89s/it]  2%|▏         | 21/1170 [03:45<3:09:15,  9.88s/it]  2%|▏         | 22/1170 [03:55<3:08:59,  9.88s/it]  2%|▏         | 23/1170 [04:05<3:08:43,  9.87s/it]  2%|▏         | 24/1170 [04:15<3:08:30,  9.87s/it]  2%|▏         | 25/1170 [04:25<3:08:19,  9.87s/it]  2%|▏         | 26/1170 [04:34<3:08:14,  9.87s/it]  2%|▏         | 27/1170 [04:44<3:08:02,  9.87s/it]  2%|▏         | 28/1170 [04:54<3:07:53,  9.87s/it]  2%|▏         | 29/1170 [05:04<3:07:40,  9.87s/it]  3%|▎         | 30/1170 [05:14<3:07:29,  9.87s/it]                                                     3%|▎         | 30/1170 [05:14<3:07:29,  9.87s/it]
-Aborted!
-Traceback (most recent call last):
-  File "/zhome/03/c/164482/code/herd/main.py", line 78, in <module>
-    main()
-  File "/zhome/03/c/164482/code/herd/main.py", line 55, in main
-    finetune(
-  File "/zhome/03/c/164482/code/herd/herd/finetune.py", line 266, in finetune
-    _finetune_experts(dataset, tokenizer, config, experts, peft_strategy, use_base, model_values, path_values)
-  File "/zhome/03/c/164482/code/herd/herd/finetune.py", line 233, in _finetune_experts
-    trainer.train()
-  File "/zhome/03/c/164482/code/herd/.venv/lib/python3.11/site-packages/transformers/trainer.py", line 1591, in train
-    return inner_training_loop(
-           ^^^^^^^^^^^^^^^^^^^^
-  File "/zhome/03/c/164482/code/herd/.venv/lib/python3.11/site-packages/transformers/trainer.py", line 1892, in _inner_training_loop
-    tr_loss_step = self.training_step(model, inputs)
-                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/zhome/03/c/164482/code/herd/.venv/lib/python3.11/site-packages/transformers/trainer.py", line 2776, in training_step
-    loss = self.compute_loss(model, inputs)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/zhome/03/c/164482/code/herd/.venv/lib/python3.11/site-packages/transformers/trainer.py", line 2801, in compute_loss
-    outputs = model(**inputs)
-              ^^^^^^^^^^^^^^^
-  File "/zhome/03/c/164482/code/herd/.venv/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1501, in _call_impl
-    return forward_call(*args, **kwargs)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/zhome/03/c/164482/code/herd/.venv/lib/python3.11/site-packages/accelerate/utils/operations.py", line 581, in forward
-    return model_forward(*args, **kwargs)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/zhome/03/c/164482/code/herd/.venv/lib/python3.11/site-packages/accelerate/utils/operations.py", line 569, in __call__
-    return convert_to_fp32(self.model_forward(*args, **kwargs))
-                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/zhome/03/c/164482/code/herd/.venv/lib/python3.11/site-packages/torch/amp/autocast_mode.py", line 14, in decorate_autocast
-    return func(*args, **kwargs)
-           ^^^^^^^^^^^^^^^^^^^^^
-  File "/zhome/03/c/164482/code/herd/.venv/lib/python3.11/site-packages/peft/peft_model.py", line 1041, in forward
-    return self.base_model(
-           ^^^^^^^^^^^^^^^^
-  File "/zhome/03/c/164482/code/herd/.venv/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1501, in _call_impl
-    return forward_call(*args, **kwargs)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/zhome/03/c/164482/code/herd/.venv/lib/python3.11/site-packages/peft/tuners/tuners_utils.py", line 106, in forward
-    return self.model.forward(*args, **kwargs)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/zhome/03/c/164482/code/herd/.venv/lib/python3.11/site-packages/accelerate/hooks.py", line 165, in new_forward
-    output = old_forward(*args, **kwargs)
-             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/zhome/03/c/164482/code/herd/.venv/lib/python3.11/site-packages/transformers/models/llama/modeling_llama.py", line 1038, in forward
-    outputs = self.model(
-              ^^^^^^^^^^^
-  File "/zhome/03/c/164482/code/herd/.venv/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1501, in _call_impl
-    return forward_call(*args, **kwargs)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/zhome/03/c/164482/code/herd/.venv/lib/python3.11/site-packages/accelerate/hooks.py", line 165, in new_forward
-    output = old_forward(*args, **kwargs)
-             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/zhome/03/c/164482/code/herd/.venv/lib/python3.11/site-packages/transformers/models/llama/modeling_llama.py", line 921, in forward
-    layer_outputs = torch.utils.checkpoint.checkpoint(
-                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/zhome/03/c/164482/code/herd/.venv/lib/python3.11/site-packages/torch/utils/checkpoint.py", line 249, in checkpoint
-    return CheckpointFunction.apply(function, preserve, *args)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/zhome/03/c/164482/code/herd/.venv/lib/python3.11/site-packages/torch/autograd/function.py", line 506, in apply
-    return super().apply(*args, **kwargs)  # type: ignore[misc]
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/zhome/03/c/164482/code/herd/.venv/lib/python3.11/site-packages/torch/utils/checkpoint.py", line 107, in forward
-    outputs = run_function(*args)
-              ^^^^^^^^^^^^^^^^^^^
-  File "/zhome/03/c/164482/code/herd/.venv/lib/python3.11/site-packages/transformers/models/llama/modeling_llama.py", line 917, in custom_forward
-    return module(*inputs, past_key_value, output_attentions, padding_mask=padding_mask)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/zhome/03/c/164482/code/herd/.venv/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1501, in _call_impl
-    return forward_call(*args, **kwargs)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/zhome/03/c/164482/code/herd/.venv/lib/python3.11/site-packages/accelerate/hooks.py", line 165, in new_forward
-    output = old_forward(*args, **kwargs)
-             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/zhome/03/c/164482/code/herd/.venv/lib/python3.11/site-packages/transformers/models/llama/modeling_llama.py", line 635, in forward
-    hidden_states, self_attn_weights, present_key_value = self.self_attn(
-                                                          ^^^^^^^^^^^^^^^
-  File "/zhome/03/c/164482/code/herd/.venv/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1501, in _call_impl
-    return forward_call(*args, **kwargs)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/zhome/03/c/164482/code/herd/.venv/lib/python3.11/site-packages/accelerate/hooks.py", line 165, in new_forward
-    output = old_forward(*args, **kwargs)
-             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/zhome/03/c/164482/code/herd/.venv/lib/python3.11/site-packages/transformers/models/llama/modeling_llama.py", line 349, in forward
-    query_states = self.q_proj(hidden_states)
-                   ^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/zhome/03/c/164482/code/herd/.venv/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1501, in _call_impl
-    return forward_call(*args, **kwargs)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/zhome/03/c/164482/code/herd/.venv/lib/python3.11/site-packages/peft/tuners/molora/bnb.py", line 263, in forward
-    ax = dropout(ax)
-         ^^^^^^^^^^^
-  File "/zhome/03/c/164482/code/herd/.venv/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1501, in _call_impl
-    return forward_call(*args, **kwargs)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/zhome/03/c/164482/code/herd/.venv/lib/python3.11/site-packages/torch/nn/modules/dropout.py", line 59, in forward
-    return F.dropout(input, self.p, self.training, self.inplace)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/zhome/03/c/164482/code/herd/.venv/lib/python3.11/site-packages/torch/nn/functional.py", line 1252, in dropout
-    return _VF.dropout_(input, p, training) if inplace else _VF.dropout(input, p, training)
-                                                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-KeyboardInterrupt
-Terminated

@@ -4,7 +4,7 @@ __pycache__/
 *$py.class
 .vscode/
 wandb/
-
+logs/
 # C extensions
 *.so
 

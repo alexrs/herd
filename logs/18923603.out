@@ -1,4 +1,0 @@
-trainable params: 21,127,392 || all params: 6,759,543,008 || trainable%: 0.3125565141755216
-{'loss': 0.9196, 'learning_rate': 0.0003, 'epoch': 0.1}
-{'loss': 0.5962, 'learning_rate': 0.0003, 'epoch': 1.09}
-{'train_runtime': 241.0962, 'train_samples_per_second': 6.852, 'train_steps_per_second': 0.854, 'train_loss': 0.7463193791253226, 'epoch': 1.1}

@@ -26,6 +26,7 @@ class MoloraConfigValues(LoraConfigValues):
     self_attn_router: bool = False
     self_attn_hidden_dim: int = 4
     self_attn_use_value: bool = False
+    router_dropout: float = 0.0
 
     def __post_init__(self):
         super().__post_init__()
@@ -33,6 +34,7 @@ class MoloraConfigValues(LoraConfigValues):
         self.self_attn_hidden_dim = int(self.self_attn_hidden_dim)
         self.self_attn_router = bool(self.self_attn_router)
         self.self_attn_use_value = bool(self.self_attn_use_value)
+        self.router_dropout = float(self.router_dropout)
 
 
 @dataclass

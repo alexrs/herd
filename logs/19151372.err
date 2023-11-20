@@ -1,74 +1,0 @@
-Loaded module: cuda/11.6
-Loaded dependency [python3/3.11.4]: gcc/12.3.0-binutils-2.40
-Loaded dependency [python3/3.11.4]: sqlite3/3.42.0
-Loaded module: python3/3.11.4
-
-Loading python3/3.11.4
-  Loading requirement: gcc/12.3.0-binutils-2.40 sqlite3/3.42.0
-Found cached dataset parquet (/work3/s212722/herd/datasets/cache/alexrs___parquet/alexrs--alpaca-cleaned-10-clusters-e0d2361138237477/0.0.0/14a00e99c0d15a23649d0db8944380ac81082d4b021f398733dd84f3a6c569a7)
-Loading cached processed dataset at /work3/s212722/herd/datasets/cache/alexrs___parquet/alexrs--alpaca-cleaned-10-clusters-e0d2361138237477/0.0.0/14a00e99c0d15a23649d0db8944380ac81082d4b021f398733dd84f3a6c569a7/cache-c48fbcf4fee582e9.arrow
-2023-11-05 12:25:49.005 | INFO     | herd.finetune_utils:get_peft_config:30 - Fine-tuning with MoLoRA using 10 experts
-Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards:  50%|█████     | 1/2 [03:59<03:59, 239.61s/it]Loading checkpoint shards: 100%|██████████| 2/2 [05:14<00:00, 142.66s/it]Loading checkpoint shards: 100%|██████████| 2/2 [05:14<00:00, 157.20s/it]
-2023-11-05 12:31:08.263 | WARNING  | herd.finetune:_finetune_experts:200 - Number of experts is not 1 but we are training an expert, setting it to 1. num_experts: 1
-/zhome/03/c/164482/code/herd/.venv/lib/python3.11/site-packages/trl/trainer/utils.py:246: UserWarning: The passed formatting_func has more than one argument. Usually that function should have a single argument `example` which corresponds to the dictonnary returned by each element of the dataset. Make sure you know what you are doing.
-  warnings.warn(
-2023-11-05 12:31:23.784 | INFO     | herd.finetune:_finetune_experts:232 - Training expert: expert_5, output_dir: /work3/s212722/herd/meta-llama/Llama-2-7b-hf/alpaca-10/q_v_r4/molora/expert_5
-wandb: Currently logged in as: alexrs95. Use `wandb login --relogin` to force relogin
-wandb: wandb version 0.15.12 is available!  To upgrade, please run:
-wandb:  $ pip install wandb --upgrade
-wandb: Tracking run with wandb version 0.15.10
-wandb: Run data is saved locally in /zhome/03/c/164482/code/herd/wandb/run-20231105_123125-7o95zns7
-wandb: Run `wandb offline` to turn off syncing.
-wandb: Syncing run molora/expert_5
-wandb: ⭐️ View project at https://wandb.ai/alexrs95/herd-llama
-wandb: 🚀 View run at https://wandb.ai/alexrs95/herd-llama/runs/7o95zns7
-  0%|          | 0/1470 [00:00<?, ?it/s]You're using a LlamaTokenizerFast tokenizer. Please note that with a fast tokenizer, using the `__call__` method is faster than using a method to encode the text followed by a call to the `pad` method to get a padded encoding.
-`use_cache=True` is incompatible with gradient checkpointing. Setting `use_cache=False`...
-  0%|          | 1/1470 [00:18<7:29:30, 18.36s/it]  0%|          | 2/1470 [00:29<5:38:42, 13.84s/it]  0%|          | 3/1470 [00:39<5:03:29, 12.41s/it]  0%|          | 4/1470 [00:50<4:47:07, 11.75s/it]  0%|          | 5/1470 [01:01<4:38:07, 11.39s/it]  0%|          | 6/1470 [01:12<4:32:51, 11.18s/it]  0%|          | 7/1470 [01:22<4:29:42, 11.06s/it]  1%|          | 8/1470 [01:33<4:27:41, 10.99s/it]  1%|          | 9/1470 [01:44<4:26:27, 10.94s/it]  1%|          | 10/1470 [01:55<4:25:43, 10.92s/it]                                                     1%|          | 10/1470 [01:55<4:25:43, 10.92s/it]  1%|          | 11/1470 [02:06<4:25:18, 10.91s/it]  1%|          | 12/1470 [02:17<4:25:00, 10.91s/it]  1%|          | 13/1470 [02:28<4:24:50, 10.91s/it]  1%|          | 14/1470 [02:38<4:24:44, 10.91s/it]  1%|          | 15/1470 [02:49<4:24:43, 10.92s/it]  1%|          | 16/1470 [03:00<4:24:40, 10.92s/it]  1%|          | 17/1470 [03:11<4:24:35, 10.93s/it]  1%|          | 18/1470 [03:22<4:24:33, 10.93s/it]  1%|▏         | 19/1470 [03:33<4:24:29, 10.94s/it]  1%|▏         | 20/1470 [03:44<4:24:21, 10.94s/it]                                                     1%|▏         | 20/1470 [03:44<4:24:21, 10.94s/it]  1%|▏         | 21/1470 [03:55<4:24:12, 10.94s/it]  1%|▏         | 22/1470 [04:06<4:24:10, 10.95s/it]  2%|▏         | 23/1470 [04:17<4:23:59, 10.95s/it]  2%|▏         | 24/1470 [04:28<4:23:49, 10.95s/it]  2%|▏         | 25/1470 [04:39<4:23:39, 10.95s/it]  2%|▏         | 26/1470 [04:50<4:23:29, 10.95s/it]  2%|▏         | 27/1470 [05:01<4:23:17, 10.95s/it]  2%|▏         | 28/1470 [05:12<4:23:07, 10.95s/it]  2%|▏         | 29/1470 [05:23<4:22:57, 10.95s/it]  2%|▏         | 30/1470 [05:34<4:22:44, 10.95s/it]                                                     2%|▏         | 30/1470 [05:34<4:22:44, 10.95s/it]  2%|▏         | 31/1470 [05:45<4:22:32, 10.95s/it]  2%|▏         | 32/1470 [05:56<4:22:21, 10.95s/it]  2%|▏         | 33/1470 [06:06<4:22:12, 10.95s/it]  2%|▏         | 34/1470 [06:17<4:21:58, 10.95s/it]  2%|▏         | 35/1470 [06:28<4:21:45, 10.94s/it]  2%|▏         | 36/1470 [06:39<4:21:32, 10.94s/it]  3%|▎         | 37/1470 [06:50<4:21:23, 10.94s/it]  3%|▎         | 38/1470 [07:01<4:21:12, 10.94s/it]  3%|▎         | 39/1470 [07:12<4:21:00, 10.94s/it]  3%|▎         | 40/1470 [07:23<4:20:51, 10.94s/it]                                                     3%|▎         | 40/1470 [07:23<4:20:51, 10.94s/it]  3%|▎         | 41/1470 [07:34<4:20:40, 10.95s/it]  3%|▎         | 42/1470 [07:45<4:20:31, 10.95s/it]  3%|▎         | 43/1470 [07:56<4:20:19, 10.95s/it]  3%|▎         | 44/1470 [08:07<4:20:06, 10.94s/it]  3%|▎         | 45/1470 [08:18<4:19:54, 10.94s/it]  3%|▎         | 46/1470 [08:29<4:19:43, 10.94s/it]  3%|▎         | 47/1470 [08:40<4:19:33, 10.94s/it]  3%|▎         | 48/1470 [08:51<4:19:23, 10.94s/it]  3%|▎         | 49/1470 [09:02<4:19:11, 10.94s/it]  3%|▎         | 50/1470 [09:13<4:19:01, 10.94s/it]                                                     3%|▎         | 50/1470 [09:13<4:19:01, 10.94s/it]  3%|▎         | 51/1470 [09:23<4:18:46, 10.94s/it]  4%|▎         | 52/1470 [09:34<4:18:34, 10.94s/it]  4%|▎         | 53/1470 [09:45<4:18:23, 10.94s/it]  4%|▎         | 54/1470 [09:56<4:18:11, 10.94s/it]  4%|▎         | 55/1470 [10:07<4:18:00, 10.94s/it]  4%|▍         | 56/1470 [10:18<4:17:49, 10.94s/it]  4%|▍         | 57/1470 [10:29<4:17:37, 10.94s/it]  4%|▍         | 58/1470 [10:40<4:17:25, 10.94s/it]  4%|▍         | 59/1470 [10:51<4:17:14, 10.94s/it]  4%|▍         | 60/1470 [11:02<4:17:05, 10.94s/it]                                                     4%|▍         | 60/1470 [11:02<4:17:05, 10.94s/it]  4%|▍         | 61/1470 [11:13<4:16:53, 10.94s/it]  4%|▍         | 62/1470 [11:24<4:16:44, 10.94s/it]  4%|▍         | 63/1470 [11:35<4:16:28, 10.94s/it]  4%|▍         | 64/1470 [11:46<4:16:20, 10.94s/it]  4%|▍         | 65/1470 [11:57<4:16:09, 10.94s/it]  4%|▍         | 66/1470 [12:08<4:15:56, 10.94s/it]  5%|▍         | 67/1470 [12:18<4:15:45, 10.94s/it]  5%|▍         | 68/1470 [12:29<4:15:34, 10.94s/it]  5%|▍         | 69/1470 [12:40<4:15:24, 10.94s/it]  5%|▍         | 70/1470 [12:51<4:15:12, 10.94s/it]                                                     5%|▍         | 70/1470 [12:51<4:15:12, 10.94s/it]  5%|▍         | 71/1470 [13:02<4:15:01, 10.94s/it]  5%|▍         | 72/1470 [13:13<4:14:49, 10.94s/it]  5%|▍         | 73/1470 [13:24<4:14:38, 10.94s/it]  5%|▌         | 74/1470 [13:35<4:14:30, 10.94s/it]  5%|▌         | 75/1470 [13:46<4:14:19, 10.94s/it]  5%|▌         | 76/1470 [13:57<4:14:06, 10.94s/it]  5%|▌         | 77/1470 [14:08<4:13:55, 10.94s/it]  5%|▌         | 78/1470 [14:19<4:13:43, 10.94s/it]  5%|▌         | 79/1470 [14:30<4:13:32, 10.94s/it]  5%|▌         | 80/1470 [14:41<4:13:24, 10.94s/it]                                                     5%|▌         | 80/1470 [14:41<4:13:24, 10.94s/it]  6%|▌         | 81/1470 [14:52<4:13:13, 10.94s/it]  6%|▌         | 82/1470 [15:03<4:13:02, 10.94s/it]  6%|▌         | 83/1470 [15:13<4:12:51, 10.94s/it]  6%|▌         | 84/1470 [15:24<4:12:40, 10.94s/it]  6%|▌         | 85/1470 [15:35<4:12:28, 10.94s/it]  6%|▌         | 86/1470 [15:46<4:12:16, 10.94s/it]  6%|▌         | 87/1470 [15:57<4:12:05, 10.94s/it]  6%|▌         | 88/1470 [16:08<4:11:53, 10.94s/it]  6%|▌         | 89/1470 [16:19<4:11:43, 10.94s/it]  6%|▌         | 90/1470 [16:30<4:11:29, 10.93s/it]                                                     6%|▌         | 90/1470 [16:30<4:11:29, 10.93s/it]  6%|▌         | 91/1470 [16:41<4:11:20, 10.94s/it]  6%|▋         | 92/1470 [16:52<4:11:11, 10.94s/it]  6%|▋         | 93/1470 [17:03<4:11:01, 10.94s/it]  6%|▋         | 94/1470 [17:14<4:10:49, 10.94s/it]  6%|▋         | 95/1470 [17:25<4:10:38, 10.94s/it]  7%|▋         | 96/1470 [17:36<4:10:23, 10.93s/it]  7%|▋         | 97/1470 [17:47<4:10:10, 10.93s/it]  7%|▋         | 98/1470 [17:57<4:10:00, 10.93s/it]  7%|▋         | 99/1470 [18:08<4:09:50, 10.93s/it]  7%|▋         | 100/1470 [18:19<4:09:35, 10.93s/it]                                                      7%|▋         | 100/1470 [18:19<4:09:35, 10.93s/it]  7%|▋         | 101/1470 [18:30<4:09:26, 10.93s/it]  7%|▋         | 102/1470 [18:41<4:09:17, 10.93s/it]  7%|▋         | 103/1470 [18:52<4:09:06, 10.93s/it]  7%|▋         | 104/1470 [19:03<4:09:10, 10.95s/it]Traceback (most recent call last):
-  File "/zhome/03/c/164482/code/herd/main.py", line 78, in <module>
-    main()
-  File "/zhome/03/c/164482/code/herd/main.py", line 55, in main
-    finetune(
-  File "/zhome/03/c/164482/code/herd/herd/finetune.py", line 266, in finetune
-    _finetune_experts(dataset, tokenizer, config, experts, peft_strategy, use_base, model_values, path_values)
-  File "/zhome/03/c/164482/code/herd/herd/finetune.py", line 233, in _finetune_experts
-    trainer.train()
-  File "/zhome/03/c/164482/code/herd/.venv/lib/python3.11/site-packages/transformers/trainer.py", line 1591, in train
-    return inner_training_loop(
-           ^^^^^^^^^^^^^^^^^^^^
-  File "/zhome/03/c/164482/code/herd/.venv/lib/python3.11/site-packages/transformers/trainer.py", line 1999, in _inner_training_loop
-    self._maybe_log_save_evaluate(tr_loss, model, trial, epoch, ignore_keys_for_eval)
-  File "/zhome/03/c/164482/code/herd/.venv/lib/python3.11/site-packages/transformers/trainer.py", line 2339, in _maybe_log_save_evaluate
-    self._save_checkpoint(model, trial, metrics=metrics)
-  File "/zhome/03/c/164482/code/herd/.venv/lib/python3.11/site-packages/transformers/trainer.py", line 2396, in _save_checkpoint
-    self.save_model(output_dir, _internal_call=True)
-  File "/zhome/03/c/164482/code/herd/.venv/lib/python3.11/site-packages/transformers/trainer.py", line 2901, in save_model
-    self._save(output_dir)
-  File "/zhome/03/c/164482/code/herd/.venv/lib/python3.11/site-packages/transformers/trainer.py", line 2959, in _save
-    self.model.save_pretrained(
-  File "/zhome/03/c/164482/code/herd/.venv/lib/python3.11/site-packages/peft/peft_model.py", line 180, in save_pretrained
-    self.create_or_update_model_card(save_directory)
-  File "/zhome/03/c/164482/code/herd/.venv/lib/python3.11/site-packages/peft/peft_model.py", line 781, in create_or_update_model_card
-    card.save(filename)
-  File "/zhome/03/c/164482/code/herd/.venv/lib/python3.11/site-packages/huggingface_hub/repocard.py", line 131, in save
-    with open(filepath, mode="w", newline="", encoding="utf-8") as f:
-         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-OSError: [Errno 122] Disk quota exceeded: '/work3/s212722/herd/meta-llama/Llama-2-7b-hf/alpaca-10/q_v_r4/molora/expert_5/checkpoint-104/README.md'
-wandb: Waiting for W&B process to finish... (failed 1). Press Control-C to abort syncing.
-wandb: 
-wandb: Run history:
-wandb:         train/epoch ▁▂▃▃▄▅▆▆▇█
-wandb:   train/global_step ▁▂▃▃▄▅▆▆▇█
-wandb: train/learning_rate ▁▁▁▁▁▁▁▁▁▁
-wandb:          train/loss █▄▄▃▆▁▃▄▂▃
-wandb: 
-wandb: Run summary:
-wandb:         train/epoch 0.14
-wandb:   train/global_step 100
-wandb: train/learning_rate 0.0003
-wandb:          train/loss 0.8622
-wandb: 
-wandb: 🚀 View run molora/expert_5 at: https://wandb.ai/alexrs95/herd-llama/runs/7o95zns7
-wandb: ️⚡ View job at https://wandb.ai/alexrs95/herd-llama/jobs/QXJ0aWZhY3RDb2xsZWN0aW9uOjk5NjEyNzE2/version_details/v14
-wandb: Synced 5 W&B file(s), 0 media file(s), 0 artifact file(s) and 0 other file(s)
-wandb: Find logs at: ./wandb/run-20231105_123125-7o95zns7/logs

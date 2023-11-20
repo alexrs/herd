@@ -29,4 +29,4 @@ export WANDB_PROJECT="herd-llama"
 # turn off watch to log faster
 export WANDB_WATCH="false"
 
-python main.py test_molora --config-file=config/config_alpaca_5_all_layers_no_quant.ini
+python main.py test_molora --config-file=config/config_alpaca_10_q_v_r4.ini

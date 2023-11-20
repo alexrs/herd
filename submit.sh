@@ -3,7 +3,7 @@ script_name=$1
 script_path=$2
 job_id=${3:-}
 
-for i in $(seq 0 9); do
+for i in $(seq 0 0); do
     if [ -z "$job_id" ]
     then
         bsub \
