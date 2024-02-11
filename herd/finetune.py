@@ -35,7 +35,7 @@ def _get_training_arguments(config, peft_strategy, expert_name):
     """
     return TrainingArguments(
         **asdict(TrainingArgumentsValues(**dict(config.items("TrainingArguments")))),
-        run_name=os.path.join(peft_strategy, expert_name)
+        run_name=os.path.join(peft_strategy, expert_name),
     )
 
 
@@ -82,13 +82,15 @@ def _finetune_base(dataset, config, peft_strategy, tokenizer, model_values, path
 
 
 def _finetune_all(dataset, config, peft_strategy, tokenizer, model_values, path_values):
+    dataset = dataset.shuffle()
+
     model, peft_config = prepare_model(model_values.model, path_values.cache_dir, config, peft_strategy)
     model_to_train = get_peft_model(model, peft_config)
     model_to_train.print_trainable_parameters()
 
     for name, param in model_to_train.named_parameters():
         if param.requires_grad:
-            print(name)
+            print(name, param.requires_grad)
 
     expert_name = f"all_r_{peft_config.r}"
     if peft_config.peft_type == "MOLORA" and peft_config.self_attn_router:
@@ -138,6 +140,28 @@ def _finetune_router(
         path_values,
     ):
 
+    # get unique values of original_dataset
+    original_datasets = dataset.unique("cluster")
+
+    # # get the count of hendrycks/competition_math (smallest dataset)
+    # min_original_dataset_count = len(dataset.filter(lambda x: x["cluster"] == 5))
+    # print(min_original_dataset_count)
+    # raise Exception("stop")
+    min_original_dataset_count = 460
+
+    # # get samples for each dataset
+    dataset_samples = {}
+    for original_dataset in original_datasets:
+        dataset_samples[original_dataset] = dataset.filter(lambda x: x["cluster"] == original_dataset).select(range(min_original_dataset_count))
+
+    # # concatenate all the samples
+    dataset = datasets.concatenate_datasets(list(dataset_samples.values()))
+
+    # shuffle the dataset
+    dataset = dataset.shuffle()
+
+    print(f"LEN DATASET: {len(dataset)}")
+
     output_dir = os.path.join(path_values.output_dir, peft_strategy)
 
     model, peft_config = prepare_model(model_values.model, path_values.cache_dir, config, peft_strategy)
@@ -153,7 +177,7 @@ def _finetune_router(
     model_name = "router"
 
     if peft_config.self_attn_router:
-        model_name += "_self_attn_" + str(peft_config.self_attn_hidden_dim)
+        model_name += "_self_attn_" + str(peft_config.self_attn_hidden_dim) + "_norm"
         if peft_config.self_attn_use_value:
             model_name += "_use_value"
 
@@ -177,16 +201,9 @@ def _finetune_router(
     reset_router_weights(model_peft)
     trainer = _init_trainer(model_peft, dataset, peft_config, tokenizer, training_args)
 
-    if hasattr(model_peft, "enable_input_require_grads"):
-        model_peft.enable_input_require_grads()
-    else:
-        def make_inputs_require_grad(module, input, output):
-            output.requires_grad_(True)
-        model_peft.get_input_embeddings().register_forward_hook(make_inputs_require_grad)
-
     for name, param in model_peft.named_parameters():
         if param.requires_grad:
-            print(name)
+            print(name, param.requires_grad)
 
     logger.info(f"Peft Config: {peft_config}")
     logger.info(f"Training router, output_dir: {training_args.output_dir}")
@@ -199,6 +216,8 @@ def _finetune_experts(dataset, tokenizer, config, experts, peft_strategy, use_ba
 
     for expert_name, expert_data in experts.items():
         expert_dataset = dataset.filter(lambda row: str(row["cluster"]) in expert_data["categories"])
+
+        print(f"Training on {len(expert_dataset)} samples")
 
         training_args = _get_training_arguments(config, peft_strategy, expert_name)
         training_args.output_dir = os.path.join(output_dir, expert_name)
@@ -248,6 +267,30 @@ def finetune(
         all=False,
     ) -> None:
     dataset = datasets.load_dataset(model_values.dataset, split="train")
+
+    # # get only first 25% of the data for original_dataset = Open-Orca/OpenOrca
+    # # Separate the "Open-Orca/OpenOrca" data
+    # open_orca_data = dataset.filter(lambda x: x['original_dataset'] == 'Open-Orca/OpenOrca')
+    # # Calculate the midpoint to slice the "Open-Orca/OpenOrca" data in half
+    # midpoint = len(open_orca_data) // 6
+    # # Keep only the first half of the "Open-Orca/OpenOrca" rows
+    # part_open_orca = open_orca_data.select(range(midpoint))
+
+    # code_alpaca_data = dataset.filter(lambda x: x['original_dataset'] == 'TokenBender/code_instructions_122k_alpaca_style')
+    # part_code_alpaca = code_alpaca_data.select(range(len(code_alpaca_data) // 2))
+
+    # alpaca_cleaned_data = dataset.filter(lambda x: x['original_dataset'] == 'yahma/alpaca-cleaned')
+    # part_alpaca_cleaned = alpaca_cleaned_data.select(range(len(alpaca_cleaned_data) // 2))
+
+    # # Separate the remaining data
+    # other_data = dataset.filter(lambda x: x['original_dataset'] not in ['Open-Orca/OpenOrca', 'TokenBender/code_instructions_122k_alpaca_style', 'yahma/alpaca-cleaned'])
+
+    # # Concatenate the data
+    # dataset = datasets.concatenate_datasets([part_open_orca, part_code_alpaca, part_alpaca_cleaned, other_data])
+
+    # # filter out from qwedsacf/grade-school-math-instructions
+    # dataset = dataset.filter(lambda x: x['original_dataset'] != 'qwedsacf/grade-school-math-instructions')
+
     tokenizer = prepare_tokenizer(model_values.model, path_values.cache_dir)
 
     if is_base:

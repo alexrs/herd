@@ -4,7 +4,6 @@ import datasets
 from herd.finetune_utils import prepare_tokenizer
 import os
 import torch
-torch.set_grad_enabled(False)
 
 import torch.nn.functional as F
 from herd.prompter import Prompter

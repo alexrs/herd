@@ -1,0 +1,47 @@
+{
+    "expert_0": {
+        "categories": [
+            "yahma/alpaca-cleaned"
+        ]
+    },
+    "expert_1": {
+        "categories": [
+            "hendrycks/competition_math"
+        ]
+    },
+    "expert_2": {
+        "categories": [
+            "camel-ai/math"
+        ]
+    },
+    "expert_3": {
+        "categories": [
+            "sahil2801/CodeAlpaca-20k"
+        ]
+    },
+    "expert_4": {
+        "categories": [
+            "gsm8k"
+        ]
+    },
+    "expert_5": {
+        "categories": [
+            "Open-Orca/OpenOrca"
+        ]
+    },
+    "expert_6": {
+        "categories": [
+            "c-s-ale/dolly-15k-instruction-alpaca-format"
+        ]
+    },
+    "expert_7": {
+        "categories": [
+            "garage-bAInd/Open-Platypus"
+        ]
+    },
+    "expert_8": {
+        "categories": [
+            "TokenBender/code_instructions_122k_alpaca_style"
+        ]
+    }
+}

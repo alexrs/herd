@@ -29,7 +29,7 @@ export WANDB_PROJECT="herd-llama"
 # turn off watch to log faster
 export WANDB_WATCH="false"
 
-python main.py finetune --peft-strategy=molora --config-file=config/config_alpaca_10_q_v_r4.ini --is-base=True
+python main.py finetune --peft-strategy=molora --config-file=config/config_alpaca_30_q_v_r4_4bit.ini --is-base=True
 # python main.py finetune --peft-strategy=molora --config-file=config/config_alpaca_5_all_layers_no_quant.ini --is-base=True
 
 # python main.py finetune --peft-strategy=molora --config-file=config/config_alpaca_5.ini --only-router=True

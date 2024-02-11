@@ -1,9 +1,9 @@
 #!/bin/sh
 #BSUB -q gpua100
+#BSUB -J fine-tune-llama-base
 #BSUB -W 23:00
 #BSUB -B
 #BSUB -N
-#BSUB -J finetune_llama_alpaca_5
 ### request the number of GPUs
 #BSUB -gpu "num=1::mode=exclusive_process"
 ### request the number of CPU cores (at least 4x the number of GPUs)
@@ -29,4 +29,7 @@ export WANDB_PROJECT="herd-llama"
 # turn off watch to log faster
 export WANDB_WATCH="false"
 
-python main.py finetune --peft-strategy=molora --config-file=config/config_alpaca_30_q_v_r4_4bit.ini --experts-to-train=$1
+python main.py finetune --peft-strategy=molora --config-file=config/config_alpaca_10_q_v_molora_clusters.ini --is-base=True
+# python main.py finetune --peft-strategy=molora --config-file=config/config_alpaca_5_all_layers_no_quant.ini --is-base=True
+
+# python main.py finetune --peft-strategy=molora --config-file=config/config_alpaca_5.ini --only-router=True

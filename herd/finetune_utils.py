@@ -42,8 +42,8 @@ def prepare_model(pretrained_model_name_or_path, cache_dir, config, peft_strateg
         device_map="auto",
         cache_dir=cache_dir,
     )
-    model = prepare_model_for_kbit_training(model)
     model.config.pretraining_tp = 1
+    model = prepare_model_for_kbit_training(model)
     return model, peft_config
 
 

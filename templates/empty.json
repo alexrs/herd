@@ -1,0 +1,6 @@
+{
+    "description": "Template used by Alpaca-LoRA.",
+    "prompt_input": "{instruction}\n\n{input}\n\n### Response:\n",
+    "prompt_no_input": "{instruction}\n\n### Response:\n",
+    "response_split": "### Response:"
+}

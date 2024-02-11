@@ -30,7 +30,7 @@ export WANDB_PROJECT="herd-llama"
 export WANDB_WATCH="false"
 
 # python main.py finetune --peft-strategy=molora --config-file=config/config_alpaca_5_all_layers.ini --only-router=True
-python main.py finetune --peft-strategy=molora --config-file=config/config_alpaca_10_q_v_r4_router_dropout.ini --only-router=True
+python main.py finetune --peft-strategy=molora --config-file=config/config_alpaca_30_q_v_r4_4bit.ini --only-router=True
 
 # python main.py finetune --peft-strategy=molora --config-file=config/config_alpaca_10_all_layers_no_quant.ini --only-router=True
 # python main.py finetune --peft-strategy=molora --config-file=config/config_alpaca_5.ini --only-router=True
